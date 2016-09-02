@@ -1,3 +1,9 @@
+# Build cmake folder
+build/
+
+# QtCreator
+*.user
+
 # Compiled Object files
 *.slo
 *.lo
