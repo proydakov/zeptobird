@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
 #set(CMAKE_BUILD_TYPE Debug)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/game)
 
-add_subdirectory(math)
-add_subdirectory(phys)
-add_subdirectory(demo)
+add_subdirectory(game)
+add_subdirectory(test)
