@@ -7,16 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		845ABDD41D7C400600F564AC /* zframework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDD21D7C400600F564AC /* zframework.cpp */; };
-		845ABDDD1D7C401500F564AC /* zscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDD71D7C401500F564AC /* zscene.cpp */; };
-		845ABDDE1D7C401500F564AC /* zscene_hero_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDD91D7C401500F564AC /* zscene_hero_object.cpp */; };
-		845ABDDF1D7C401500F564AC /* zscene_wall_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDDB1D7C401500F564AC /* zscene_wall_object.cpp */; };
-		845ABDE51D7C403300F564AC /* zmodel_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDE11D7C403300F564AC /* zmodel_builder.cpp */; };
-		845ABDE61D7C403300F564AC /* zmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDE31D7C403300F564AC /* zmodel.cpp */; };
-		845ABDE81D7C53F800F564AC /* imodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDE71D7C53F800F564AC /* imodel.cpp */; };
-		845ABDEB1D7C540100F564AC /* zcolor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDE91D7C540100F564AC /* zcolor.cpp */; };
-		845ABDF01D7C5B2800F564AC /* zgles2_render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDEE1D7C5B2800F564AC /* zgles2_render.cpp */; };
-		845ABDF21D7C5CEC00F564AC /* iscene_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDF11D7C5CEC00F564AC /* iscene_object.cpp */; };
+		845ABE251D7CAB9D00F564AC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */; };
+		845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDF61D7CAB9D00F564AC /* zframework.cpp */; };
+		845ABE271D7CAB9D00F564AC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845ABDF91D7CAB9D00F564AC /* CMakeLists.txt */; };
+		845ABE281D7CAB9D00F564AC /* zmath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDFA1D7CAB9D00F564AC /* zmath.cpp */; };
+		845ABE291D7CAB9D00F564AC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845ABDFD1D7CAB9D00F564AC /* CMakeLists.txt */; };
+		845ABE2A1D7CAB9D00F564AC /* ibody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDFE1D7CAB9D00F564AC /* ibody.cpp */; };
+		845ABE2B1D7CAB9D00F564AC /* zcircle_body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE011D7CAB9D00F564AC /* zcircle_body.cpp */; };
+		845ABE2C1D7CAB9D00F564AC /* zrect_body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE031D7CAB9D00F564AC /* zrect_body.cpp */; };
+		845ABE2D1D7CAB9D00F564AC /* zworld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE051D7CAB9D00F564AC /* zworld.cpp */; };
+		845ABE2E1D7CAB9D00F564AC /* iresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE081D7CAB9D00F564AC /* iresource.cpp */; };
+		845ABE2F1D7CAB9D00F564AC /* imodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE0B1D7CAB9D00F564AC /* imodel.cpp */; };
+		845ABE301D7CAB9D00F564AC /* zgles2_render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE0F1D7CAB9D00F564AC /* zgles2_render.cpp */; };
+		845ABE311D7CAB9D00F564AC /* irender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE111D7CAB9D00F564AC /* irender.cpp */; };
+		845ABE321D7CAB9D00F564AC /* zcolor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE131D7CAB9D00F564AC /* zcolor.cpp */; };
+		845ABE331D7CAB9D00F564AC /* zmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE151D7CAB9D00F564AC /* zmodel.cpp */; };
+		845ABE341D7CAB9D00F564AC /* zmodel_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE171D7CAB9D00F564AC /* zmodel_builder.cpp */; };
+		845ABE351D7CAB9D00F564AC /* f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 845ABE1A1D7CAB9D00F564AC /* f.glsl */; };
+		845ABE361D7CAB9D00F564AC /* v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 845ABE1B1D7CAB9D00F564AC /* v.glsl */; };
+		845ABE371D7CAB9D00F564AC /* iscene_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */; };
+		845ABE381D7CAB9D00F564AC /* zscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE1F1D7CAB9D00F564AC /* zscene.cpp */; };
+		845ABE391D7CAB9D00F564AC /* zscene_hero_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE211D7CAB9D00F564AC /* zscene_hero_object.cpp */; };
+		845ABE3A1D7CAB9D00F564AC /* zscene_wall_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE231D7CAB9D00F564AC /* zscene_wall_object.cpp */; };
 		846DDAFC1D7B058E00B57C22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DDAFB1D7B058E00B57C22 /* main.m */; };
 		846DDAFF1D7B058F00B57C22 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 846DDAFE1D7B058F00B57C22 /* AppDelegate.mm */; };
 		846DDB0B1D7B058F00B57C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846DDB0A1D7B058F00B57C22 /* Assets.xcassets */; };
@@ -24,46 +36,54 @@
 		84FD9AAC1D7B1AE700922F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AA61D7B1AB300922F1D /* UIKit.framework */; };
 		84FD9AAE1D7B1AED00922F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AAD1D7B1AED00922F1D /* Foundation.framework */; };
 		84FD9AB21D7B1B0200922F1D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AB11D7B1B0200922F1D /* OpenGLES.framework */; };
-		84FD9AD11D7B265200922F1D /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84FD9ABE1D7B265200922F1D /* CMakeLists.txt */; };
-		84FD9AD21D7B265200922F1D /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84FD9AC01D7B265200922F1D /* CMakeLists.txt */; };
-		84FD9AD31D7B265200922F1D /* zmath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AC11D7B265200922F1D /* zmath.cpp */; };
-		84FD9AD41D7B265200922F1D /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84FD9AC41D7B265200922F1D /* CMakeLists.txt */; };
-		84FD9AD51D7B265200922F1D /* ibody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AC51D7B265200922F1D /* ibody.cpp */; };
-		84FD9AD61D7B265200922F1D /* zcircle_body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AC81D7B265200922F1D /* zcircle_body.cpp */; };
-		84FD9AD71D7B265200922F1D /* zrect_body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9ACA1D7B265200922F1D /* zrect_body.cpp */; };
-		84FD9AD81D7B265200922F1D /* zworld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9ACC1D7B265200922F1D /* zworld.cpp */; };
-		84FD9AF21D7B438C00922F1D /* irender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AEF1D7B438C00922F1D /* irender.cpp */; };
 		84FD9AF51D7B4E8000922F1D /* GlView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AF41D7B4E8000922F1D /* GlView.mm */; };
 		84FD9B001D7B4FAA00922F1D /* GLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AFF1D7B4FAA00922F1D /* GLViewController.mm */; };
 		84FD9B141D7B597F00922F1D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FD9B121D7B597F00922F1D /* MainWindow.xib */; };
-		84FD9B4A1D7C023200922F1D /* v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 84FD9B481D7C023200922F1D /* v.glsl */; };
-		84FD9B4C1D7C028600922F1D /* f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 84FD9B4B1D7C028600922F1D /* f.glsl */; };
-		84FD9B501D7C05DB00922F1D /* iresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9B4F1D7C05DB00922F1D /* iresource.cpp */; };
 		84FD9B521D7C076000922F1D /* ios_resource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9B511D7C076000922F1D /* ios_resource.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		845ABDD21D7C400600F564AC /* zframework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zframework.cpp; sourceTree = "<group>"; };
-		845ABDD31D7C400600F564AC /* zframework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zframework.h; sourceTree = "<group>"; };
-		845ABDD61D7C401500F564AC /* iscene_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iscene_object.h; sourceTree = "<group>"; };
-		845ABDD71D7C401500F564AC /* zscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene.cpp; sourceTree = "<group>"; };
-		845ABDD81D7C401500F564AC /* zscene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene.h; sourceTree = "<group>"; };
-		845ABDD91D7C401500F564AC /* zscene_hero_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_hero_object.cpp; sourceTree = "<group>"; };
-		845ABDDA1D7C401500F564AC /* zscene_hero_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_hero_object.h; sourceTree = "<group>"; };
-		845ABDDB1D7C401500F564AC /* zscene_wall_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_wall_object.cpp; sourceTree = "<group>"; };
-		845ABDDC1D7C401500F564AC /* zscene_wall_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_wall_object.h; sourceTree = "<group>"; };
-		845ABDE01D7C402300F564AC /* imodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imodel.h; sourceTree = "<group>"; };
-		845ABDE11D7C403300F564AC /* zmodel_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmodel_builder.cpp; sourceTree = "<group>"; };
-		845ABDE21D7C403300F564AC /* zmodel_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmodel_builder.h; sourceTree = "<group>"; };
-		845ABDE31D7C403300F564AC /* zmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmodel.cpp; sourceTree = "<group>"; };
-		845ABDE41D7C403300F564AC /* zmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmodel.h; sourceTree = "<group>"; };
-		845ABDE71D7C53F800F564AC /* imodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imodel.cpp; sourceTree = "<group>"; };
-		845ABDE91D7C540100F564AC /* zcolor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zcolor.cpp; sourceTree = "<group>"; };
-		845ABDEA1D7C540100F564AC /* zcolor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zcolor.h; sourceTree = "<group>"; };
-		845ABDED1D7C5B2800F564AC /* zgles2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgles2.h; sourceTree = "<group>"; };
-		845ABDEE1D7C5B2800F564AC /* zgles2_render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zgles2_render.cpp; sourceTree = "<group>"; };
-		845ABDEF1D7C5B2800F564AC /* zgles2_render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgles2_render.h; sourceTree = "<group>"; };
-		845ABDF11D7C5CEC00F564AC /* iscene_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = iscene_object.cpp; sourceTree = "<group>"; };
+		845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		845ABDF61D7CAB9D00F564AC /* zframework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zframework.cpp; sourceTree = "<group>"; };
+		845ABDF71D7CAB9D00F564AC /* zframework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zframework.h; sourceTree = "<group>"; };
+		845ABDF91D7CAB9D00F564AC /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		845ABDFA1D7CAB9D00F564AC /* zmath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmath.cpp; sourceTree = "<group>"; };
+		845ABDFB1D7CAB9D00F564AC /* zmath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmath.h; sourceTree = "<group>"; };
+		845ABDFD1D7CAB9D00F564AC /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		845ABDFE1D7CAB9D00F564AC /* ibody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ibody.cpp; sourceTree = "<group>"; };
+		845ABDFF1D7CAB9D00F564AC /* ibody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ibody.h; sourceTree = "<group>"; };
+		845ABE001D7CAB9D00F564AC /* zbody_def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbody_def.h; sourceTree = "<group>"; };
+		845ABE011D7CAB9D00F564AC /* zcircle_body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zcircle_body.cpp; sourceTree = "<group>"; };
+		845ABE021D7CAB9D00F564AC /* zcircle_body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zcircle_body.h; sourceTree = "<group>"; };
+		845ABE031D7CAB9D00F564AC /* zrect_body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zrect_body.cpp; sourceTree = "<group>"; };
+		845ABE041D7CAB9D00F564AC /* zrect_body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zrect_body.h; sourceTree = "<group>"; };
+		845ABE051D7CAB9D00F564AC /* zworld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zworld.cpp; sourceTree = "<group>"; };
+		845ABE061D7CAB9D00F564AC /* zworld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zworld.h; sourceTree = "<group>"; };
+		845ABE081D7CAB9D00F564AC /* iresource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = iresource.cpp; sourceTree = "<group>"; };
+		845ABE091D7CAB9D00F564AC /* iresource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iresource.h; sourceTree = "<group>"; };
+		845ABE0B1D7CAB9D00F564AC /* imodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imodel.cpp; sourceTree = "<group>"; };
+		845ABE0C1D7CAB9D00F564AC /* imodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imodel.h; sourceTree = "<group>"; };
+		845ABE0E1D7CAB9D00F564AC /* zgles2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgles2.h; sourceTree = "<group>"; };
+		845ABE0F1D7CAB9D00F564AC /* zgles2_render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zgles2_render.cpp; sourceTree = "<group>"; };
+		845ABE101D7CAB9D00F564AC /* zgles2_render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgles2_render.h; sourceTree = "<group>"; };
+		845ABE111D7CAB9D00F564AC /* irender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = irender.cpp; sourceTree = "<group>"; };
+		845ABE121D7CAB9D00F564AC /* irender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = irender.h; sourceTree = "<group>"; };
+		845ABE131D7CAB9D00F564AC /* zcolor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zcolor.cpp; sourceTree = "<group>"; };
+		845ABE141D7CAB9D00F564AC /* zcolor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zcolor.h; sourceTree = "<group>"; };
+		845ABE151D7CAB9D00F564AC /* zmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmodel.cpp; sourceTree = "<group>"; };
+		845ABE161D7CAB9D00F564AC /* zmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmodel.h; sourceTree = "<group>"; };
+		845ABE171D7CAB9D00F564AC /* zmodel_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmodel_builder.cpp; sourceTree = "<group>"; };
+		845ABE181D7CAB9D00F564AC /* zmodel_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmodel_builder.h; sourceTree = "<group>"; };
+		845ABE1A1D7CAB9D00F564AC /* f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = f.glsl; sourceTree = "<group>"; };
+		845ABE1B1D7CAB9D00F564AC /* v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = v.glsl; sourceTree = "<group>"; };
+		845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = iscene_object.cpp; sourceTree = "<group>"; };
+		845ABE1E1D7CAB9D00F564AC /* iscene_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iscene_object.h; sourceTree = "<group>"; };
+		845ABE1F1D7CAB9D00F564AC /* zscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene.cpp; sourceTree = "<group>"; };
+		845ABE201D7CAB9D00F564AC /* zscene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene.h; sourceTree = "<group>"; };
+		845ABE211D7CAB9D00F564AC /* zscene_hero_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_hero_object.cpp; sourceTree = "<group>"; };
+		845ABE221D7CAB9D00F564AC /* zscene_hero_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_hero_object.h; sourceTree = "<group>"; };
+		845ABE231D7CAB9D00F564AC /* zscene_wall_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_wall_object.cpp; sourceTree = "<group>"; };
+		845ABE241D7CAB9D00F564AC /* zscene_wall_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_wall_object.h; sourceTree = "<group>"; };
 		846DDAF71D7B058E00B57C22 /* zeptobird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zeptobird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		846DDAFB1D7B058E00B57C22 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = zeptobird/main.m; sourceTree = "<group>"; };
 		846DDAFD1D7B058E00B57C22 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = zeptobird/AppDelegate.h; sourceTree = "<group>"; };
@@ -74,31 +94,11 @@
 		84FD9AAA1D7B1AE200922F1D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		84FD9AAD1D7B1AED00922F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84FD9AB11D7B1B0200922F1D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		84FD9ABE1D7B265200922F1D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		84FD9AC01D7B265200922F1D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		84FD9AC11D7B265200922F1D /* zmath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmath.cpp; sourceTree = "<group>"; };
-		84FD9AC21D7B265200922F1D /* zmath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmath.h; sourceTree = "<group>"; };
-		84FD9AC41D7B265200922F1D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		84FD9AC51D7B265200922F1D /* ibody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ibody.cpp; sourceTree = "<group>"; };
-		84FD9AC61D7B265200922F1D /* ibody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ibody.h; sourceTree = "<group>"; };
-		84FD9AC71D7B265200922F1D /* zbody_def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbody_def.h; sourceTree = "<group>"; };
-		84FD9AC81D7B265200922F1D /* zcircle_body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zcircle_body.cpp; sourceTree = "<group>"; };
-		84FD9AC91D7B265200922F1D /* zcircle_body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zcircle_body.h; sourceTree = "<group>"; };
-		84FD9ACA1D7B265200922F1D /* zrect_body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zrect_body.cpp; sourceTree = "<group>"; };
-		84FD9ACB1D7B265200922F1D /* zrect_body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zrect_body.h; sourceTree = "<group>"; };
-		84FD9ACC1D7B265200922F1D /* zworld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zworld.cpp; sourceTree = "<group>"; };
-		84FD9ACD1D7B265200922F1D /* zworld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zworld.h; sourceTree = "<group>"; };
-		84FD9AEF1D7B438C00922F1D /* irender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = irender.cpp; sourceTree = "<group>"; };
-		84FD9AF01D7B438C00922F1D /* irender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = irender.h; sourceTree = "<group>"; };
 		84FD9AF31D7B4E1600922F1D /* GLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GLView.h; path = zeptobird/GLView.h; sourceTree = "<group>"; };
 		84FD9AF41D7B4E8000922F1D /* GlView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GlView.mm; path = zeptobird/GlView.mm; sourceTree = "<group>"; };
 		84FD9AFE1D7B4FAA00922F1D /* GLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLViewController.h; path = zeptobird/GLViewController.h; sourceTree = "<group>"; };
 		84FD9AFF1D7B4FAA00922F1D /* GLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GLViewController.mm; path = zeptobird/GLViewController.mm; sourceTree = "<group>"; };
 		84FD9B131D7B597F00922F1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = zeptobird/Base.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		84FD9B481D7C023200922F1D /* v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = v.glsl; sourceTree = "<group>"; };
-		84FD9B4B1D7C028600922F1D /* f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = f.glsl; sourceTree = "<group>"; };
-		84FD9B4E1D7C05A300922F1D /* iresource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iresource.h; sourceTree = "<group>"; };
-		84FD9B4F1D7C05DB00922F1D /* iresource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = iresource.cpp; sourceTree = "<group>"; };
 		84FD9B511D7C076000922F1D /* ios_resource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ios_resource.mm; path = zeptobird/ios_resource.mm; sourceTree = "<group>"; };
 		84FD9B531D7C079E00922F1D /* ios_resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ios_resource.h; path = zeptobird/ios_resource.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,38 +118,117 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		845ABDD11D7C400600F564AC /* framework */ = {
+		845ABDF31D7CAB9D00F564AC /* shared */ = {
 			isa = PBXGroup;
 			children = (
-				845ABDD31D7C400600F564AC /* zframework.h */,
-				845ABDD21D7C400600F564AC /* zframework.cpp */,
+				845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */,
+				845ABDF51D7CAB9D00F564AC /* framework */,
+				845ABDF81D7CAB9D00F564AC /* math */,
+				845ABDFC1D7CAB9D00F564AC /* phys */,
+				845ABE071D7CAB9D00F564AC /* platform */,
+				845ABE0A1D7CAB9D00F564AC /* render */,
+				845ABE191D7CAB9D00F564AC /* resources */,
+				845ABE1C1D7CAB9D00F564AC /* scene */,
+			);
+			name = shared;
+			path = ../../shared;
+			sourceTree = "<group>";
+		};
+		845ABDF51D7CAB9D00F564AC /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				845ABDF61D7CAB9D00F564AC /* zframework.cpp */,
+				845ABDF71D7CAB9D00F564AC /* zframework.h */,
 			);
 			path = framework;
 			sourceTree = "<group>";
 		};
-		845ABDD51D7C401500F564AC /* scene */ = {
+		845ABDF81D7CAB9D00F564AC /* math */ = {
 			isa = PBXGroup;
 			children = (
-				845ABDD81D7C401500F564AC /* zscene.h */,
-				845ABDD71D7C401500F564AC /* zscene.cpp */,
-				845ABDD61D7C401500F564AC /* iscene_object.h */,
-				845ABDF11D7C5CEC00F564AC /* iscene_object.cpp */,
-				845ABDDA1D7C401500F564AC /* zscene_hero_object.h */,
-				845ABDD91D7C401500F564AC /* zscene_hero_object.cpp */,
-				845ABDDC1D7C401500F564AC /* zscene_wall_object.h */,
-				845ABDDB1D7C401500F564AC /* zscene_wall_object.cpp */,
+				845ABDF91D7CAB9D00F564AC /* CMakeLists.txt */,
+				845ABDFA1D7CAB9D00F564AC /* zmath.cpp */,
+				845ABDFB1D7CAB9D00F564AC /* zmath.h */,
 			);
-			path = scene;
+			path = math;
 			sourceTree = "<group>";
 		};
-		845ABDEC1D7C5B2800F564AC /* impl */ = {
+		845ABDFC1D7CAB9D00F564AC /* phys */ = {
 			isa = PBXGroup;
 			children = (
-				845ABDED1D7C5B2800F564AC /* zgles2.h */,
-				845ABDEF1D7C5B2800F564AC /* zgles2_render.h */,
-				845ABDEE1D7C5B2800F564AC /* zgles2_render.cpp */,
+				845ABDFD1D7CAB9D00F564AC /* CMakeLists.txt */,
+				845ABDFE1D7CAB9D00F564AC /* ibody.cpp */,
+				845ABDFF1D7CAB9D00F564AC /* ibody.h */,
+				845ABE001D7CAB9D00F564AC /* zbody_def.h */,
+				845ABE011D7CAB9D00F564AC /* zcircle_body.cpp */,
+				845ABE021D7CAB9D00F564AC /* zcircle_body.h */,
+				845ABE031D7CAB9D00F564AC /* zrect_body.cpp */,
+				845ABE041D7CAB9D00F564AC /* zrect_body.h */,
+				845ABE051D7CAB9D00F564AC /* zworld.cpp */,
+				845ABE061D7CAB9D00F564AC /* zworld.h */,
+			);
+			path = phys;
+			sourceTree = "<group>";
+		};
+		845ABE071D7CAB9D00F564AC /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				845ABE081D7CAB9D00F564AC /* iresource.cpp */,
+				845ABE091D7CAB9D00F564AC /* iresource.h */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
+		845ABE0A1D7CAB9D00F564AC /* render */ = {
+			isa = PBXGroup;
+			children = (
+				845ABE0B1D7CAB9D00F564AC /* imodel.cpp */,
+				845ABE0C1D7CAB9D00F564AC /* imodel.h */,
+				845ABE0D1D7CAB9D00F564AC /* impl */,
+				845ABE111D7CAB9D00F564AC /* irender.cpp */,
+				845ABE121D7CAB9D00F564AC /* irender.h */,
+				845ABE131D7CAB9D00F564AC /* zcolor.cpp */,
+				845ABE141D7CAB9D00F564AC /* zcolor.h */,
+				845ABE151D7CAB9D00F564AC /* zmodel.cpp */,
+				845ABE161D7CAB9D00F564AC /* zmodel.h */,
+				845ABE171D7CAB9D00F564AC /* zmodel_builder.cpp */,
+				845ABE181D7CAB9D00F564AC /* zmodel_builder.h */,
+			);
+			path = render;
+			sourceTree = "<group>";
+		};
+		845ABE0D1D7CAB9D00F564AC /* impl */ = {
+			isa = PBXGroup;
+			children = (
+				845ABE0E1D7CAB9D00F564AC /* zgles2.h */,
+				845ABE0F1D7CAB9D00F564AC /* zgles2_render.cpp */,
+				845ABE101D7CAB9D00F564AC /* zgles2_render.h */,
 			);
 			path = impl;
+			sourceTree = "<group>";
+		};
+		845ABE191D7CAB9D00F564AC /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				845ABE1A1D7CAB9D00F564AC /* f.glsl */,
+				845ABE1B1D7CAB9D00F564AC /* v.glsl */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		845ABE1C1D7CAB9D00F564AC /* scene */ = {
+			isa = PBXGroup;
+			children = (
+				845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */,
+				845ABE1E1D7CAB9D00F564AC /* iscene_object.h */,
+				845ABE1F1D7CAB9D00F564AC /* zscene.cpp */,
+				845ABE201D7CAB9D00F564AC /* zscene.h */,
+				845ABE211D7CAB9D00F564AC /* zscene_hero_object.cpp */,
+				845ABE221D7CAB9D00F564AC /* zscene_hero_object.h */,
+				845ABE231D7CAB9D00F564AC /* zscene_wall_object.cpp */,
+				845ABE241D7CAB9D00F564AC /* zscene_wall_object.h */,
+			);
+			path = scene;
 			sourceTree = "<group>";
 		};
 		846DDAEE1D7B058E00B57C22 = {
@@ -173,8 +252,7 @@
 		846DDAF91D7B058E00B57C22 /* zeptobird */ = {
 			isa = PBXGroup;
 			children = (
-				84FD9ABD1D7B265200922F1D /* game */,
-				84FD9B461D7C023200922F1D /* resources */,
+				845ABDF31D7CAB9D00F564AC /* shared */,
 				84FD9AA41D7B16A200922F1D /* ios */,
 			);
 			path = zeptobird;
@@ -208,66 +286,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		84FD9ABD1D7B265200922F1D /* game */ = {
-			isa = PBXGroup;
-			children = (
-				84FD9ABE1D7B265200922F1D /* CMakeLists.txt */,
-				84FD9B4D1D7C05A300922F1D /* platform */,
-				845ABDD11D7C400600F564AC /* framework */,
-				84FD9ABF1D7B265200922F1D /* math */,
-				84FD9AC31D7B265200922F1D /* phys */,
-				84FD9AEB1D7B438C00922F1D /* render */,
-				845ABDD51D7C401500F564AC /* scene */,
-			);
-			name = game;
-			path = ../../game;
-			sourceTree = "<group>";
-		};
-		84FD9ABF1D7B265200922F1D /* math */ = {
-			isa = PBXGroup;
-			children = (
-				84FD9AC01D7B265200922F1D /* CMakeLists.txt */,
-				84FD9AC21D7B265200922F1D /* zmath.h */,
-				84FD9AC11D7B265200922F1D /* zmath.cpp */,
-			);
-			path = math;
-			sourceTree = "<group>";
-		};
-		84FD9AC31D7B265200922F1D /* phys */ = {
-			isa = PBXGroup;
-			children = (
-				84FD9AC41D7B265200922F1D /* CMakeLists.txt */,
-				84FD9AC61D7B265200922F1D /* ibody.h */,
-				84FD9AC51D7B265200922F1D /* ibody.cpp */,
-				84FD9AC71D7B265200922F1D /* zbody_def.h */,
-				84FD9AC91D7B265200922F1D /* zcircle_body.h */,
-				84FD9AC81D7B265200922F1D /* zcircle_body.cpp */,
-				84FD9ACB1D7B265200922F1D /* zrect_body.h */,
-				84FD9ACA1D7B265200922F1D /* zrect_body.cpp */,
-				84FD9ACD1D7B265200922F1D /* zworld.h */,
-				84FD9ACC1D7B265200922F1D /* zworld.cpp */,
-			);
-			path = phys;
-			sourceTree = "<group>";
-		};
-		84FD9AEB1D7B438C00922F1D /* render */ = {
-			isa = PBXGroup;
-			children = (
-				845ABDEC1D7C5B2800F564AC /* impl */,
-				84FD9AF01D7B438C00922F1D /* irender.h */,
-				84FD9AEF1D7B438C00922F1D /* irender.cpp */,
-				845ABDEA1D7C540100F564AC /* zcolor.h */,
-				845ABDE91D7C540100F564AC /* zcolor.cpp */,
-				845ABDE01D7C402300F564AC /* imodel.h */,
-				845ABDE71D7C53F800F564AC /* imodel.cpp */,
-				845ABDE41D7C403300F564AC /* zmodel.h */,
-				845ABDE31D7C403300F564AC /* zmodel.cpp */,
-				845ABDE21D7C403300F564AC /* zmodel_builder.h */,
-				845ABDE11D7C403300F564AC /* zmodel_builder.cpp */,
-			);
-			path = render;
-			sourceTree = "<group>";
-		};
 		84FD9AF61D7B4EA800922F1D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,25 +294,6 @@
 				846DDB0F1D7B058F00B57C22 /* Info.plist */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		84FD9B461D7C023200922F1D /* resources */ = {
-			isa = PBXGroup;
-			children = (
-				84FD9B4B1D7C028600922F1D /* f.glsl */,
-				84FD9B481D7C023200922F1D /* v.glsl */,
-			);
-			name = resources;
-			path = ../../game/resources;
-			sourceTree = "<group>";
-		};
-		84FD9B4D1D7C05A300922F1D /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				84FD9B4E1D7C05A300922F1D /* iresource.h */,
-				84FD9B4F1D7C05DB00922F1D /* iresource.cpp */,
-			);
-			path = platform;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,13 +354,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84FD9AD11D7B265200922F1D /* CMakeLists.txt in Resources */,
+				845ABE271D7CAB9D00F564AC /* CMakeLists.txt in Resources */,
 				846DDB0B1D7B058F00B57C22 /* Assets.xcassets in Resources */,
-				84FD9AD41D7B265200922F1D /* CMakeLists.txt in Resources */,
-				84FD9B4C1D7C028600922F1D /* f.glsl in Resources */,
-				84FD9B4A1D7C023200922F1D /* v.glsl in Resources */,
-				84FD9AD21D7B265200922F1D /* CMakeLists.txt in Resources */,
 				84FD9B141D7B597F00922F1D /* MainWindow.xib in Resources */,
+				845ABE251D7CAB9D00F564AC /* CMakeLists.txt in Resources */,
+				845ABE351D7CAB9D00F564AC /* f.glsl in Resources */,
+				845ABE291D7CAB9D00F564AC /* CMakeLists.txt in Resources */,
+				845ABE361D7CAB9D00F564AC /* v.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,28 +371,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845ABE331D7CAB9D00F564AC /* zmodel.cpp in Sources */,
 				846DDAFF1D7B058F00B57C22 /* AppDelegate.mm in Sources */,
-				84FD9AD61D7B265200922F1D /* zcircle_body.cpp in Sources */,
-				845ABDE51D7C403300F564AC /* zmodel_builder.cpp in Sources */,
-				845ABDDE1D7C401500F564AC /* zscene_hero_object.cpp in Sources */,
-				845ABDE61D7C403300F564AC /* zmodel.cpp in Sources */,
-				845ABDE81D7C53F800F564AC /* imodel.cpp in Sources */,
-				84FD9AD51D7B265200922F1D /* ibody.cpp in Sources */,
-				845ABDD41D7C400600F564AC /* zframework.cpp in Sources */,
-				845ABDDD1D7C401500F564AC /* zscene.cpp in Sources */,
-				84FD9AD31D7B265200922F1D /* zmath.cpp in Sources */,
-				84FD9AF21D7B438C00922F1D /* irender.cpp in Sources */,
-				845ABDF01D7C5B2800F564AC /* zgles2_render.cpp in Sources */,
+				845ABE341D7CAB9D00F564AC /* zmodel_builder.cpp in Sources */,
+				845ABE2A1D7CAB9D00F564AC /* ibody.cpp in Sources */,
 				84FD9B001D7B4FAA00922F1D /* GLViewController.mm in Sources */,
-				845ABDF21D7C5CEC00F564AC /* iscene_object.cpp in Sources */,
-				84FD9AD81D7B265200922F1D /* zworld.cpp in Sources */,
-				845ABDEB1D7C540100F564AC /* zcolor.cpp in Sources */,
-				845ABDDF1D7C401500F564AC /* zscene_wall_object.cpp in Sources */,
-				84FD9B501D7C05DB00922F1D /* iresource.cpp in Sources */,
 				846DDAFC1D7B058E00B57C22 /* main.m in Sources */,
-				84FD9AD71D7B265200922F1D /* zrect_body.cpp in Sources */,
+				845ABE321D7CAB9D00F564AC /* zcolor.cpp in Sources */,
+				845ABE301D7CAB9D00F564AC /* zgles2_render.cpp in Sources */,
+				845ABE2D1D7CAB9D00F564AC /* zworld.cpp in Sources */,
+				845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */,
+				845ABE281D7CAB9D00F564AC /* zmath.cpp in Sources */,
+				845ABE371D7CAB9D00F564AC /* iscene_object.cpp in Sources */,
+				845ABE2E1D7CAB9D00F564AC /* iresource.cpp in Sources */,
+				845ABE391D7CAB9D00F564AC /* zscene_hero_object.cpp in Sources */,
+				845ABE2C1D7CAB9D00F564AC /* zrect_body.cpp in Sources */,
 				84FD9B521D7C076000922F1D /* ios_resource.mm in Sources */,
 				84FD9AF51D7B4E8000922F1D /* GlView.mm in Sources */,
+				845ABE311D7CAB9D00F564AC /* irender.cpp in Sources */,
+				845ABE3A1D7CAB9D00F564AC /* zscene_wall_object.cpp in Sources */,
+				845ABE2B1D7CAB9D00F564AC /* zcircle_body.cpp in Sources */,
+				845ABE2F1D7CAB9D00F564AC /* imodel.cpp in Sources */,
+				845ABE381D7CAB9D00F564AC /* zscene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +503,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c11;
-				HEADER_SEARCH_PATHS = ../game;
+				HEADER_SEARCH_PATHS = ../shared;
 				INFOPLIST_FILE = "$(SRCROOT)/zeptobird/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -523,7 +522,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c11;
-				HEADER_SEARCH_PATHS = ../game;
+				HEADER_SEARCH_PATHS = ../shared;
 				INFOPLIST_FILE = "$(SRCROOT)/zeptobird/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
