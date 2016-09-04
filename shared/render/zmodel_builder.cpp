@@ -34,3 +34,17 @@ void zmodel_builder::generate_circle(float radius, int angle, std::vector<zvec2>
         buffer.push_back(temp[next]);
     }
 }
+
+void zmodel_builder::generate_rect(float width, float height, std::vector<zvec2>& buffer)
+{
+    std::vector<zvec2> geometry {
+        zvec2( -width / 2,  height / 2),
+        zvec2( -width / 2, -height / 2),
+        zvec2(  width / 2, -height / 2),
+
+        zvec2( -width / 2,  height / 2),
+        zvec2(  width / 2,  height / 2),
+        zvec2(  width / 2, -height / 2)
+    };
+    buffer.swap(geometry);
+}

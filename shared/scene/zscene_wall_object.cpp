@@ -2,6 +2,7 @@
 
 #include <render/irender.h>
 #include <render/zmodel.h>
+#include <render/zmodel_builder.h>
 
 #include <phys/zworld.h>
 #include <phys/zrect_body.h>
@@ -12,22 +13,14 @@ zscene_wall_object::zscene_wall_object(zworld* world)
 {
     std::cout << "zscene_wall_object" << std::endl;
 
-    const float width(1.8);
+    const float width(1.0);
     const float height(0.2);
 
     m_body.reset(new zrect_body(width, height));
     world->add_body(m_body.get());
 
-    const std::vector<zvec2> geometry {
-        zvec2(-0.9f,  0.1f),
-        zvec2(-0.9f, -0.1f),
-        zvec2( 0.9f, -0.1f),
-
-        zvec2(-0.9f,  0.1f),
-        zvec2( 0.9f,  0.1f),
-        zvec2( 0.9f, -0.1f)
-    };
-
+    std::vector<zvec2> geometry;
+    zmodel_builder::generate_rect(width, height, geometry);
     const zcolor color{0, 1, 0};
     const int layer{0};
 
