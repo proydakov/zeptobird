@@ -18,7 +18,7 @@ public:
 
     void set_hero(ibody* hero);
 
-    void update(int mstime);
+    void update(size_t ms);
 
 private:
     bool check_collided(const ibody* b1, const ibody* b2) const;

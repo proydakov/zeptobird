@@ -34,5 +34,6 @@ struct zvec2
 };
 
 zvec2 operator * (zfloat s, const zvec2& a);
+zvec2 operator + (const zvec2& a, const zvec2& b);
 
 std::ostream& operator<< (std::ostream& stream, const zvec2& vec);

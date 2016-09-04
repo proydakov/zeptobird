@@ -3,37 +3,47 @@
 
 #include "ios_resource.h"
 
+#include <memory>
 #include <iostream>
-#include <render/zgles2_render.h>
+#include <framework/zframework.h>
 
 @interface GLViewController ()
 {
-    ios_resource  resource;
-    zgles2_render render;
+    ios_resource                resource;
+    std::unique_ptr<zframework> framework;
 }
 @end
 
 @implementation GLViewController
 
+- (void)initialize
+{
+    framework.reset(new zframework(&resource));
+}
+
+- (void)dealloc
+{
+}
+
 - (void)installWidth:(int)width andHeight:(int)height
 {
-    self->render.init(&resource, width, height);
+    self->framework->init(width, height);
 }
 
 - (void)uninstall
 {
-    self->render.deinit();
+    self->framework->deinit();
 }
 
 - (void)draw
 {
-    self->render.render();
+    self->framework->update();
+    self->framework->render();
 }
 
 - (void)input
 {
-    std::cout << "input" << std::endl;
-    self->render.input();
+    self->framework->input();
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle
@@ -43,20 +53,16 @@
 
 -(void)viewDidLoad
 {
-    std::cout << "load" << std::endl;
+    std::cout << "GLViewController:load" << std::endl;
 }
 
 -(void)viewDidUnload
 {
-    std::cout << "unload" << std::endl;
+    std::cout << "GLViewController:unload" << std::endl;
 }
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
-}
-
-- (void)dealloc 
-{
 }
 
 @end

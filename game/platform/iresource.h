@@ -7,5 +7,5 @@ class iresource
 public:
     virtual ~iresource();
 
-    virtual std::string load_text_resource(const std::string& name) const = 0;
+    virtual std::string get_text_resource(const std::string& name) const = 0;
 };

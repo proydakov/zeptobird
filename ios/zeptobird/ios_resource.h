@@ -14,5 +14,6 @@ class ios_resource : public iresource
 {
 public:
     ~ios_resource() override;
-    std::string load_text_resource(const std::string& name) const override;
+
+    std::string get_text_resource(const std::string& name) const override;
 };

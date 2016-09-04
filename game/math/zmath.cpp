@@ -66,6 +66,11 @@ zvec2 operator * (zfloat s, const zvec2& a)
     return zvec2(s * a.x, s * a.y);
 }
 
+zvec2 operator + (const zvec2& a, const zvec2& b)
+{
+    return zvec2(a.x + b.x, a.y + b.y);
+}
+
 std::ostream& operator<< (std::ostream& stream, const zvec2& vec)
 {
     stream << "[" << vec.x << ", " << vec.y << "]";

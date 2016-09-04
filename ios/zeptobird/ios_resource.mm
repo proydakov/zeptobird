@@ -14,7 +14,7 @@ ios_resource::~ios_resource()
 {
 }
 
-std::string ios_resource::load_text_resource(const std::string& filename) const
+std::string ios_resource::get_text_resource(const std::string& filename) const
 {
     //separate extension and filename:
     std::string baseFileName = filename.substr(0, filename.find_last_of('.'));

@@ -1,6 +1,7 @@
 #include "ibody.h"
 
-ibody::ibody()
+ibody::ibody() :
+    m_collided(false)
 {
     m_position.set_zero();
 }

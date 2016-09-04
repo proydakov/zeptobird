@@ -3,6 +3,8 @@
 #import "GLView.h"
 #import "GLViewController.h"
 
+#include <iostream>
+
 @interface GLView ()
 {
     GLint               backingWidth;

@@ -50,12 +50,12 @@ void zworld::set_hero(ibody* hero)
     m_hero = hero;
 }
 
-void zworld::update(int mstime)
+void zworld::update(size_t ms)
 {
     if(!m_hero) {
         return;
     }
-    m_hero->get_position() += ( 1.0 * mstime / 1000 ) * m_gravity;
+    m_hero->get_position() += ( 1.0 * ms / 1000 ) * m_gravity;
 
     for(size_t i = 0; i < m_bodys.size(); i++) {
         if(check_collided(m_hero, m_bodys[i])) {

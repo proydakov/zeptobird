@@ -4,6 +4,7 @@
 {
 }
 
+- (void)initialize;
 - (void)installWidth:(int)width andHeight:(int)height;
 - (void)uninstall;
 
