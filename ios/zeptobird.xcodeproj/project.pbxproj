@@ -29,6 +29,7 @@
 		845ABE381D7CAB9D00F564AC /* zscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE1F1D7CAB9D00F564AC /* zscene.cpp */; };
 		845ABE391D7CAB9D00F564AC /* zscene_hero_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE211D7CAB9D00F564AC /* zscene_hero_object.cpp */; };
 		845ABE3A1D7CAB9D00F564AC /* zscene_wall_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE231D7CAB9D00F564AC /* zscene_wall_object.cpp */; };
+		845ABE3E1D7CADC700F564AC /* zgame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE3C1D7CADC700F564AC /* zgame.cpp */; };
 		846DDAFC1D7B058E00B57C22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DDAFB1D7B058E00B57C22 /* main.m */; };
 		846DDAFF1D7B058F00B57C22 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 846DDAFE1D7B058F00B57C22 /* AppDelegate.mm */; };
 		846DDB0B1D7B058F00B57C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846DDB0A1D7B058F00B57C22 /* Assets.xcassets */; };
@@ -84,6 +85,8 @@
 		845ABE221D7CAB9D00F564AC /* zscene_hero_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_hero_object.h; sourceTree = "<group>"; };
 		845ABE231D7CAB9D00F564AC /* zscene_wall_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_wall_object.cpp; sourceTree = "<group>"; };
 		845ABE241D7CAB9D00F564AC /* zscene_wall_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_wall_object.h; sourceTree = "<group>"; };
+		845ABE3C1D7CADC700F564AC /* zgame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zgame.cpp; sourceTree = "<group>"; };
+		845ABE3D1D7CADC700F564AC /* zgame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgame.h; sourceTree = "<group>"; };
 		846DDAF71D7B058E00B57C22 /* zeptobird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zeptobird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		846DDAFB1D7B058E00B57C22 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = zeptobird/main.m; sourceTree = "<group>"; };
 		846DDAFD1D7B058E00B57C22 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = zeptobird/AppDelegate.h; sourceTree = "<group>"; };
@@ -123,6 +126,7 @@
 			children = (
 				845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */,
 				845ABDF51D7CAB9D00F564AC /* framework */,
+				845ABE3B1D7CADC700F564AC /* game */,
 				845ABDF81D7CAB9D00F564AC /* math */,
 				845ABDFC1D7CAB9D00F564AC /* phys */,
 				845ABE071D7CAB9D00F564AC /* platform */,
@@ -137,8 +141,8 @@
 		845ABDF51D7CAB9D00F564AC /* framework */ = {
 			isa = PBXGroup;
 			children = (
-				845ABDF61D7CAB9D00F564AC /* zframework.cpp */,
 				845ABDF71D7CAB9D00F564AC /* zframework.h */,
+				845ABDF61D7CAB9D00F564AC /* zframework.cpp */,
 			);
 			path = framework;
 			sourceTree = "<group>";
@@ -147,8 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				845ABDF91D7CAB9D00F564AC /* CMakeLists.txt */,
-				845ABDFA1D7CAB9D00F564AC /* zmath.cpp */,
 				845ABDFB1D7CAB9D00F564AC /* zmath.h */,
+				845ABDFA1D7CAB9D00F564AC /* zmath.cpp */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -157,15 +161,15 @@
 			isa = PBXGroup;
 			children = (
 				845ABDFD1D7CAB9D00F564AC /* CMakeLists.txt */,
-				845ABDFE1D7CAB9D00F564AC /* ibody.cpp */,
 				845ABDFF1D7CAB9D00F564AC /* ibody.h */,
+				845ABDFE1D7CAB9D00F564AC /* ibody.cpp */,
 				845ABE001D7CAB9D00F564AC /* zbody_def.h */,
-				845ABE011D7CAB9D00F564AC /* zcircle_body.cpp */,
 				845ABE021D7CAB9D00F564AC /* zcircle_body.h */,
-				845ABE031D7CAB9D00F564AC /* zrect_body.cpp */,
+				845ABE011D7CAB9D00F564AC /* zcircle_body.cpp */,
 				845ABE041D7CAB9D00F564AC /* zrect_body.h */,
-				845ABE051D7CAB9D00F564AC /* zworld.cpp */,
+				845ABE031D7CAB9D00F564AC /* zrect_body.cpp */,
 				845ABE061D7CAB9D00F564AC /* zworld.h */,
+				845ABE051D7CAB9D00F564AC /* zworld.cpp */,
 			);
 			path = phys;
 			sourceTree = "<group>";
@@ -173,8 +177,8 @@
 		845ABE071D7CAB9D00F564AC /* platform */ = {
 			isa = PBXGroup;
 			children = (
-				845ABE081D7CAB9D00F564AC /* iresource.cpp */,
 				845ABE091D7CAB9D00F564AC /* iresource.h */,
+				845ABE081D7CAB9D00F564AC /* iresource.cpp */,
 			);
 			path = platform;
 			sourceTree = "<group>";
@@ -182,17 +186,17 @@
 		845ABE0A1D7CAB9D00F564AC /* render */ = {
 			isa = PBXGroup;
 			children = (
-				845ABE0B1D7CAB9D00F564AC /* imodel.cpp */,
-				845ABE0C1D7CAB9D00F564AC /* imodel.h */,
 				845ABE0D1D7CAB9D00F564AC /* impl */,
-				845ABE111D7CAB9D00F564AC /* irender.cpp */,
+				845ABE0C1D7CAB9D00F564AC /* imodel.h */,
+				845ABE0B1D7CAB9D00F564AC /* imodel.cpp */,
 				845ABE121D7CAB9D00F564AC /* irender.h */,
-				845ABE131D7CAB9D00F564AC /* zcolor.cpp */,
+				845ABE111D7CAB9D00F564AC /* irender.cpp */,
 				845ABE141D7CAB9D00F564AC /* zcolor.h */,
-				845ABE151D7CAB9D00F564AC /* zmodel.cpp */,
+				845ABE131D7CAB9D00F564AC /* zcolor.cpp */,
 				845ABE161D7CAB9D00F564AC /* zmodel.h */,
-				845ABE171D7CAB9D00F564AC /* zmodel_builder.cpp */,
+				845ABE151D7CAB9D00F564AC /* zmodel.cpp */,
 				845ABE181D7CAB9D00F564AC /* zmodel_builder.h */,
+				845ABE171D7CAB9D00F564AC /* zmodel_builder.cpp */,
 			);
 			path = render;
 			sourceTree = "<group>";
@@ -201,8 +205,8 @@
 			isa = PBXGroup;
 			children = (
 				845ABE0E1D7CAB9D00F564AC /* zgles2.h */,
-				845ABE0F1D7CAB9D00F564AC /* zgles2_render.cpp */,
 				845ABE101D7CAB9D00F564AC /* zgles2_render.h */,
+				845ABE0F1D7CAB9D00F564AC /* zgles2_render.cpp */,
 			);
 			path = impl;
 			sourceTree = "<group>";
@@ -219,16 +223,25 @@
 		845ABE1C1D7CAB9D00F564AC /* scene */ = {
 			isa = PBXGroup;
 			children = (
-				845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */,
-				845ABE1E1D7CAB9D00F564AC /* iscene_object.h */,
-				845ABE1F1D7CAB9D00F564AC /* zscene.cpp */,
 				845ABE201D7CAB9D00F564AC /* zscene.h */,
-				845ABE211D7CAB9D00F564AC /* zscene_hero_object.cpp */,
+				845ABE1F1D7CAB9D00F564AC /* zscene.cpp */,
+				845ABE1E1D7CAB9D00F564AC /* iscene_object.h */,
+				845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */,
 				845ABE221D7CAB9D00F564AC /* zscene_hero_object.h */,
-				845ABE231D7CAB9D00F564AC /* zscene_wall_object.cpp */,
+				845ABE211D7CAB9D00F564AC /* zscene_hero_object.cpp */,
 				845ABE241D7CAB9D00F564AC /* zscene_wall_object.h */,
+				845ABE231D7CAB9D00F564AC /* zscene_wall_object.cpp */,
 			);
 			path = scene;
+			sourceTree = "<group>";
+		};
+		845ABE3B1D7CADC700F564AC /* game */ = {
+			isa = PBXGroup;
+			children = (
+				845ABE3D1D7CADC700F564AC /* zgame.h */,
+				845ABE3C1D7CADC700F564AC /* zgame.cpp */,
+			);
+			path = game;
 			sourceTree = "<group>";
 		};
 		846DDAEE1D7B058E00B57C22 = {
@@ -380,6 +393,7 @@
 				845ABE321D7CAB9D00F564AC /* zcolor.cpp in Sources */,
 				845ABE301D7CAB9D00F564AC /* zgles2_render.cpp in Sources */,
 				845ABE2D1D7CAB9D00F564AC /* zworld.cpp in Sources */,
+				845ABE3E1D7CADC700F564AC /* zgame.cpp in Sources */,
 				845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */,
 				845ABE281D7CAB9D00F564AC /* zmath.cpp in Sources */,
 				845ABE371D7CAB9D00F564AC /* iscene_object.cpp in Sources */,

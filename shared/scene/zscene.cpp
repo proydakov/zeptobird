@@ -1,15 +1,18 @@
+#include <iostream>
+
+#include <phys/zworld.h>
 #include <render/irender.h>
 
 #include "zscene.h"
 #include "zscene_wall_object.h"
 #include "zscene_hero_object.h"
 
-#include <phys/zworld.h>
-
 zscene::zscene() :
     m_hero(nullptr),
     m_world(new zworld(zvec2(0.0, -9.8 / 50)))
 {
+    std::cout << "zscene" << std::endl;
+
     m_objects.reserve(16);
     {
         auto hero_ptr = new zscene_hero_object( m_world.get() );
@@ -27,6 +30,7 @@ zscene::zscene() :
 
 zscene::~zscene()
 {
+    std::cout << "~zscene" << std::endl;
 }
 
 void zscene::input()

@@ -5,7 +5,7 @@
 class irender;
 class iresource;
 
-class zscene;
+class zgame;
 
 class zframework final
 {
@@ -23,7 +23,7 @@ public:
 private:
     const iresource*         m_resource;
     std::unique_ptr<irender> m_render;
-    std::unique_ptr<zscene>  m_scene;
+    std::unique_ptr<zgame>   m_game;
 
     size_t m_time;
 };

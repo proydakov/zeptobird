@@ -4,15 +4,14 @@
 #include "zframework.h"
 
 #include <render/impl/zgles2_render.h>
-#include <scene/zscene.h>
+#include <game/zgame.h>
 
 zframework::zframework(const iresource* resource) :
     m_resource(resource),
     m_render(new zgles2_render(resource)),
-    m_scene(new zscene()),
+    m_game(new zgame()),
     m_time(0)
 {
-    std::cout << "resource: " << resource << std::endl;
 }
 
 zframework::~zframework()
@@ -31,7 +30,7 @@ void zframework::deinit()
 
 void zframework::input()
 {
-    m_scene->input();
+    m_game->input();
 }
 
 void zframework::update()
@@ -45,19 +44,14 @@ void zframework::update()
     }
 
     const size_t delta = millis - m_time;
-    m_scene->update(delta);
+    m_game->update(delta);
 
     m_time = millis;
-    
-    if(!m_scene->is_hero_alive()) {
-        const zcolor color{187.0 / 255, 10.0 / 255, 30.0 / 255};
-        m_render->set_background_color(color);
-    }
 }
 
 void zframework::render()
 {
     /// @todo : using vbo and swap calls
     m_render->render();
-    m_scene->render(m_render.get());
+    m_game->render(m_render.get());
 }

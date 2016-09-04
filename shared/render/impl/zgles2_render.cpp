@@ -28,7 +28,7 @@ struct zgles2_render::data
 
 zgles2_render::data::data()
 {
-    background_color = {0.65f, 0.65f, 0.65f};
+    background_color = {1.0f, 1.0f, 1.0f};
     buffer.reserve(1024);
 }
 
