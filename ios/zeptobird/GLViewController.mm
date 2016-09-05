@@ -46,9 +46,18 @@
     self->framework->input();
 }
 
+- (void)pause
+{
+    self->framework->pause();
+}
+
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 -(void)viewDidLoad
@@ -59,10 +68,6 @@
 -(void)viewDidUnload
 {
     std::cout << "GLViewController:unload" << std::endl;
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 
 @end

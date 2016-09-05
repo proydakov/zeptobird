@@ -12,6 +12,8 @@
     GLuint              frameBuffer;
     GLuint              renderBuffer;
     GLuint              depthBuffer;
+
+    bool generated;
 }
 @property (nonatomic, getter=isAnimating) BOOL animating;
 @property (nonatomic, retain) EAGLContext *context;
@@ -89,6 +91,10 @@
 
 - (void)layoutSubviews
 {
+    if(generated) {
+        return;
+    }
+    generated = true;
     [EAGLContext setCurrentContext:context];
     [self destroyBuffers];
     [self createBuffers];

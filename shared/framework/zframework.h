@@ -20,6 +20,8 @@ public:
     void update();
     void render();
 
+    void pause();
+
 private:
     const iresource*         m_resource;
     std::unique_ptr<irender> m_render;

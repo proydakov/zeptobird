@@ -56,3 +56,8 @@ void zframework::render()
     m_render->render();
     m_game->render(m_render.get());
 }
+
+void zframework::pause()
+{
+    m_time = 0;
+}

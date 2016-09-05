@@ -11,4 +11,6 @@
 - (void)draw;
 - (void)input;
 
+- (void)pause;
+
 @end
