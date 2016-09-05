@@ -15,6 +15,7 @@ public:
     virtual void init(int width, int height) = 0;
     virtual void deinit() = 0;
 
+    virtual void prepare() = 0;
     virtual void render(const imodel* model, const zvec2& position) = 0;
     virtual void render() = 0;
 

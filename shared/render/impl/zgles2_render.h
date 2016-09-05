@@ -12,6 +12,7 @@ public:
     void init(int width, int height) override;
     void deinit() override;
 
+    void prepare() override;
     void render(const imodel* model, const zvec2& position) override;
     void render() override;
 

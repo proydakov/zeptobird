@@ -1,10 +1,11 @@
+#include <cmath>
 #include <cassert>
 #include <algorithm>
 
 #include "zworld.h"
 
-#include "zcircle_body.h"
 #include "zrect_body.h"
+#include "zcircle_body.h"
 
 zworld::zworld(const zvec2& gravity) :
     m_gravity(gravity),
@@ -63,6 +64,7 @@ void zworld::update(size_t ms)
             break;
         }
     }
+    //m_hero->set_collided(false);
 }
 
 bool zworld::check_collided(const ibody* b1, const ibody* b2) const
@@ -80,5 +82,13 @@ bool zworld::check_collided(const ibody* b1, const ibody* b2) const
 bool zworld::check_circle_and_rect_collided(const ibody* b1, const ibody* b2) const
 {
     /// @todo : impl me
-    return b2->get_position().y > b1->get_position().y ? true : false;
+    const zcircle_body* zcircle = static_cast<const zcircle_body*>(b1);
+    const zrect_body*   zrect   = static_cast<const zrect_body*>(b2);
+
+    const zvec2 circel_position = b1->get_position();
+    const zvec2 rect_position   = b2->get_position();
+
+    const float delta_x = circel_position.x - std::max(rect_position.x, std::min(circel_position.x, rect_position.x + zrect->get_width()));
+    const float delta_y = circel_position.y - std::max(rect_position.y, std::min(circel_position.y, rect_position.y + zrect->get_height()));
+    return (delta_x * delta_x + delta_y * delta_y) < (zcircle->get_radius() * zcircle->get_radius());
 }

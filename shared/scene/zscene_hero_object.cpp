@@ -22,7 +22,7 @@ zscene_hero_object::zscene_hero_object(zworld* world)
     zmodel_builder::generate_circle(radius, 10, geometry);
 
     const zcolor color{0, 0, 1};
-    const int layer{-1};
+    const int layer{1};
 
     m_model.reset(new zmodel(geometry, color, layer));
 }

@@ -1,4 +1,5 @@
 #include <cassert>
+
 #include <vector>
 #include <iostream>
 
@@ -10,26 +11,40 @@
 
 namespace {
     GLuint load_shader_impl( GLenum type, const char *shaderSrc );
+    std::vector<GLfloat> load_ortho_matrix(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far);
 }
 
 struct zgles2_render::data
 {
     data();
 
-    zcolor background_color;
+    int width;
+    int height;
 
     std::vector<GLfloat> buffer;
 
-    GLuint program;
-    int    prog_color;
+    zcolor background_color;
 
-    bool flag = false;
+    GLuint program;
+    int    color_uniform;
+    int    mvp_uniform;
+
+    bool flag;
 };
 
 zgles2_render::data::data()
 {
-    background_color = {1.0f, 1.0f, 1.0f};
+    width = 0;
+    height = 0;
+
     buffer.reserve(1024);
+    background_color = {1.0f, 1.0f, 1.0f};
+
+    program = 0;
+    color_uniform = 0;
+    mvp_uniform = 0;
+
+    flag = false;
 }
 
 zgles2_render::zgles2_render(const iresource* resource) :
@@ -46,6 +61,9 @@ void zgles2_render::init(int width, int height)
 {
     std::cout << "zgles2_render::init() " << width << ", " << height << std::endl;
 
+    m_data->width = width;
+    m_data->height = height;
+
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
 
@@ -60,6 +78,23 @@ void zgles2_render::deinit()
         glDeleteProgram(m_data->program);
         m_data->program = 0;
     }
+}
+
+void zgles2_render::prepare()
+{
+    glClearColor(m_data->background_color.r, m_data->background_color.g, m_data->background_color.b, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Use the program object
+    glUseProgram(m_data->program);
+
+    std::vector<GLfloat> orto{load_ortho_matrix( -2, 2,
+                                                 -2 * (GLfloat) m_data->height / (GLfloat) m_data->width,
+                                                  2 * (GLfloat) m_data->height / (GLfloat) m_data->width,
+                                                 10.0, -10.0 )
+    };
+
+    glUniformMatrix4fv(m_data->mvp_uniform, 1, GL_FALSE, orto.data());
 }
 
 void zgles2_render::render(const imodel* model, const zvec2& position)
@@ -78,8 +113,10 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
     // Load the vertex data
     glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, m_data->buffer.data() );
     glEnableVertexAttribArray( 0 );
-    glUniform3f( m_data->prog_color, color.r, color.g, color.b );
+
+    glUniform3f( m_data->color_uniform, color.r, color.g, color.b );
     const int size = static_cast<int>( m_data->buffer.size() / 3 );
+
     glDrawArrays( GL_TRIANGLES, 0,  size);
 
     m_data->buffer.resize(0);
@@ -87,13 +124,7 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
 
 void zgles2_render::render()
 {
-    //std::cout << "render" << std::endl;
-
-    glClearColor(m_data->background_color.r, m_data->background_color.g, m_data->background_color.b, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // Use the program object
-    glUseProgram(m_data->program);
+    /// @todo : impl draw vbo
 }
 
 void zgles2_render::set_background_color(const zcolor& color)
@@ -116,7 +147,7 @@ bool zgles2_render::load_shaders(const iresource* resource)
     fragmentShader = load_shader_impl( GL_FRAGMENT_SHADER,  (const char*) fShaderStr.data() );
 
     // Create the program object
-    programObject = glCreateProgram ( );
+    programObject = glCreateProgram();
 
     if ( programObject == 0 ) {
         return 0;
@@ -136,16 +167,12 @@ bool zgles2_render::load_shaders(const iresource* resource)
 
     if( !linked ) {
         GLint infoLen = 0;
-
         glGetProgramiv( programObject, GL_INFO_LOG_LENGTH, &infoLen );
 
-        if( infoLen > 1 )
-        {
+        if( infoLen > 1 ) {
             char* infoLog = (char*) malloc (sizeof(char) * infoLen );
-
             glGetProgramInfoLog( programObject, infoLen, NULL, infoLog );
             std::cerr << "Error linking program:\n" << infoLog << std::endl;
-
             free( infoLog );
         }
         glDeleteProgram( programObject );
@@ -154,12 +181,14 @@ bool zgles2_render::load_shaders(const iresource* resource)
 
     // Store the program object
     m_data->program = programObject;
-    m_data->prog_color = glGetUniformLocation( programObject, "vColor" );
+    m_data->color_uniform = glGetUniformLocation( programObject, "vColor" );
+    m_data->mvp_uniform = glGetUniformLocation( programObject, "vMVP" );
 
     return true;
 }
 
 namespace {
+
     GLuint load_shader_impl( GLenum type, const char *shaderSrc )
     {
         GLuint shader;
@@ -196,4 +225,39 @@ namespace {
         }
         return shader;
     }
+
+    std::vector<GLfloat> load_ortho_matrix(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far)
+    {
+        std::vector<GLfloat> matrix(16, 0);
+
+        GLfloat r_l = right - left;
+        GLfloat t_b = top - bottom;
+        GLfloat f_n = far - near;
+        GLfloat tx = - (right + left) / (right - left);
+        GLfloat ty = - (top + bottom) / (top - bottom);
+        GLfloat tz = - (far + near) / (far - near);
+
+        matrix[0] = 2.0f / r_l;
+        matrix[1] = 0.0f;
+        matrix[2] = 0.0f;
+        matrix[3] = tx;
+
+        matrix[4] = 0.0f;
+        matrix[5] = 2.0f / t_b;
+        matrix[6] = 0.0f;
+        matrix[7] = ty;
+
+        matrix[8] = 0.0f;
+        matrix[9] = 0.0f;
+        matrix[10] = 2.0f / f_n;
+        matrix[11] = tz;
+
+        matrix[12] = 0.0f;
+        matrix[13] = 0.0f;
+        matrix[14] = 0.0f;
+        matrix[15] = 1.0f;
+
+        return matrix;
+    }
+
 }

@@ -52,9 +52,9 @@ void zframework::update()
 
 void zframework::render()
 {
-    /// @todo : using vbo and swap calls
-    m_render->render();
+    m_render->prepare();
     m_game->render(m_render.get());
+    m_render->render();
 }
 
 void zframework::pause()

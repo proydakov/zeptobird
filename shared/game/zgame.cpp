@@ -35,6 +35,9 @@ void zgame::update(size_t ms)
         m_background_color = blood_color;
         m_time_counter += ms;
     }
+    else {
+        m_background_color = gray_color;
+    }
 }
 
 void zgame::render(irender* render)

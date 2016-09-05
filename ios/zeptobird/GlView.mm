@@ -1,19 +1,20 @@
+#include <iostream>
+
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
+
 #import "GLView.h"
 #import "GLViewController.h"
 
-#include <iostream>
-
 @interface GLView ()
 {
-    GLint               backingWidth;
-    GLint               backingHeight;
-    GLuint              frameBuffer;
-    GLuint              renderBuffer;
-    GLuint              depthBuffer;
+    GLint  backingWidth;
+    GLint  backingHeight;
+    GLuint frameBuffer;
+    GLuint renderBuffer;
+    GLuint depthBuffer;
 
-    bool generated;
+    bool   generated;
 }
 @property (nonatomic, getter=isAnimating) BOOL animating;
 @property (nonatomic, retain) EAGLContext *context;
