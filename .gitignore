@@ -1,3 +1,6 @@
+# Files
+generated_resource.h
+
 # Build cmake folder
 build/
 

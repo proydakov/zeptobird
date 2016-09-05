@@ -16,6 +16,7 @@ zframework::zframework(const iresource* resource) :
 
 zframework::~zframework()
 {
+    deinit();
 }
 
 void zframework::init(int width, int height)

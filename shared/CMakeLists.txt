@@ -1,2 +1,7 @@
-add_subdirectory(math)
-add_subdirectory(phys)
+file(GLOB_RECURSE SHARED_SRC
+    "*.h"
+    "*.cpp"
+    "*.glsl"
+)
+
+add_library(shared STATIC ${SHARED_SRC})
