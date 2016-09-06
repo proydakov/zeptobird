@@ -3,7 +3,6 @@
 #include <sstream>
 #include <streambuf>
 
-
 #include "linux_resource.h"
 #include "generated_resource.h"
 
