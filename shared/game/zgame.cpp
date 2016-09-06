@@ -42,6 +42,7 @@ void zgame::update(size_t ms)
 
 void zgame::render(irender* render)
 {
+    render->set_scene_size(m_scene->get_width(), m_scene->get_height());
     render->set_background_color(m_background_color);
     m_scene->render(render);
 }

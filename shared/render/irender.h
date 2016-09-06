@@ -19,6 +19,7 @@ public:
     virtual void render(const imodel* model, const zvec2& position) = 0;
     virtual void render() = 0;
 
+    virtual void set_scene_size(int width, int height) = 0;
     virtual void set_background_color(const zcolor& color) = 0;
 
 protected:

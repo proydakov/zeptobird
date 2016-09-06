@@ -18,6 +18,9 @@ public:
     void update(size_t ms);
     void render(irender* render) const;
 
+    int get_width() const;
+    int get_height() const;
+
     bool is_hero_alive() const;
 
 private:

@@ -1,7 +1,6 @@
-#include <cassert>
-
 #include <cmath>
 #include <vector>
+#include <cassert>
 #include <iostream>
 
 #include <platform/iresource.h>
@@ -21,9 +20,12 @@ struct zgles2_render::data
 {
     data();
 
-    int width;
-    int height;
-    float angle;
+    int view_width;
+    int view_height;
+    float view_angle;
+
+    int scene_width;
+    int scene_height;
 
     std::vector<GLfloat> buffer;
     std::vector<GLfloat> aabb_buffer;
@@ -41,11 +43,16 @@ struct zgles2_render::data
 
 zgles2_render::data::data()
 {
-    width = 0;
-    height = 0;
+    view_width = 1;
+    view_height = 1;
+    view_angle = 0;
+
+    scene_width = 1;
+    scene_height = 1;
 
     buffer.reserve(1024);
-    aabb_buffer.resize(1024);
+    aabb_buffer.reserve(1024);
+
     background_color = {1.0f, 1.0f, 1.0f};
     aabb_color = {1.0f, 1.0f, 1.0f};
 
@@ -71,9 +78,9 @@ void zgles2_render::init(int width, int height, float angle)
 {
     std::cout << "zgles2_render::init() " << width << ", " << height << std::endl;
 
-    m_data->width = width;
-    m_data->height = height;
-    m_data->angle = angle;
+    m_data->view_width = width;
+    m_data->view_height = height;
+    m_data->view_angle = angle;
 
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
@@ -99,18 +106,24 @@ void zgles2_render::prepare()
     // Use the program object
     glUseProgram(m_data->program);
 
-    std::vector<GLfloat> orto(ortho_matrix( -100, 100,
-                                            -100 * (GLfloat) m_data->height / (GLfloat) m_data->width,
-                                            +100 * (GLfloat) m_data->height / (GLfloat) m_data->width,
+    const GLfloat left  = -1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
+    const GLfloat right = +1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
+    const GLfloat bottom = -1.0 * m_data->scene_height / 2;
+    const GLfloat top    = +1.0 * m_data->scene_height / 2;
+
+    std::vector<GLfloat> orto(ortho_matrix( left, right,
+                                            bottom, top,
                                             +10.0, -10.0 ) );
     glUniformMatrix4fv(m_data->projection_uniform, 1, GL_FALSE, orto.data());
 
-    std::vector<GLfloat> model_view( rotate_around_z_matrix(m_data->angle * M_PI / 180) );
+    std::vector<GLfloat> model_view( rotate_around_z_matrix(m_data->view_angle * M_PI / 180) );
     glUniformMatrix4fv(m_data->model_view_uniform, 1, GL_FALSE, model_view.data());
 }
 
 void zgles2_render::render(const imodel* model, const zvec2& position)
 {
+    /// @todo : impl vbo
+
     const auto layer = model->get_layer();
 
     const auto aabb = model->get_aabb();
@@ -145,7 +158,7 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
 
 void zgles2_render::render()
 {
-    /// @todo : impl draw vbo
+    /// @todo : impl vbo
 
     glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, m_data->aabb_buffer.data());
     glEnableVertexAttribArray( 0 );
@@ -156,6 +169,12 @@ void zgles2_render::render()
     glDrawArrays(GL_LINES, 0, size);
 
     m_data->aabb_buffer.resize(0);
+}
+
+void zgles2_render::set_scene_size(int width, int height)
+{
+    m_data->scene_width = width;
+    m_data->scene_height = height;
 }
 
 void zgles2_render::set_background_color(const zcolor& color)

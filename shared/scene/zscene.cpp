@@ -6,6 +6,7 @@
 #include "zscene.h"
 #include "zscene_wall_object.h"
 #include "zscene_hero_object.h"
+#include "zscene_invisible_object.h"
 
 zscene::zscene() :
     m_hero(nullptr),
@@ -14,6 +15,11 @@ zscene::zscene() :
     std::cout << "zscene" << std::endl;
 
     m_objects.reserve(16);
+    {
+        std::unique_ptr<iscene_object> wall( new zscene_invisible_object( ) );
+        wall->set_position(zvec2(0, 0));
+        m_objects.push_back(std::move(wall));
+    }
     {
         std::unique_ptr<iscene_object> wall( new zscene_wall_object( m_world.get() ) );
         wall->set_position(zvec2(0, 0));
@@ -50,6 +56,16 @@ void zscene::render(irender* render) const
     for(size_t i = 0; i < m_objects.size(); i++) {
         m_objects[i]->render(render);
     }
+}
+
+int zscene::get_width() const
+{
+    return 100;
+}
+
+int zscene::get_height() const
+{
+    return 100;
 }
 
 bool zscene::is_hero_alive() const

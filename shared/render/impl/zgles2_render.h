@@ -16,6 +16,7 @@ public:
     void render(const imodel* model, const zvec2& position) override;
     void render() override;
 
+    void set_scene_size(int width, int height) override;
     void set_background_color(const zcolor& color) override;
 
 private:
