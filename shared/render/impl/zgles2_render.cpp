@@ -28,6 +28,7 @@ struct zgles2_render::data
     std::vector<GLfloat> buffer;
 
     zcolor background_color;
+    zcolor aabb_color;
 
     GLuint program;
     int    color_uniform;
@@ -44,6 +45,7 @@ zgles2_render::data::data()
 
     buffer.reserve(1024);
     background_color = {1.0f, 1.0f, 1.0f};
+    aabb_color = {1.0f, 1.0f, 1.0f};
 
     program = 0;
     color_uniform = 0;
@@ -133,6 +135,21 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
 void zgles2_render::render()
 {
     /// @todo : impl draw vbo
+
+    const std::vector<GLfloat> vertices{
+        -0.5f, -0.5f, 0.0f,
+        +0.5f, -0.5f, 0.0f,
+        +0.5f,  0.5f, 0.0f,
+        -0.5f,  0.5f, 0.0f,
+    };
+
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, vertices.data());
+    glEnableVertexAttribArray( 0 );
+
+    glUniform3f( m_data->color_uniform, m_data->aabb_color.r, m_data->aabb_color.g, m_data->aabb_color.b );
+
+    const int size = static_cast<int>( vertices.size() / 3 );
+    glDrawArrays(GL_LINE_LOOP, 0, size);
 }
 
 void zgles2_render::set_background_color(const zcolor& color)
