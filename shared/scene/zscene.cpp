@@ -15,16 +15,16 @@ zscene::zscene() :
 
     m_objects.reserve(16);
     {
+        std::unique_ptr<iscene_object> wall( new zscene_wall_object( m_world.get() ) );
+        wall->set_position(zvec2(0.0, -0.8));
+        m_objects.push_back(std::move(wall));
+    }
+    {
         auto hero_ptr = new zscene_hero_object( m_world.get() );
         std::unique_ptr<iscene_object> hero( hero_ptr );
         hero->set_position(zvec2(0.0, 1.0));
         m_objects.push_back(std::move(hero));
         m_hero = hero_ptr;
-    }
-    {
-        std::unique_ptr<iscene_object> wall( new zscene_wall_object( m_world.get() ) );
-        wall->set_position(zvec2(0.0, -0.8));
-        m_objects.push_back(std::move(wall));
     }
 }
 

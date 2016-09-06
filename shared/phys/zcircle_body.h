@@ -8,7 +8,8 @@ public:
     zcircle_body(zfloat radius);
     ~zcircle_body() override;
 
-    virtual zbody_def::btype get_type() const override;
+    zbody_def::btype get_type() const override;
+    zaabb get_aabb() const override;
 
     zfloat get_radius() const;
 

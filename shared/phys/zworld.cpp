@@ -56,7 +56,9 @@ void zworld::update(size_t ms)
     if(!m_hero) {
         return;
     }
-    m_hero->get_position() += ( 1.0 * ms / 1000 ) * m_gravity;
+    zvec2 position = m_hero->get_position();
+    position += ( 1.0 * ms / 1000 ) * m_gravity;
+    m_hero->set_position(position);
 
     for(size_t i = 0; i < m_bodys.size(); i++) {
         if(check_collided(m_hero, m_bodys[i])) {
@@ -69,6 +71,13 @@ void zworld::update(size_t ms)
 
 bool zworld::check_collided(const ibody* b1, const ibody* b2) const
 {
+    auto aabb1 = b1->get_aabb();
+    auto aabb2 = b2->get_aabb();
+
+    return test_AABB_AABB_SIMD(aabb1, aabb2);
+
+    /// @todo : impl me
+
     bool collided = false;
     if(zbody_def::btype::circle == b1->get_type() && zbody_def::btype::rect == b2->get_type()) {
         collided = check_circle_and_rect_collided(b1, b2);

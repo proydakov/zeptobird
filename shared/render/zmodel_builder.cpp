@@ -2,7 +2,7 @@
 
 #include "zmodel_builder.h"
 
-void zmodel_builder::generate_circle(float radius, int angle, std::vector<zvec2>& buffer)
+void zmodel_builder::generate_circle_model(float radius, int angle, std::vector<zvec2>& buffer)
 {
     const int section = 360 / angle;
 
@@ -35,7 +35,7 @@ void zmodel_builder::generate_circle(float radius, int angle, std::vector<zvec2>
     }
 }
 
-void zmodel_builder::generate_rect(float width, float height, std::vector<zvec2>& buffer)
+void zmodel_builder::generate_rect_model(float width, float height, std::vector<zvec2>& buffer)
 {
     std::vector<zvec2> geometry {
         zvec2( -width / 2,  height / 2),
@@ -47,4 +47,28 @@ void zmodel_builder::generate_rect(float width, float height, std::vector<zvec2>
         zvec2(  width / 2, -height / 2)
     };
     buffer.swap(geometry);
+}
+
+void zmodel_builder::generate_circle_aabb(float radius, std::vector<zvec2>& buffer)
+{
+    const float diam = radius * 2;
+    generate_rect_aabb(diam, diam, buffer);
+}
+
+void zmodel_builder::generate_rect_aabb(float width, float height, std::vector<zvec2>& buffer)
+{
+    std::vector<zvec2> aabb {
+        zvec2(-width / 2, -height / 2),
+        zvec2(+width / 2, -height / 2),
+
+        zvec2(+width / 2, -height / 2),
+        zvec2(+width / 2,  height / 2),
+
+        zvec2(+width / 2,  height / 2),
+        zvec2(-width / 2,  height / 2),
+
+        zvec2(-width / 2,  height / 2),
+        zvec2(-width / 2, -height / 2)
+    };
+    buffer.swap(aabb);
 }

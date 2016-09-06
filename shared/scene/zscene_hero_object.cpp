@@ -19,12 +19,15 @@ zscene_hero_object::zscene_hero_object(zworld* world)
     world->set_hero(m_body.get());
 
     std::vector<zvec2> geometry;
-    zmodel_builder::generate_circle(radius, 10, geometry);
+    zmodel_builder::generate_circle_model(radius, 10, geometry);
+
+    std::vector<zvec2> aabb;
+    zmodel_builder::generate_circle_aabb(radius, aabb);
 
     const zcolor color{0, 0, 1};
     const int layer{1};
 
-    m_model.reset(new zmodel(geometry, color, layer));
+    m_model.reset(new zmodel(geometry, aabb, color, layer));
 }
 
 zscene_hero_object::~zscene_hero_object()

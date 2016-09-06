@@ -20,11 +20,6 @@ const zvec2& ibody::get_position() const
     return m_position;
 }
 
-zvec2& ibody::get_position()
-{
-    return m_position;
-}
-
 void ibody::set_collided(bool flag)
 {
     m_collided = flag;

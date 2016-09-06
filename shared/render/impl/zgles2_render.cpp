@@ -26,6 +26,7 @@ struct zgles2_render::data
     float angle;
 
     std::vector<GLfloat> buffer;
+    std::vector<GLfloat> aabb_buffer;
 
     zcolor background_color;
     zcolor aabb_color;
@@ -44,6 +45,7 @@ zgles2_render::data::data()
     height = 0;
 
     buffer.reserve(1024);
+    aabb_buffer.resize(1024);
     background_color = {1.0f, 1.0f, 1.0f};
     aabb_color = {1.0f, 1.0f, 1.0f};
 
@@ -109,16 +111,25 @@ void zgles2_render::prepare()
 
 void zgles2_render::render(const imodel* model, const zvec2& position)
 {
-    const auto geom = model->get_geometry();
-    const auto color = model->get_color();
     const auto layer = model->get_layer();
 
+    const auto aabb = model->get_aabb();
+    for(size_t i = 0 ; i < aabb.size(); i++) {
+        const zvec2 result = aabb[i] + position;
+        m_data->aabb_buffer.push_back(result.x);
+        m_data->aabb_buffer.push_back(result.y);
+        m_data->aabb_buffer.push_back(layer);
+    }
+
+    const auto geom = model->get_geometry();
     for(size_t i = 0; i < geom.size(); i++) {
         const zvec2 result = geom[i] + position;
         m_data->buffer.push_back(result.x);
         m_data->buffer.push_back(result.y);
         m_data->buffer.push_back(layer);
     }
+
+    const auto color = model->get_color();
 
     // Load the vertex data
     glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, m_data->buffer.data() );
@@ -136,20 +147,15 @@ void zgles2_render::render()
 {
     /// @todo : impl draw vbo
 
-    const std::vector<GLfloat> vertices{
-        -0.5f, -0.5f, 0.0f,
-        +0.5f, -0.5f, 0.0f,
-        +0.5f,  0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f,
-    };
-
-    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, vertices.data());
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, m_data->aabb_buffer.data());
     glEnableVertexAttribArray( 0 );
 
     glUniform3f( m_data->color_uniform, m_data->aabb_color.r, m_data->aabb_color.g, m_data->aabb_color.b );
 
-    const int size = static_cast<int>( vertices.size() / 3 );
-    glDrawArrays(GL_LINE_LOOP, 0, size);
+    const int size = static_cast<int>( m_data->aabb_buffer.size() / 3 );
+    glDrawArrays(GL_LINES, 0, size);
+
+    m_data->aabb_buffer.resize(0);
 }
 
 void zgles2_render::set_background_color(const zcolor& color)

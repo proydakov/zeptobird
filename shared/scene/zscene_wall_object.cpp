@@ -20,11 +20,15 @@ zscene_wall_object::zscene_wall_object(zworld* world)
     world->add_body(m_body.get());
 
     std::vector<zvec2> geometry;
-    zmodel_builder::generate_rect(width, height, geometry);
+    zmodel_builder::generate_rect_model(width, height, geometry);
+
+    std::vector<zvec2> aabb;
+    zmodel_builder::generate_rect_aabb(width, height, aabb);
+
     const zcolor color{0, 1, 0};
     const int layer{0};
 
-    m_model.reset(new zmodel(geometry, color, layer));
+    m_model.reset(new zmodel(geometry, aabb, color, layer));
 }
 
 zscene_wall_object::~zscene_wall_object()
