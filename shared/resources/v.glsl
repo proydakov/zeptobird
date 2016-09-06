@@ -1,12 +1,15 @@
 precision mediump float;
 
 attribute vec4 vPosition;
-uniform   mat4 vMVP;
+
+uniform   mat4 vModelView;
+uniform   mat4 vProjection;
 uniform   vec3 vColor;
+
 varying   vec3 fColor;
 
 void main()
 {
-    gl_Position = vMVP * vPosition;
+    gl_Position = vProjection * vModelView * vPosition;
     fColor = vColor;
 }

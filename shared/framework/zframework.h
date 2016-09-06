@@ -13,7 +13,7 @@ public:
     zframework(const iresource* resource);
     ~zframework();
 
-    void init(int width, int height);
+    void init(int width, int height, float angle = 0);
     void deinit();
 
     void input();

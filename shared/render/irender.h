@@ -12,7 +12,7 @@ public:
     irender(const iresource* resource);
     virtual ~irender();
 
-    virtual void init(int width, int height) = 0;
+    virtual void init(int width, int height, float angle) = 0;
     virtual void deinit() = 0;
 
     virtual void prepare() = 0;

@@ -1,5 +1,6 @@
 #include <cassert>
 
+#include <cmath>
 #include <vector>
 #include <iostream>
 
@@ -10,8 +11,10 @@
 #include "zgles2_render.h"
 
 namespace {
-    GLuint load_shader_impl( GLenum type, const char *shaderSrc );
-    std::vector<GLfloat> load_ortho_matrix(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far);
+GLuint load_shader_impl(GLenum type, const char *shaderSrc);
+std::vector<GLfloat> ortho_matrix(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far);
+std::vector<GLfloat> rotate_around_z_matrix(float radians);
+std::vector<GLfloat> identity_matrix();
 }
 
 struct zgles2_render::data
@@ -20,6 +23,7 @@ struct zgles2_render::data
 
     int width;
     int height;
+    float angle;
 
     std::vector<GLfloat> buffer;
 
@@ -27,7 +31,8 @@ struct zgles2_render::data
 
     GLuint program;
     int    color_uniform;
-    int    mvp_uniform;
+    int    model_view_uniform;
+    int    projection_uniform;
 
     bool flag;
 };
@@ -42,7 +47,8 @@ zgles2_render::data::data()
 
     program = 0;
     color_uniform = 0;
-    mvp_uniform = 0;
+    model_view_uniform = 0;
+    projection_uniform = 0;
 
     flag = false;
 }
@@ -57,12 +63,13 @@ zgles2_render::~zgles2_render()
 {
 }
 
-void zgles2_render::init(int width, int height)
+void zgles2_render::init(int width, int height, float angle)
 {
     std::cout << "zgles2_render::init() " << width << ", " << height << std::endl;
 
     m_data->width = width;
     m_data->height = height;
+    m_data->angle = angle;
 
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
@@ -88,13 +95,14 @@ void zgles2_render::prepare()
     // Use the program object
     glUseProgram(m_data->program);
 
-    std::vector<GLfloat> orto{load_ortho_matrix( -2, 2,
-                                                 -2 * (GLfloat) m_data->height / (GLfloat) m_data->width,
-                                                  2 * (GLfloat) m_data->height / (GLfloat) m_data->width,
-                                                 10.0, -10.0 )
-    };
+    std::vector<GLfloat> orto(ortho_matrix( -2, 2,
+                                            -2 * (GLfloat) m_data->height / (GLfloat) m_data->width,
+                                            +2 * (GLfloat) m_data->height / (GLfloat) m_data->width,
+                                            +10.0, -10.0 ) );
+    glUniformMatrix4fv(m_data->projection_uniform, 1, GL_FALSE, orto.data());
 
-    glUniformMatrix4fv(m_data->mvp_uniform, 1, GL_FALSE, orto.data());
+    std::vector<GLfloat> model_view( rotate_around_z_matrix(m_data->angle * M_PI / 180) );
+    glUniformMatrix4fv(m_data->model_view_uniform, 1, GL_FALSE, model_view.data());
 }
 
 void zgles2_render::render(const imodel* model, const zvec2& position)
@@ -115,8 +123,8 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
     glEnableVertexAttribArray( 0 );
 
     glUniform3f( m_data->color_uniform, color.r, color.g, color.b );
-    const int size = static_cast<int>( m_data->buffer.size() / 3 );
 
+    const int size = static_cast<int>( m_data->buffer.size() / 3 );
     glDrawArrays( GL_TRIANGLES, 0,  size);
 
     m_data->buffer.resize(0);
@@ -182,82 +190,125 @@ bool zgles2_render::load_shaders(const iresource* resource)
     // Store the program object
     m_data->program = programObject;
     m_data->color_uniform = glGetUniformLocation( programObject, "vColor" );
-    m_data->mvp_uniform = glGetUniformLocation( programObject, "vMVP" );
+    m_data->model_view_uniform = glGetUniformLocation( programObject, "vModelView" );
+    m_data->projection_uniform = glGetUniformLocation( programObject, "vProjection" );
 
     return true;
 }
 
 namespace {
 
-    GLuint load_shader_impl( GLenum type, const char *shaderSrc )
-    {
-        GLuint shader;
-        GLint compiled;
+GLuint load_shader_impl( GLenum type, const char *shaderSrc )
+{
+    GLuint shader;
+    GLint compiled;
 
-        // Create the shader object
-        shader = glCreateShader ( type );
+    // Create the shader object
+    shader = glCreateShader ( type );
 
-        if ( shader == 0 ) {
-            return 0;
-        }
-
-        // Load the shader source
-        glShaderSource ( shader, 1, &shaderSrc, NULL );
-
-        // Compile the shader
-        glCompileShader ( shader );
-
-        // Check the compile status
-        glGetShaderiv ( shader, GL_COMPILE_STATUS, &compiled );
-
-        if ( !compiled ) {
-            GLint infoLen = 0;
-            glGetShaderiv ( shader, GL_INFO_LOG_LENGTH, &infoLen );
-
-            if ( infoLen > 1 ) {
-                char* infoLog = (char*) malloc (sizeof(char) * infoLen );
-                glGetShaderInfoLog ( shader, infoLen, NULL, infoLog );
-                std::cerr << "Error compiling shader:\n" << infoLog << std::endl;
-                free ( infoLog );
-            }
-            glDeleteShader ( shader );
-            return 0;
-        }
-        return shader;
+    if ( shader == 0 ) {
+        return 0;
     }
 
-    std::vector<GLfloat> load_ortho_matrix(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far)
-    {
-        std::vector<GLfloat> matrix(16, 0);
+    // Load the shader source
+    glShaderSource ( shader, 1, &shaderSrc, NULL );
 
-        GLfloat r_l = right - left;
-        GLfloat t_b = top - bottom;
-        GLfloat f_n = far - near;
-        GLfloat tx = - (right + left) / (right - left);
-        GLfloat ty = - (top + bottom) / (top - bottom);
-        GLfloat tz = - (far + near) / (far - near);
+    // Compile the shader
+    glCompileShader ( shader );
 
-        matrix[0] = 2.0f / r_l;
-        matrix[1] = 0.0f;
-        matrix[2] = 0.0f;
-        matrix[3] = tx;
+    // Check the compile status
+    glGetShaderiv ( shader, GL_COMPILE_STATUS, &compiled );
 
-        matrix[4] = 0.0f;
-        matrix[5] = 2.0f / t_b;
-        matrix[6] = 0.0f;
-        matrix[7] = ty;
+    if ( !compiled ) {
+        GLint infoLen = 0;
+        glGetShaderiv ( shader, GL_INFO_LOG_LENGTH, &infoLen );
 
-        matrix[8] = 0.0f;
-        matrix[9] = 0.0f;
-        matrix[10] = 2.0f / f_n;
-        matrix[11] = tz;
-
-        matrix[12] = 0.0f;
-        matrix[13] = 0.0f;
-        matrix[14] = 0.0f;
-        matrix[15] = 1.0f;
-
-        return matrix;
+        if ( infoLen > 1 ) {
+            char* infoLog = (char*) malloc (sizeof(char) * infoLen );
+            glGetShaderInfoLog ( shader, infoLen, NULL, infoLog );
+            std::cerr << "Error compiling shader:\n" << infoLog << std::endl;
+            free ( infoLog );
+        }
+        glDeleteShader ( shader );
+        return 0;
     }
+    return shader;
+}
+
+std::vector<GLfloat> ortho_matrix(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far)
+{
+    std::vector<GLfloat> matrix(16, 0);
+
+    GLfloat r_l = right - left;
+    GLfloat t_b = top - bottom;
+    GLfloat f_n = far - near;
+    GLfloat tx = - (right + left) / (right - left);
+    GLfloat ty = - (top + bottom) / (top - bottom);
+    GLfloat tz = - (far + near) / (far - near);
+
+    matrix[0] = 2.0f / r_l;
+    matrix[1] = 0.0f;
+    matrix[2] = 0.0f;
+    matrix[3] = tx;
+
+    matrix[4] = 0.0f;
+    matrix[5] = 2.0f / t_b;
+    matrix[6] = 0.0f;
+    matrix[7] = ty;
+
+    matrix[8] = 0.0f;
+    matrix[9] = 0.0f;
+    matrix[10] = 2.0f / f_n;
+    matrix[11] = tz;
+
+    matrix[12] = 0.0f;
+    matrix[13] = 0.0f;
+    matrix[14] = 0.0f;
+    matrix[15] = 1.0f;
+
+    return matrix;
+}
+
+std::vector<GLfloat> rotate_around_z_matrix(float radians)
+{
+    std::vector<GLfloat> matrix(16, 0);
+
+    matrix[0] = std::cos(radians);
+    matrix[1] = std::sin(radians);
+    matrix[2] = 0.0f;
+
+    matrix[4] = -std::sin(radians);
+    matrix[5] = +std::cos(radians);
+    matrix[6] = 0.0f;
+
+    matrix[8] = 0.0f;
+    matrix[9] = 0.0f;
+    matrix[10] = 1.0f;
+
+    matrix[15] = 1.0f;
+
+    return matrix;
+}
+
+std::vector<GLfloat> identity_matrix()
+{
+    std::vector<GLfloat> matrix(16, 0);
+
+    matrix[0] = 1.0f;
+    matrix[1] = 0.0f;
+    matrix[2] = 0.0f;
+
+    matrix[4] = 0.0f;
+    matrix[5] = 1.0f;
+    matrix[6] = 0.0f;
+
+    matrix[8] = 0.0f;
+    matrix[9] = 0.0f;
+    matrix[10] = 1.0f;
+
+    matrix[15] = 1.0f;
+
+    return matrix;
+}
 
 }

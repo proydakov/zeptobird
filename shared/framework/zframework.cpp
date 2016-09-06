@@ -19,9 +19,9 @@ zframework::~zframework()
     deinit();
 }
 
-void zframework::init(int width, int height)
+void zframework::init(int width, int height, float angle)
 {
-    m_render->init(width, height);
+    m_render->init(width, height, angle);
 }
 
 void zframework::deinit()

@@ -9,7 +9,7 @@ public:
     zgles2_render(const iresource* resource);
     virtual ~zgles2_render() override;
 
-    void init(int width, int height) override;
+    void init(int width, int height, float angle) override;
     void deinit() override;
 
     void prepare() override;
