@@ -9,20 +9,20 @@
 
 zscene::zscene() :
     m_hero(nullptr),
-    m_world(new zworld(zvec2(0.0, -9.8 / 50)))
+    m_world(new zworld(zvec2(0.0, -9.8)))
 {
     std::cout << "zscene" << std::endl;
 
     m_objects.reserve(16);
     {
         std::unique_ptr<iscene_object> wall( new zscene_wall_object( m_world.get() ) );
-        wall->set_position(zvec2(0.0, -0.8));
+        wall->set_position(zvec2(0, 0));
         m_objects.push_back(std::move(wall));
     }
     {
         auto hero_ptr = new zscene_hero_object( m_world.get() );
         std::unique_ptr<iscene_object> hero( hero_ptr );
-        hero->set_position(zvec2(0.0, 1.0));
+        hero->set_position(zvec2( -1 * (45 + 10 * 5 / 6), 50));
         m_objects.push_back(std::move(hero));
         m_hero = hero_ptr;
     }

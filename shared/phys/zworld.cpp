@@ -66,7 +66,6 @@ void zworld::update(size_t ms)
             break;
         }
     }
-    //m_hero->set_collided(false);
 }
 
 bool zworld::check_collided(const ibody* b1, const ibody* b2) const
@@ -74,30 +73,36 @@ bool zworld::check_collided(const ibody* b1, const ibody* b2) const
     auto aabb1 = b1->get_aabb();
     auto aabb2 = b2->get_aabb();
 
-    return test_AABB_AABB_SIMD(aabb1, aabb2);
-
-    /// @todo : impl me
+    const bool aabb_collided = test_AABB_AABB_SIMD(aabb1, aabb2);
+    if(!aabb_collided) {
+        return false;
+    }
 
     bool collided = false;
     if(zbody_def::btype::circle == b1->get_type() && zbody_def::btype::rect == b2->get_type()) {
         collided = check_circle_and_rect_collided(b1, b2);
-    }
-    else if(zbody_def::btype::circle == b2->get_type() && zbody_def::btype::rect == b1->get_type()) {
-        collided = check_circle_and_rect_collided(b2, b1);
     }
     return collided;
 }
 
 bool zworld::check_circle_and_rect_collided(const ibody* b1, const ibody* b2) const
 {
-    /// @todo : impl me
     const zcircle_body* zcircle = static_cast<const zcircle_body*>(b1);
     const zrect_body*   zrect   = static_cast<const zrect_body*>(b2);
 
-    const zvec2 circel_position = b1->get_position();
-    const zvec2 rect_position   = b2->get_position();
+    const zvec2 circel_center = b1->get_position();
+    const zvec2 rect_center   = b2->get_position();
 
-    const float delta_x = circel_position.x - std::max(rect_position.x, std::min(circel_position.x, rect_position.x + zrect->get_width()));
-    const float delta_y = circel_position.y - std::max(rect_position.y, std::min(circel_position.y, rect_position.y + zrect->get_height()));
-    return (delta_x * delta_x + delta_y * delta_y) < (zcircle->get_radius() * zcircle->get_radius());
+    const zvec2 aabb_half_extents(zrect->get_width() / 2, zrect->get_height() / 2);
+
+    // Get difference vector between both centers
+    zvec2 difference = circel_center - rect_center;
+    const zvec2 clamped = zclamp(difference, -aabb_half_extents, aabb_half_extents);
+
+    // Add clamped value to AABB_center and we get the value of box closest to circle
+    const zvec2 closest = rect_center + clamped;
+
+    // Retrieve vector between center circle and closest point AABB and check if length <= radius
+    difference = closest - circel_center;
+    return difference.length() < zcircle->get_radius();
 }

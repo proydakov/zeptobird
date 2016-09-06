@@ -31,6 +31,7 @@
 		846DDAFF1D7B058F00B57C22 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 846DDAFE1D7B058F00B57C22 /* AppDelegate.mm */; };
 		846DDB0B1D7B058F00B57C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846DDB0A1D7B058F00B57C22 /* Assets.xcassets */; };
 		84E3F1FC1D7DE4A10062ADD6 /* zvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F1FA1D7DE4A10062ADD6 /* zvec.cpp */; };
+		84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */; };
 		84FD9AAB1D7B1AE200922F1D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AAA1D7B1AE200922F1D /* QuartzCore.framework */; };
 		84FD9AAC1D7B1AE700922F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AA61D7B1AB300922F1D /* UIKit.framework */; };
 		84FD9AAE1D7B1AED00922F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AAD1D7B1AED00922F1D /* Foundation.framework */; };
@@ -91,6 +92,8 @@
 		84E3F1F91D7DE4960062ADD6 /* zcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zcommon.h; sourceTree = "<group>"; };
 		84E3F1FA1D7DE4A10062ADD6 /* zvec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zvec.cpp; sourceTree = "<group>"; };
 		84E3F1FB1D7DE4A10062ADD6 /* zvec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zvec.h; sourceTree = "<group>"; };
+		84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zaabb.cpp; sourceTree = "<group>"; };
+		84E3F1FE1D7F32350062ADD6 /* zaabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zaabb.h; sourceTree = "<group>"; };
 		84FD9AA61D7B1AB300922F1D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		84FD9AAA1D7B1AE200922F1D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		84FD9AAD1D7B1AED00922F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -159,9 +162,11 @@
 		845ABDFC1D7CAB9D00F564AC /* phys */ = {
 			isa = PBXGroup;
 			children = (
+				845ABE001D7CAB9D00F564AC /* zbody_def.h */,
+				84E3F1FE1D7F32350062ADD6 /* zaabb.h */,
+				84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */,
 				845ABDFF1D7CAB9D00F564AC /* ibody.h */,
 				845ABDFE1D7CAB9D00F564AC /* ibody.cpp */,
-				845ABE001D7CAB9D00F564AC /* zbody_def.h */,
 				845ABE021D7CAB9D00F564AC /* zcircle_body.h */,
 				845ABE011D7CAB9D00F564AC /* zcircle_body.cpp */,
 				845ABE041D7CAB9D00F564AC /* zrect_body.h */,
@@ -390,6 +395,7 @@
 				845ABE301D7CAB9D00F564AC /* zgles2_render.cpp in Sources */,
 				845ABE2D1D7CAB9D00F564AC /* zworld.cpp in Sources */,
 				84E3F1FC1D7DE4A10062ADD6 /* zvec.cpp in Sources */,
+				84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */,
 				845ABE3E1D7CADC700F564AC /* zgame.cpp in Sources */,
 				845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */,
 				845ABE371D7CAB9D00F564AC /* iscene_object.cpp in Sources */,

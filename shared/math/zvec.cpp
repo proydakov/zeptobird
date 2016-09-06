@@ -71,6 +71,26 @@ zvec2 operator + (const zvec2& a, const zvec2& b)
     return zvec2(a.x + b.x, a.y + b.y);
 }
 
+zvec2 operator - (const zvec2& a, const zvec2& b)
+{
+    return zvec2(a.x - b.x, a.y - b.y);
+}
+
+zvec2 zmin(const zvec2& a, const zvec2& b)
+{
+    return zvec2(std::min(a.x, b.x), std::min(a.y, b.y));
+}
+
+zvec2 zmax(const zvec2& a, const zvec2& b)
+{
+    return zvec2(std::max(a.x, b.x), std::max(a.y, b.y));
+}
+
+zvec2 zclamp(const zvec2& a, const zvec2& low, const zvec2& high)
+{
+    return zmax(low, zmin(a, high));
+}
+
 std::ostream& operator<< (std::ostream& stream, const zvec2& vec)
 {
     stream << "[" << vec.x << ", " << vec.y << "]";

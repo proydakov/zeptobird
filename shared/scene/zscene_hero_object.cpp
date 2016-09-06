@@ -13,7 +13,7 @@ zscene_hero_object::zscene_hero_object(zworld* world)
 {
     std::cout << "zscene_hero_object" << std::endl;
 
-    const float radius(0.25);
+    const float radius(10);
 
     m_body.reset(new zcircle_body(radius));
     world->set_hero(m_body.get());

@@ -13,8 +13,8 @@ zscene_wall_object::zscene_wall_object(zworld* world)
 {
     std::cout << "zscene_wall_object" << std::endl;
 
-    const float width(1.0);
-    const float height(0.2);
+    const float width(90.0);
+    const float height(10.0);
 
     m_body.reset(new zrect_body(width, height));
     world->add_body(m_body.get());

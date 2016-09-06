@@ -99,9 +99,9 @@ void zgles2_render::prepare()
     // Use the program object
     glUseProgram(m_data->program);
 
-    std::vector<GLfloat> orto(ortho_matrix( -2, 2,
-                                            -2 * (GLfloat) m_data->height / (GLfloat) m_data->width,
-                                            +2 * (GLfloat) m_data->height / (GLfloat) m_data->width,
+    std::vector<GLfloat> orto(ortho_matrix( -100, 100,
+                                            -100 * (GLfloat) m_data->height / (GLfloat) m_data->width,
+                                            +100 * (GLfloat) m_data->height / (GLfloat) m_data->width,
                                             +10.0, -10.0 ) );
     glUniformMatrix4fv(m_data->projection_uniform, 1, GL_FALSE, orto.data());
 
@@ -118,7 +118,7 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
         const zvec2 result = aabb[i] + position;
         m_data->aabb_buffer.push_back(result.x);
         m_data->aabb_buffer.push_back(result.y);
-        m_data->aabb_buffer.push_back(layer);
+        m_data->aabb_buffer.push_back(layer + 0.01f);
     }
 
     const auto geom = model->get_geometry();
