@@ -9,12 +9,9 @@
 
 #include "zscene_wall_object.h"
 
-zscene_wall_object::zscene_wall_object(zworld* world)
+zscene_wall_object::zscene_wall_object(zworld* world, float width, float height)
 {
     std::cout << "zscene_wall_object" << std::endl;
-
-    const float width(90.0);
-    const float height(10.0);
 
     m_body.reset(new zrect_body(width, height));
     world->add_body(m_body.get());
@@ -53,4 +50,14 @@ const zvec2& zscene_wall_object::get_position() const
 void zscene_wall_object::set_position(const zvec2& position)
 {
     m_body->set_position(position);
+}
+
+const zvec2& zscene_wall_object::get_speed() const
+{
+    return m_body->get_speed();
+}
+
+void zscene_wall_object::set_speed(const zvec2& speed)
+{
+    m_body->set_speed(speed);
 }

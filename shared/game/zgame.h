@@ -9,7 +9,7 @@ class zscene;
 class zgame final
 {
 public:
-    zgame();
+    zgame(irender* render);
     ~zgame();
 
     void input();

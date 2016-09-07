@@ -9,11 +9,9 @@
 
 #include "zscene_hero_object.h"
 
-zscene_hero_object::zscene_hero_object(zworld* world)
+zscene_hero_object::zscene_hero_object(zworld* world, float radius)
 {
     std::cout << "zscene_hero_object" << std::endl;
-
-    const float radius(10);
 
     m_body.reset(new zcircle_body(radius));
     world->set_hero(m_body.get());
@@ -52,6 +50,16 @@ const zvec2& zscene_hero_object::get_position() const
 void zscene_hero_object::set_position(const zvec2& position)
 {
     m_body->set_position(position);
+}
+
+const zvec2& zscene_hero_object::get_speed() const
+{
+    return m_body->get_speed();
+}
+
+void zscene_hero_object::set_speed(const zvec2& speed)
+{
+    m_body->set_speed(speed);
 }
 
 bool zscene_hero_object::is_alive() const

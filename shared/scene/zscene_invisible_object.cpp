@@ -9,14 +9,12 @@
 
 #include "zscene_invisible_object.h"
 
-zscene_invisible_object::zscene_invisible_object()
+zscene_invisible_object::zscene_invisible_object(float width, float height)
 {
     std::cout << "zscene_wall_object" << std::endl;
 
     m_position.set_zero();
-
-    const float width(95.0);
-    const float height(95.0);
+    m_speed.set_zero();
 
     std::vector<zvec2> geometry;
 
@@ -51,4 +49,14 @@ const zvec2& zscene_invisible_object::get_position() const
 void zscene_invisible_object::set_position(const zvec2& position)
 {
     m_position = position;
+}
+
+const zvec2& zscene_invisible_object::get_speed() const
+{
+    return m_speed;
+}
+
+void zscene_invisible_object::set_speed(const zvec2& speed)
+{
+    m_speed = speed;
 }

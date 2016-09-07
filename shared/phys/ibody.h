@@ -16,10 +16,14 @@ public:
     void set_position(const zvec2& position);
     const zvec2& get_position() const;
 
+    void set_speed(const zvec2& speed);
+    const zvec2& get_speed() const;
+
     void set_collided(bool flag);
     bool get_collided() const;
 
 private:
     zvec2 m_position;
+    zvec2 m_speed;
     bool  m_collided;
 };

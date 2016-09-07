@@ -1,5 +1,6 @@
 #include <cmath>
 #include <cassert>
+#include <iostream>
 #include <algorithm>
 
 #include "zworld.h"
@@ -56,16 +57,34 @@ void zworld::update(size_t ms)
     if(!m_hero) {
         return;
     }
-    zvec2 position = m_hero->get_position();
-    position += ( 1.0 * ms / 1000 ) * m_gravity;
-    m_hero->set_position(position);
+
+    const float delta =  1.0 * ms / 1000;
+
+    for(size_t i = 0; i < m_bodys.size(); i++) {
+        zvec2 position = m_bodys[i]->get_position();
+        zvec2 speed = m_bodys[i]->get_speed();
+        position += delta * speed;
+        m_bodys[i]->set_position(position);
+    }
+
+    {
+        zvec2 position = m_hero->get_position();
+        zvec2 speed = m_hero->get_speed();
+        position += delta * speed;
+        speed += delta * m_gravity;
+        speed = zmax(speed, m_gravity);
+        m_hero->set_position(position);
+        m_hero->set_speed(speed);
+        //std::cout << "speed: " << speed << std::endl;
+    }
 
     for(size_t i = 0; i < m_bodys.size(); i++) {
         if(check_collided(m_hero, m_bodys[i])) {
             m_hero->set_collided(true);
-            break;
+            return;
         }
     }
+    m_hero->set_collided(false);
 }
 
 bool zworld::check_collided(const ibody* b1, const ibody* b2) const

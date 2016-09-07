@@ -7,7 +7,6 @@ class irender;
 class iscene_object
 {
 public:
-    iscene_object();
     virtual ~iscene_object();
 
     virtual void update(size_t ms) = 0;
@@ -15,4 +14,7 @@ public:
 
     virtual const zvec2& get_position() const = 0;
     virtual void set_position(const zvec2& position) = 0;
+
+    virtual const zvec2& get_speed() const = 0;
+    virtual void set_speed(const zvec2& speed) = 0;
 };

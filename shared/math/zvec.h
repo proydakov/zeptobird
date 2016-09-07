@@ -38,6 +38,7 @@ zvec2 operator - (const zvec2& a, const zvec2& b);
 
 zvec2 zmin(const zvec2& a, const zvec2& b);
 zvec2 zmax(const zvec2& a, const zvec2& b);
+
 zvec2 zclamp(const zvec2& a, const zvec2& low, const zvec2& high);
 
 std::ostream& operator<< (std::ostream& stream, const zvec2& vec);
