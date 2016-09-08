@@ -61,3 +61,10 @@ void zscene_wall_object::set_speed(const zvec2& speed)
 {
     m_body->set_speed(speed);
 }
+
+void zscene_wall_object::set_size(zfloat width, zfloat height)
+{
+    m_body->set_size(width, height);
+    zmodel_builder::generate_rect_model(width, height, m_model->get_geometry_ref());
+    zmodel_builder::generate_rect_aabb(width, height, m_model->get_aabb_ref());
+}

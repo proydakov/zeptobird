@@ -11,6 +11,8 @@ public:
     zbody_def::btype get_type() const override;
     zaabb get_aabb() const override;
 
+    void set_size(zfloat width, zfloat height);
+
     zfloat get_width() const;
     zfloat get_height() const;
 

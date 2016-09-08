@@ -33,3 +33,13 @@ int zmodel::get_layer() const
 {
     return m_layer;
 }
+
+std::vector<zvec2>& zmodel::get_geometry_ref()
+{
+    return m_geometry;
+}
+
+std::vector<zvec2>& zmodel::get_aabb_ref()
+{
+    return m_aabb;
+}

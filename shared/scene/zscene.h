@@ -1,11 +1,13 @@
 #pragma once
 
-#include <vector>
 #include <memory>
+#include <vector>
+#include <random>
 
 class irender;
 class iscene_object;
 class zscene_hero_object;
+class zscene_wall_object;
 class zworld;
 
 class zscene
@@ -27,4 +29,9 @@ private:
     zscene_hero_object*     m_hero;
     std::unique_ptr<zworld> m_world;
     std::vector<std::unique_ptr<iscene_object>> m_objects;
+    std::vector<std::pair<zscene_wall_object*, zscene_wall_object*>> m_blocks;
+
+    std::random_device              m_rd;
+    std::mt19937                    m_gen;
+    std::uniform_int_distribution<> m_dis;
 };

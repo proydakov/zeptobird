@@ -16,9 +16,12 @@ public:
     const zcolor& get_color() const override;
     int get_layer() const override;
 
+    std::vector<zvec2>& get_geometry_ref();
+    std::vector<zvec2>& get_aabb_ref();
+
 private:
-    const std::vector<zvec2> m_geometry;
-    const std::vector<zvec2> m_aabb;
+    std::vector<zvec2> m_geometry;
+    std::vector<zvec2> m_aabb;
     const zcolor m_color;
     const int    m_layer;
 };

@@ -3,9 +3,9 @@
 #include <memory>
 #include <scene/iscene_object.h>
 
-class ibody;
-class imodel;
+class zmodel;
 class zworld;
+class zrect_body;
 
 class zscene_wall_object : public iscene_object
 {
@@ -22,7 +22,9 @@ public:
     const zvec2& get_speed() const override;
     void set_speed(const zvec2& speed) override;
 
+    void set_size(zfloat width, zfloat height);
+
 private:
-    std::unique_ptr<ibody>  m_body;
-    std::unique_ptr<imodel> m_model;
+    std::unique_ptr<zrect_body> m_body;
+    std::unique_ptr<zmodel>     m_model;
 };

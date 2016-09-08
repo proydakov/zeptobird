@@ -37,16 +37,16 @@ void zmodel_builder::generate_circle_model(float radius, int angle, std::vector<
 
 void zmodel_builder::generate_rect_model(float width, float height, std::vector<zvec2>& buffer)
 {
-    std::vector<zvec2> geometry {
-        zvec2( -width / 2,  height / 2),
-        zvec2( -width / 2, -height / 2),
-        zvec2(  width / 2, -height / 2),
+    buffer.resize(0);
+    buffer.reserve(6);
 
-        zvec2( -width / 2,  height / 2),
-        zvec2(  width / 2,  height / 2),
-        zvec2(  width / 2, -height / 2)
-    };
-    buffer.swap(geometry);
+    buffer.push_back( zvec2( -width / 2,  height / 2) );
+    buffer.push_back( zvec2( -width / 2, -height / 2) );
+    buffer.push_back( zvec2( +width / 2, -height / 2) );
+
+    buffer.push_back( zvec2( -width / 2,  height / 2) );
+    buffer.push_back( zvec2( +width / 2,  height / 2) );
+    buffer.push_back( zvec2( +width / 2, -height / 2) );
 }
 
 void zmodel_builder::generate_circle_aabb(float radius, std::vector<zvec2>& buffer)

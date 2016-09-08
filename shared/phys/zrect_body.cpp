@@ -21,6 +21,12 @@ zaabb zrect_body::get_aabb() const
     return aabb;
 }
 
+void zrect_body::set_size(zfloat width, zfloat height)
+{
+    m_width = width;
+    m_height = height;
+}
+
 zfloat zrect_body::get_width() const
 {
     return m_width;
