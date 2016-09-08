@@ -35,7 +35,7 @@ int main( int argc, char *argv[] )
     esInitContext ( &esContext );
     esContext.userData = &framework;
 
-    esCreateWindow ( &esContext, "ZeptoBird", 568, 320, ES_WINDOW_RGB );
+    esCreateWindow ( &esContext, "ZeptoBird", 568, 320, ES_WINDOW_RGB | ES_WINDOW_DEPTH );
 
     if ( !init ( &esContext ) ) {
         return 1;

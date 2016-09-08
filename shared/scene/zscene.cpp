@@ -42,6 +42,14 @@ zscene::zscene() :
         m_objects.push_back(std::move(aabb));
     }
     {
+        auto hero_ptr = new zscene_hero_object( m_world.get(), HERO_RADIUS );
+        std::unique_ptr<iscene_object> hero( hero_ptr );
+        hero->set_position(zvec2( -SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3, 0));
+        hero->set_speed(GRAVITY_SPEED);
+        m_objects.push_back(std::move(hero));
+        m_hero = hero_ptr;
+    }
+    {
         const size_t wall_count = 4;
         int hole_x = SCENE_SIZE / 2;
         const int hole_x_step = SCENE_SIZE / 2;
@@ -72,14 +80,6 @@ zscene::zscene() :
 
             hole_x += hole_x_step;
         }
-    }
-    {
-        auto hero_ptr = new zscene_hero_object( m_world.get(), HERO_RADIUS );
-        std::unique_ptr<iscene_object> hero( hero_ptr );
-        hero->set_position(zvec2( -SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3, 0));
-        hero->set_speed(GRAVITY_SPEED);
-        m_objects.push_back(std::move(hero));
-        m_hero = hero_ptr;
     }
 }
 
