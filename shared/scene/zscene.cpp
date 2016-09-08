@@ -10,6 +10,7 @@
 
 namespace {
     const int SCENE_SIZE = 100;
+    const float HERO_RADIUS = 7;
 
     const zvec2 GRAVITY_SPEED(0.0, -9.8);
     const zvec2 JUMP_SPEED (0.0, 9.8);
@@ -24,26 +25,26 @@ zscene::zscene() :
 
     m_objects.reserve(16);
     {
-        std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( SCENE_SIZE - 2, SCENE_SIZE - 2 ) );
+        std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( SCENE_SIZE, SCENE_SIZE ) );
         aabb->set_position(zvec2(0, 0));
         m_objects.push_back(std::move(aabb));
     }
     {
-        std::unique_ptr<iscene_object> wall( new zscene_wall_object( m_world.get(), 10, (SCENE_SIZE - 2) / 2 ) );
+        std::unique_ptr<iscene_object> wall( new zscene_wall_object( m_world.get(), 10, SCENE_SIZE / 2 ) );
         wall->set_position(zvec2(SCENE_SIZE / 2 * 2 / 3, -25));
         wall->set_speed(zvec2(WALL_SPEED));
         m_objects.push_back(std::move(wall));
     }
     {
-        std::unique_ptr<iscene_object> wall( new zscene_wall_object( m_world.get(), 10, (SCENE_SIZE - 2) / 2 ) );
+        std::unique_ptr<iscene_object> wall( new zscene_wall_object( m_world.get(), 10, SCENE_SIZE / 2 ) );
         wall->set_position(zvec2(SCENE_SIZE / 2 * 4 / 3, +25));
         wall->set_speed(zvec2(WALL_SPEED));
         m_objects.push_back(std::move(wall));
     }
     {
-        auto hero_ptr = new zscene_hero_object( m_world.get(), 7 );
+        auto hero_ptr = new zscene_hero_object( m_world.get(), HERO_RADIUS );
         std::unique_ptr<iscene_object> hero( hero_ptr );
-        hero->set_position(zvec2( -SCENE_SIZE / 2 + SCENE_SIZE * 2 / 5, 0));
+        hero->set_position(zvec2( -SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3, 0));
         hero->set_speed(GRAVITY_SPEED);
         m_objects.push_back(std::move(hero));
         m_hero = hero_ptr;
@@ -95,5 +96,8 @@ int zscene::get_height() const
 
 bool zscene::is_hero_alive() const
 {
-    return m_hero->is_alive();
+    const zvec2& position = m_hero->get_position();
+    bool is_alive = m_hero->is_alive();
+    bool on_scene = position.y < (SCENE_SIZE / 2 - HERO_RADIUS) && position.y > (-SCENE_SIZE / 2 + HERO_RADIUS);
+    return is_alive && on_scene;
 }

@@ -81,10 +81,10 @@ void zworld::update(size_t ms)
     for(size_t i = 0; i < m_bodys.size(); i++) {
         if(check_collided(m_hero, m_bodys[i])) {
             m_hero->set_collided(true);
-            return;
+            break;
         }
     }
-    m_hero->set_collided(false);
+    //m_hero->set_collided(false);
 }
 
 bool zworld::check_collided(const ibody* b1, const ibody* b2) const

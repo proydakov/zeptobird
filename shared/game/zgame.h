@@ -22,6 +22,7 @@ private:
 private:
     std::unique_ptr<zscene> m_scene;
 
+    bool m_play;
     size_t m_time_counter;
     zcolor m_background_color;
 };

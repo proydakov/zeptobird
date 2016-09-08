@@ -22,10 +22,12 @@ zgame::~zgame()
 
 void zgame::input()
 {
-    m_scene->input();
+    if(m_play) {
+        m_scene->input();
+    }
 
     if(m_time_counter > RESTART_TIMEOUT) {
-        //restart();
+        restart();
     }
 }
 
@@ -33,12 +35,13 @@ void zgame::update(size_t ms)
 {
     m_scene->update(ms);
     if(!m_scene->is_hero_alive()) {
-        m_background_color = BOOLD_COLOR;
+        m_play = false;
         m_time_counter += ms;
+        m_background_color = BOOLD_COLOR;
     }
-    else {
-        m_background_color = GRAY_COLOR;
-    }
+    //else {
+    //    m_background_color = GRAY_COLOR;
+    //}
 }
 
 void zgame::render(irender* render)
@@ -51,6 +54,7 @@ void zgame::restart()
 {
     m_scene.reset(nullptr);
     m_scene.reset(new zscene());
+    m_play = true;
     m_time_counter = 0;
     m_background_color = GRAY_COLOR;
 }
