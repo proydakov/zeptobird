@@ -14,6 +14,13 @@ GLuint load_shader_impl(GLenum type, const char *shaderSrc);
 std::vector<GLfloat> ortho_matrix(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far);
 std::vector<GLfloat> rotate_around_z_matrix(float radians);
 std::vector<GLfloat> identity_matrix();
+
+struct model_vertex
+{
+    GLfloat position[3];
+    GLfloat color   [3];
+};
+
 }
 
 struct zgles2_render::data
@@ -27,14 +34,15 @@ struct zgles2_render::data
     int scene_width;
     int scene_height;
 
-    std::vector<GLfloat> buffer;
-    std::vector<GLfloat> aabb_buffer;
+    std::vector<model_vertex> model_buffer;
+    std::vector<model_vertex> aabb_buffer;
 
     zcolor background_color;
     zcolor aabb_color;
 
     GLuint program;
-    int    color_uniform;
+    int    position_attribute;
+    int    color_attribute;
     int    model_view_uniform;
     int    projection_uniform;
 
@@ -50,14 +58,13 @@ zgles2_render::data::data()
     scene_width = 1;
     scene_height = 1;
 
-    buffer.reserve(1024);
+    model_buffer.reserve(1024);
     aabb_buffer.reserve(1024);
 
     background_color = {1.0f, 1.0f, 1.0f};
     aabb_color = {1.0f, 1.0f, 1.0f};
 
     program = 0;
-    color_uniform = 0;
     model_view_uniform = 0;
     projection_uniform = 0;
 
@@ -100,24 +107,7 @@ void zgles2_render::deinit()
 
 void zgles2_render::prepare()
 {
-    glClearColor(m_data->background_color.r, m_data->background_color.g, m_data->background_color.b, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // Use the program object
-    glUseProgram(m_data->program);
-
-    const GLfloat left  = -1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
-    const GLfloat right = +1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
-    const GLfloat bottom = -1.0 * m_data->scene_height / 2;
-    const GLfloat top    = +1.0 * m_data->scene_height / 2;
-
-    std::vector<GLfloat> orto(ortho_matrix( left, right,
-                                            bottom, top,
-                                            +10.0, -10.0 ) );
-    glUniformMatrix4fv(m_data->projection_uniform, 1, GL_FALSE, orto.data());
-
-    std::vector<GLfloat> model_view( rotate_around_z_matrix(m_data->view_angle * M_PI / 180) );
-    glUniformMatrix4fv(m_data->model_view_uniform, 1, GL_FALSE, model_view.data());
+    /// @todo : impl vbo
 }
 
 void zgles2_render::render(const imodel* model, const zvec2& position)
@@ -125,49 +115,69 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
     /// @todo : impl vbo
 
     const auto layer = model->get_layer();
-
-    const auto aabb = model->get_aabb();
-    for(size_t i = 0 ; i < aabb.size(); i++) {
-        const zvec2 result = aabb[i] + position;
-        m_data->aabb_buffer.push_back(result.x);
-        m_data->aabb_buffer.push_back(result.y);
-        m_data->aabb_buffer.push_back(layer + 0.01f);
+    {
+        const auto& aabb_color = m_data->aabb_color;
+        const auto aabb = model->get_aabb();
+        for(size_t i = 0 ; i < aabb.size(); i++) {
+            const zvec2 result = aabb[i] + position;
+            m_data->aabb_buffer.push_back(model_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
+        }
     }
-
-    const auto geom = model->get_geometry();
-    for(size_t i = 0; i < geom.size(); i++) {
-        const zvec2 result = geom[i] + position;
-        m_data->buffer.push_back(result.x);
-        m_data->buffer.push_back(result.y);
-        m_data->buffer.push_back(layer);
+    {
+        const auto& color = model->get_color();
+        const auto geom = model->get_geometry();
+        for(size_t i = 0; i < geom.size(); i++) {
+            const zvec2 result = geom[i] + position;
+            m_data->model_buffer.push_back(model_vertex({result.x, result.y, layer + 0.01f, color.r, color.g, color.b}));
+        }
     }
-
-    const auto color = model->get_color();
-
-    // Load the vertex data
-    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, m_data->buffer.data() );
-    glEnableVertexAttribArray( 0 );
-
-    glUniform3f( m_data->color_uniform, color.r, color.g, color.b );
-
-    const int size = static_cast<int>( m_data->buffer.size() / 3 );
-    glDrawArrays( GL_TRIANGLES, 0,  size);
-
-    m_data->buffer.resize(0);
 }
 
 void zgles2_render::render()
 {
     /// @todo : impl vbo
 
-    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, m_data->aabb_buffer.data());
-    glEnableVertexAttribArray( 0 );
+    glClearColor(m_data->background_color.r, m_data->background_color.g, m_data->background_color.b, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glUniform3f( m_data->color_uniform, m_data->aabb_color.r, m_data->aabb_color.g, m_data->aabb_color.b );
+    // Use the program object
+    glUseProgram(m_data->program);
 
-    const int size = static_cast<int>( m_data->aabb_buffer.size() / 3 );
-    glDrawArrays(GL_LINES, 0, size);
+    /// @todo : think how to improve
+    const GLfloat left  = -1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
+    const GLfloat right = +1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
+    const GLfloat bottom = -1.0 * m_data->scene_height / 2;
+    const GLfloat top    = +1.0 * m_data->scene_height / 2;
 
+    std::vector<GLfloat> orto(ortho_matrix( left, right, bottom, top, +10.0, -10.0 ) );
+    glUniformMatrix4fv(m_data->projection_uniform, 1, GL_FALSE, orto.data());
+
+    std::vector<GLfloat> model_view( rotate_around_z_matrix(m_data->view_angle * M_PI / 180) );
+    glUniformMatrix4fv(m_data->model_view_uniform, 1, GL_FALSE, model_view.data());
+
+    // draw model
+    {
+        glVertexAttribPointer(m_data->position_attribute, 3, GL_FLOAT, GL_FALSE, sizeof(model_vertex), &m_data->model_buffer[0].position);
+        glEnableVertexAttribArray(m_data->position_attribute);
+
+        glVertexAttribPointer(m_data->color_attribute, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->model_buffer[0].color);
+        glEnableVertexAttribArray(m_data->color_attribute);
+
+        glDrawArrays(GL_TRIANGLES, 0, m_data->model_buffer.size());
+    }
+
+    // draw aabb
+    {
+        glVertexAttribPointer(m_data->position_attribute, 3, GL_FLOAT, GL_FALSE, sizeof(model_vertex), &m_data->aabb_buffer[0].position);
+        glEnableVertexAttribArray(m_data->position_attribute);
+
+        glVertexAttribPointer(m_data->color_attribute, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->aabb_buffer[0].color);
+        glEnableVertexAttribArray(m_data->color_attribute);
+
+        glDrawArrays(GL_LINES, 0, m_data->aabb_buffer.size());
+    }
+
+    m_data->model_buffer.resize(0);
     m_data->aabb_buffer.resize(0);
 }
 
@@ -231,7 +241,10 @@ bool zgles2_render::load_shaders(const iresource* resource)
 
     // Store the program object
     m_data->program = programObject;
-    m_data->color_uniform = glGetUniformLocation( programObject, "vColor" );
+
+    m_data->position_attribute = glGetAttribLocation(programObject, "vPosition");
+    m_data->color_attribute = glGetAttribLocation(programObject, "vColor");
+
     m_data->model_view_uniform = glGetUniformLocation( programObject, "vModelView" );
     m_data->projection_uniform = glGetUniformLocation( programObject, "vProjection" );
 
