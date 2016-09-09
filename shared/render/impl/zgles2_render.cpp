@@ -79,6 +79,7 @@ zgles2_render::zgles2_render(const iresource* resource) :
 
 zgles2_render::~zgles2_render()
 {
+    deinit();
 }
 
 void zgles2_render::init(int width, int height, float angle)
