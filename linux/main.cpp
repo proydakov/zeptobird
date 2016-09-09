@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <iostream>
 
 #include <esUtil.h>
@@ -19,8 +18,9 @@ void draw( ESContext *esContext )
     framework->render();
 }
 
-void input( ESContext *esContext, unsigned char, int, int )
+void input( ESContext *esContext, int x, int y )
 {
+    std::cout << "x: " << x << " y: " << y << std::endl;
     zframework* framework = (zframework*) esContext->userData;
     framework->input();
 }
@@ -42,7 +42,7 @@ int main( int argc, char *argv[] )
     }
 
     esRegisterDrawFunc ( &esContext, draw );
-    esRegisterKeyFunc ( &esContext, input );
+    esRegisterMouseFunc ( &esContext, input );
 
     esMainLoop ( &esContext );
 
