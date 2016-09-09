@@ -11,7 +11,7 @@
 
 zscene_invisible_object::zscene_invisible_object(float width, float height)
 {
-    std::cout << "zscene_wall_object" << std::endl;
+    std::cout << "zscene_invisible_object" << std::endl;
 
     m_position.set_zero();
     m_speed.set_zero();
@@ -29,7 +29,7 @@ zscene_invisible_object::zscene_invisible_object(float width, float height)
 
 zscene_invisible_object::~zscene_invisible_object()
 {
-    std::cout << "~zscene_wall_object" << std::endl;
+    std::cout << "~zscene_invisible_object" << std::endl;
 }
 
 void zscene_invisible_object::update(size_t ms)
