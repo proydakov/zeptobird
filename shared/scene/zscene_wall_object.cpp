@@ -22,7 +22,7 @@ zscene_wall_object::zscene_wall_object(zworld* world, float width, float height)
     std::vector<zvec2> aabb;
     zmodel_builder::generate_rect_aabb(width, height, aabb);
 
-    const zcolor color{0, 1, 0};
+    const zcolor color{0.0 / 255, 0.0 / 255, 0.0 / 255};
     const int layer{0};
 
     m_model.reset(new zmodel(geometry, aabb, color, layer));

@@ -4,12 +4,11 @@ class irender;
 class zscene;
 
 #include <memory>
-#include <render/zcolor.h>
 
 class zgame final
 {
 public:
-    zgame(irender* render);
+    zgame();
     ~zgame();
 
     void input();
@@ -21,8 +20,5 @@ private:
 
 private:
     std::unique_ptr<zscene> m_scene;
-
-    bool m_play;
-    size_t m_time_counter;
-    zcolor m_background_color;
+    size_t m_swap_scene_timer;
 };

@@ -22,7 +22,7 @@ zscene_hero_object::zscene_hero_object(zworld* world, float radius)
     std::vector<zvec2> aabb;
     zmodel_builder::generate_circle_aabb(radius, aabb);
 
-    const zcolor color{0, 0, 1};
+    const zcolor color{0.0 / 255, 168.0 / 255, 107.0 / 255};
     const int layer{1};
 
     m_model.reset(new zmodel(geometry, aabb, color, layer));

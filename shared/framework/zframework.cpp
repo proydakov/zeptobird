@@ -9,7 +9,7 @@
 zframework::zframework(const iresource* resource) :
     m_resource(resource),
     m_render(new zgles2_render(resource)),
-    m_game(new zgame(m_render.get())),
+    m_game(new zgame()),
     m_time(0)
 {
 }

@@ -18,6 +18,7 @@ public:
 
     void set_scene_size(int width, int height) override;
     void set_background_color(const zcolor& color) override;
+    void set_aabb_color(const zcolor& color) override;
 
 private:
     bool load_shaders(const iresource* resource);

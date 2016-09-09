@@ -86,9 +86,9 @@ void zgles2_render::init(int width, int height, float angle)
 {
     std::cout << "zgles2_render::init() " << width << ", " << height << std::endl;
 
-    m_data->view_width = width;
+    m_data->view_width  = width;
     m_data->view_height = height;
-    m_data->view_angle = angle;
+    m_data->view_angle  = angle;
 
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
@@ -129,7 +129,7 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
         const auto geom = model->get_geometry();
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec2 result = geom[i] + position;
-            m_data->model_buffer.push_back(model_vertex({result.x, result.y, layer + 0.01f, color.r, color.g, color.b}));
+            m_data->model_buffer.push_back(model_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
         }
     }
 }
@@ -145,6 +145,7 @@ void zgles2_render::render()
     glUseProgram(m_data->program);
 
     /// @todo : think how to improve
+    assert(m_data->scene_width == m_data->scene_height);
     const GLfloat left  = -1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
     const GLfloat right = +1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
     const GLfloat bottom = -1.0 * m_data->scene_height / 2;
@@ -191,6 +192,11 @@ void zgles2_render::set_scene_size(int width, int height)
 void zgles2_render::set_background_color(const zcolor& color)
 {
     m_data->background_color = color;
+}
+
+void zgles2_render::set_aabb_color(const zcolor& color)
+{
+    m_data->aabb_color = color;
 }
 
 bool zgles2_render::load_shaders(const iresource* resource)

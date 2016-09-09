@@ -21,6 +21,7 @@ public:
 
     virtual void set_scene_size(int width, int height) = 0;
     virtual void set_background_color(const zcolor& color) = 0;
+    virtual void set_aabb_color(const zcolor& color) = 0;
 
 protected:
     const iresource* get_resource() const;

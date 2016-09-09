@@ -11,6 +11,9 @@
 #include "zgame_logic.h"
 
 namespace {
+const zcolor SKY_COLOR  {0.65, 0.65, 0.65};
+const zcolor BLOOD_COLOR{187.0 / 255,  10.0 / 255,  30.0 / 255};
+
 const int SCENE_SIZE = 100;
 
 const zvec2 GRAVITY_SPEED(0.0, -9.8);
@@ -30,8 +33,10 @@ const float HOLE_HEIGHT = 20;
 zscene::zscene() :
     m_hero(nullptr),
     m_world(new zworld(GRAVITY_SPEED)),
+    m_background_color(SKY_COLOR),
     m_gen(m_rd()),
-    m_dis(MIN_HOLE_Y, MAX_HOLE_Y)
+    m_dis(MIN_HOLE_Y, MAX_HOLE_Y),
+    m_done(false)
 {
     std::cout << "zscene" << std::endl;
 
@@ -101,7 +106,6 @@ void zscene::update(size_t ms)
     m_world->update(ms);
 
     for(size_t i = 0; i < m_blocks.size(); i++) {
-        /// @todo : add change group configuration
         zvec2 position = m_blocks[i].first->get_position();
         if(position.x < -SCENE_SIZE) {
             const float hole_y = m_dis(m_gen);
@@ -109,21 +113,28 @@ void zscene::update(size_t ms)
 
             position.x = SCENE_SIZE;
             position.y = params.center1;
-            std::cout << "position1: " << position << " height1: " << params.height1 << "\n";
             m_blocks[i].first->set_position(position);
             m_blocks[i].first->set_size(WALL_WIDTH, params.height1);
 
             position.x = SCENE_SIZE;
             position.y = params.center2;
-            std::cout << "position1: " << position << " height1: " << params.height2 << "\n";
             m_blocks[i].second->set_position(position);
             m_blocks[i].second->set_size(WALL_WIDTH, params.height2);
         }
+    }
+
+    const zvec2& position = m_hero->get_position();
+    bool is_alive = m_hero->is_alive();
+    bool on_scene = position.y < (SCENE_SIZE / 2 - HERO_RADIUS) && position.y > (-SCENE_SIZE / 2 + HERO_RADIUS);
+    m_done = !(is_alive && on_scene);
+    if(m_done) {
+        m_background_color = BLOOD_COLOR;
     }
 }
 
 void zscene::render(irender* render) const
 {
+    render->set_background_color(m_background_color);
     for(size_t i = 0; i < m_objects.size(); i++) {
         m_objects[i]->render(render);
     }
@@ -139,10 +150,7 @@ int zscene::get_height() const
     return SCENE_SIZE;
 }
 
-bool zscene::is_hero_alive() const
+bool zscene::is_done() const
 {
-    const zvec2& position = m_hero->get_position();
-    bool is_alive = m_hero->is_alive();
-    bool on_scene = position.y < (SCENE_SIZE / 2 - HERO_RADIUS) && position.y > (-SCENE_SIZE / 2 + HERO_RADIUS);
-    return is_alive && on_scene;
+    return m_done;
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ostream>
+
 #include <math/zcommon.h>
 
 struct zvec2
