@@ -50,9 +50,9 @@ zscene::zscene() :
         m_hero = hero_ptr;
     }
     {
-        const size_t wall_count = 4;
+        const size_t wall_count = 3;
         int hole_x = SCENE_SIZE / 2;
-        const int hole_x_step = SCENE_SIZE / 2;
+        const int hole_x_step = 2 * SCENE_SIZE / 3;
         for(size_t i = 0; i < wall_count; i++) {
             const float hole_y = m_dis(m_gen);
             hole_params params = zgame_logic::create_hole_params(hole_y, HOLE_HEIGHT, SCENE_SIZE);
@@ -141,8 +141,6 @@ int zscene::get_height() const
 
 bool zscene::is_hero_alive() const
 {
-    return true;
-
     const zvec2& position = m_hero->get_position();
     bool is_alive = m_hero->is_alive();
     bool on_scene = position.y < (SCENE_SIZE / 2 - HERO_RADIUS) && position.y > (-SCENE_SIZE / 2 + HERO_RADIUS);
