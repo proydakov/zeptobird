@@ -6,10 +6,11 @@
 #include <render/impl/zgles2_render.h>
 #include <game/zgame.h>
 
-zframework::zframework(const iresource* resource) :
+zframework::zframework(iresource* resource, isound* sound) :
     m_resource(resource),
+    m_sound(sound),
     m_render(new zgles2_render(resource)),
-    m_game(new zgame()),
+    m_game(new zgame(sound)),
     m_time(0)
 {
 }

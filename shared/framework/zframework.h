@@ -2,15 +2,16 @@
 
 #include <memory>
 
-class irender;
 class iresource;
+class isound;
 
+class irender;
 class zgame;
 
 class zframework final
 {
 public:
-    zframework(const iresource* resource);
+    zframework(iresource* resource, isound* sound);
     ~zframework();
 
     void init(int width, int height, float angle = 0);
@@ -23,7 +24,9 @@ public:
     void pause();
 
 private:
-    const iresource*         m_resource;
+    iresource* m_resource;
+    isound*    m_sound;
+
     std::unique_ptr<irender> m_render;
     std::unique_ptr<zgame>   m_game;
 

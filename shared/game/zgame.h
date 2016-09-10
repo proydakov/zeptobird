@@ -1,6 +1,8 @@
 #pragma once
 
+class isound;
 class irender;
+
 class zscene;
 
 #include <memory>
@@ -8,7 +10,7 @@ class zscene;
 class zgame final
 {
 public:
-    zgame();
+    zgame(isound* sound);
     ~zgame();
 
     void input();
@@ -19,6 +21,7 @@ private:
     void restart();
 
 private:
+    isound* m_sound;
     std::unique_ptr<zscene> m_scene;
     size_t m_swap_scene_timer;
 };

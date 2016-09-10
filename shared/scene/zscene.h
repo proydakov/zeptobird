@@ -6,17 +6,19 @@
 
 #include <render/zcolor.h>
 
+class isound;
 class irender;
+
 class zworld;
 class iscene_object;
 class zscene_hero_object;
 class zscene_wall_object;
 class zscene_coin_object;
 
-class zscene
+class zscene final
 {
 public:
-    zscene();
+    zscene(isound* sound);
     ~zscene();
 
     void input();
@@ -34,6 +36,8 @@ private:
     void update_hero();
 
 private:
+    isound* m_sound;
+
     zscene_hero_object*     m_hero;
     std::unique_ptr<zworld> m_world;
     std::vector<std::unique_ptr<iscene_object>> m_objects;

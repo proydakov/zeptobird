@@ -7,7 +7,8 @@ namespace {
 const size_t SWAP_SCENE_TIMEOUT{3250};
 }
 
-zgame::zgame()
+zgame::zgame(isound* sound) :
+    m_sound(sound)
 {
     restart();
 }
@@ -44,6 +45,6 @@ void zgame::render(irender* render)
 void zgame::restart()
 {
     m_scene.reset(nullptr);
-    m_scene.reset(new zscene());
+    m_scene.reset(new zscene(m_sound));
     m_swap_scene_timer = 0;
 }

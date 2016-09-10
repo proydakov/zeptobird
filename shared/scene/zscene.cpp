@@ -3,6 +3,7 @@
 
 #include <phys/zworld.h>
 #include <render/irender.h>
+#include <platform/isound.h>
 
 #include "zscene.h"
 #include "zscene_coin_object.h"
@@ -19,13 +20,13 @@ const zcolor BLOOD_COLOR{187.0 / 255,  10.0 / 255,  30.0 / 255};
 const int SCENE_SIZE = 100;
 
 const zvec2 GRAVITY_SPEED(0.0, -9.8);
-const zvec2 JUMP_SPEED (0.0, 9.8);
+const zvec2 JUMP_SPEED( 0.0,  9.8);
 const zvec2 WALL_SPEED(-10.0, 0.0);
 
 const float HERO_RADIUS = 6;
 const float COIN_RADIUS = 4;
 
-const float WALL_WIDTH(10);
+const float WALL_WIDTH = 10;
 
 const int MIN_HOLE_Y = 20;
 const int MAX_HOLE_Y = SCENE_SIZE - MIN_HOLE_Y;
@@ -33,9 +34,14 @@ const int MAX_HOLE_Y = SCENE_SIZE - MIN_HOLE_Y;
 const float HOLE_HEIGHT = 20;
 
 const size_t COIN_SCORE = 50;
+
+const std::string MAIN_THEME_MUSIC = "theme";
+const std::string CATCH_COIN_SOUND = "coin";
+const std::string GAME_OVER_SOUND  = "game-over";
 }
 
-zscene::zscene() :
+zscene::zscene(isound* sound) :
+    m_sound(sound),
     m_hero(nullptr),
     m_world(new zworld(GRAVITY_SPEED)),
     m_background_color(SKY_COLOR),
@@ -110,6 +116,7 @@ zscene::zscene() :
             coin_x += coin_x_step;
         }
     }
+    m_sound->play_music(MAIN_THEME_MUSIC);
 }
 
 zscene::~zscene()
@@ -164,12 +171,12 @@ void zscene::update_blocks()
         if(position.x < -SCENE_SIZE) {
             const float hole_y = m_dis(m_gen);
             hole_params params = zscene_game_logic::create_hole_params(hole_y, HOLE_HEIGHT, SCENE_SIZE);
-            
+
             position.x = SCENE_SIZE;
             position.y = params.center1;
             m_blocks[i].first->set_position(position);
             m_blocks[i].first->set_size(WALL_WIDTH, params.height1);
-            
+
             position.x = SCENE_SIZE;
             position.y = params.center2;
             m_blocks[i].second->set_position(position);
@@ -207,18 +214,21 @@ void zscene::update_hero()
         else if(zbody_def::btype::circle == type) {
             collided->set_active(false);
             m_score += COIN_SCORE;
+            m_sound->play_sound(CATCH_COIN_SOUND);
             std::cout << "SCORE: " << m_score << std::endl;
         }
         else {
             assert(false);
         }
     }
-    
+
     const zvec2& position = m_hero->get_position();
     bool on_scene = position.y < (SCENE_SIZE / 2 - HERO_RADIUS) && position.y > (-SCENE_SIZE / 2 + HERO_RADIUS);
     const bool game_over = !(is_alive && on_scene);
-    
+
     if(game_over) {
+        m_sound->stop_music();
+        m_sound->play_sound(GAME_OVER_SOUND);
         m_done = true;
         m_background_color = BLOOD_COLOR;
     }

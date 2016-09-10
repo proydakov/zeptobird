@@ -1,6 +1,7 @@
 #import "GLViewController.h"
 #import "EAGLView.h"
 
+#include "ios_sound.h"
 #include "ios_resource.h"
 
 #include <memory>
@@ -9,7 +10,9 @@
 
 @interface GLViewController ()
 {
-    ios_resource                resource;
+    ios_sound    sound;
+    ios_resource resource;
+
     std::unique_ptr<zframework> framework;
 }
 @end
@@ -18,7 +21,7 @@
 
 - (void)initialize
 {
-    framework.reset(new zframework(&resource));
+    framework.reset(new zframework(&resource, &sound));
 }
 
 - (void)dealloc

@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		840905301D83EC7000550B08 /* zscene_coin_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8409052C1D83EC7000550B08 /* zscene_coin_object.cpp */; };
 		840905311D83EC7000550B08 /* zscene_game_logic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8409052E1D83EC7000550B08 /* zscene_game_logic.cpp */; };
+		840905341D84083A00550B08 /* isound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840905321D84083A00550B08 /* isound.cpp */; };
+		8409053A1D840BD100550B08 /* theme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 840905361D840BD100550B08 /* theme.mp3 */; };
+		8409053B1D840BD100550B08 /* f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 840905381D840BD100550B08 /* f.glsl */; };
+		8409053C1D840BD100550B08 /* v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 840905391D840BD100550B08 /* v.glsl */; };
+		8409053F1D840C1D00550B08 /* ios_sound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8409053D1D840C1D00550B08 /* ios_sound.mm */; };
+		840905411D840DCF00550B08 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840905401D840DCF00550B08 /* AudioToolbox.framework */; };
+		840905431D840E3100550B08 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840905421D840E3100550B08 /* AVFoundation.framework */; };
+		840905451D840F4800550B08 /* coin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 840905441D840F4800550B08 /* coin.mp3 */; };
+		840905471D84109100550B08 /* game-over.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 840905461D84109100550B08 /* game-over.mp3 */; };
 		845ABE251D7CAB9D00F564AC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */; };
 		845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDF61D7CAB9D00F564AC /* zframework.cpp */; };
 		845ABE2A1D7CAB9D00F564AC /* ibody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDFE1D7CAB9D00F564AC /* ibody.cpp */; };
@@ -22,8 +31,6 @@
 		845ABE321D7CAB9D00F564AC /* zcolor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE131D7CAB9D00F564AC /* zcolor.cpp */; };
 		845ABE331D7CAB9D00F564AC /* zmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE151D7CAB9D00F564AC /* zmodel.cpp */; };
 		845ABE341D7CAB9D00F564AC /* zmodel_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE171D7CAB9D00F564AC /* zmodel_builder.cpp */; };
-		845ABE351D7CAB9D00F564AC /* f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 845ABE1A1D7CAB9D00F564AC /* f.glsl */; };
-		845ABE361D7CAB9D00F564AC /* v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 845ABE1B1D7CAB9D00F564AC /* v.glsl */; };
 		845ABE371D7CAB9D00F564AC /* iscene_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */; };
 		845ABE381D7CAB9D00F564AC /* zscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE1F1D7CAB9D00F564AC /* zscene.cpp */; };
 		845ABE391D7CAB9D00F564AC /* zscene_hero_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE211D7CAB9D00F564AC /* zscene_hero_object.cpp */; };
@@ -35,7 +42,6 @@
 		84E3F1FC1D7DE4A10062ADD6 /* zvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F1FA1D7DE4A10062ADD6 /* zvec.cpp */; };
 		84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */; };
 		84E3F2021D7F49570062ADD6 /* zscene_invisible_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F2001D7F49570062ADD6 /* zscene_invisible_object.cpp */; };
-		84E3F2051D81C6070062ADD6 /* zgame_logic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F2031D81C6070062ADD6 /* zgame_logic.cpp */; };
 		84FD9AAB1D7B1AE200922F1D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AAA1D7B1AE200922F1D /* QuartzCore.framework */; };
 		84FD9AAC1D7B1AE700922F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AA61D7B1AB300922F1D /* UIKit.framework */; };
 		84FD9AAE1D7B1AED00922F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AAD1D7B1AED00922F1D /* Foundation.framework */; };
@@ -51,6 +57,17 @@
 		8409052D1D83EC7000550B08 /* zscene_coin_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_coin_object.h; sourceTree = "<group>"; };
 		8409052E1D83EC7000550B08 /* zscene_game_logic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_game_logic.cpp; sourceTree = "<group>"; };
 		8409052F1D83EC7000550B08 /* zscene_game_logic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_game_logic.h; sourceTree = "<group>"; };
+		840905321D84083A00550B08 /* isound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = isound.cpp; sourceTree = "<group>"; };
+		840905331D84083A00550B08 /* isound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = isound.h; sourceTree = "<group>"; };
+		840905361D840BD100550B08 /* theme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = theme.mp3; sourceTree = "<group>"; };
+		840905381D840BD100550B08 /* f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = f.glsl; sourceTree = "<group>"; };
+		840905391D840BD100550B08 /* v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = v.glsl; sourceTree = "<group>"; };
+		8409053D1D840C1D00550B08 /* ios_sound.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ios_sound.mm; path = zeptobird/ios_sound.mm; sourceTree = "<group>"; };
+		8409053E1D840C1D00550B08 /* ios_sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ios_sound.h; path = zeptobird/ios_sound.h; sourceTree = "<group>"; };
+		840905401D840DCF00550B08 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		840905421D840E3100550B08 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		840905441D840F4800550B08 /* coin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coin.mp3; sourceTree = "<group>"; };
+		840905461D84109100550B08 /* game-over.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "game-over.mp3"; sourceTree = "<group>"; };
 		845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		845ABDF61D7CAB9D00F564AC /* zframework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zframework.cpp; sourceTree = "<group>"; };
 		845ABDF71D7CAB9D00F564AC /* zframework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zframework.h; sourceTree = "<group>"; };
@@ -79,8 +96,6 @@
 		845ABE161D7CAB9D00F564AC /* zmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmodel.h; sourceTree = "<group>"; };
 		845ABE171D7CAB9D00F564AC /* zmodel_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmodel_builder.cpp; sourceTree = "<group>"; };
 		845ABE181D7CAB9D00F564AC /* zmodel_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmodel_builder.h; sourceTree = "<group>"; };
-		845ABE1A1D7CAB9D00F564AC /* f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = f.glsl; sourceTree = "<group>"; };
-		845ABE1B1D7CAB9D00F564AC /* v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = v.glsl; sourceTree = "<group>"; };
 		845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = iscene_object.cpp; sourceTree = "<group>"; };
 		845ABE1E1D7CAB9D00F564AC /* iscene_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iscene_object.h; sourceTree = "<group>"; };
 		845ABE1F1D7CAB9D00F564AC /* zscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene.cpp; sourceTree = "<group>"; };
@@ -104,8 +119,6 @@
 		84E3F1FE1D7F32350062ADD6 /* zaabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zaabb.h; sourceTree = "<group>"; };
 		84E3F2001D7F49570062ADD6 /* zscene_invisible_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_invisible_object.cpp; sourceTree = "<group>"; };
 		84E3F2011D7F49570062ADD6 /* zscene_invisible_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_invisible_object.h; sourceTree = "<group>"; };
-		84E3F2031D81C6070062ADD6 /* zgame_logic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zgame_logic.cpp; sourceTree = "<group>"; };
-		84E3F2041D81C6070062ADD6 /* zgame_logic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgame_logic.h; sourceTree = "<group>"; };
 		84FD9AA61D7B1AB300922F1D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		84FD9AAA1D7B1AE200922F1D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		84FD9AAD1D7B1AED00922F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -124,6 +137,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840905431D840E3100550B08 /* AVFoundation.framework in Frameworks */,
+				840905411D840DCF00550B08 /* AudioToolbox.framework in Frameworks */,
 				84FD9AB21D7B1B0200922F1D /* OpenGLES.framework in Frameworks */,
 				84FD9AAE1D7B1AED00922F1D /* Foundation.framework in Frameworks */,
 				84FD9AAC1D7B1AE700922F1D /* UIKit.framework in Frameworks */,
@@ -134,6 +149,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		840905351D840BD100550B08 /* music */ = {
+			isa = PBXGroup;
+			children = (
+				840905461D84109100550B08 /* game-over.mp3 */,
+				840905441D840F4800550B08 /* coin.mp3 */,
+				840905361D840BD100550B08 /* theme.mp3 */,
+			);
+			path = music;
+			sourceTree = "<group>";
+		};
+		840905371D840BD100550B08 /* shader */ = {
+			isa = PBXGroup;
+			children = (
+				840905381D840BD100550B08 /* f.glsl */,
+				840905391D840BD100550B08 /* v.glsl */,
+			);
+			path = shader;
+			sourceTree = "<group>";
+		};
 		845ABDF31D7CAB9D00F564AC /* shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +226,8 @@
 		845ABE071D7CAB9D00F564AC /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				840905331D84083A00550B08 /* isound.h */,
+				840905321D84083A00550B08 /* isound.cpp */,
 				845ABE091D7CAB9D00F564AC /* iresource.h */,
 				845ABE081D7CAB9D00F564AC /* iresource.cpp */,
 			);
@@ -229,8 +265,8 @@
 		845ABE191D7CAB9D00F564AC /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				845ABE1A1D7CAB9D00F564AC /* f.glsl */,
-				845ABE1B1D7CAB9D00F564AC /* v.glsl */,
+				840905351D840BD100550B08 /* music */,
+				840905371D840BD100550B08 /* shader */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -303,6 +339,8 @@
 				846DDAFE1D7B058F00B57C22 /* AppDelegate.mm */,
 				84FD9B531D7C079E00922F1D /* ios_resource.h */,
 				84FD9B511D7C076000922F1D /* ios_resource.mm */,
+				8409053E1D840C1D00550B08 /* ios_sound.h */,
+				8409053D1D840C1D00550B08 /* ios_sound.mm */,
 				846DDAFB1D7B058E00B57C22 /* main.m */,
 			);
 			name = ios;
@@ -312,6 +350,8 @@
 		84FD9AB31D7B1B0F00922F1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				840905421D840E3100550B08 /* AVFoundation.framework */,
+				840905401D840DCF00550B08 /* AudioToolbox.framework */,
 				84FD9AA61D7B1AB300922F1D /* UIKit.framework */,
 				84FD9AAA1D7B1AE200922F1D /* QuartzCore.framework */,
 				84FD9AAD1D7B1AED00922F1D /* Foundation.framework */,
@@ -388,11 +428,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8409053B1D840BD100550B08 /* f.glsl in Resources */,
 				846DDB0B1D7B058F00B57C22 /* Assets.xcassets in Resources */,
+				840905451D840F4800550B08 /* coin.mp3 in Resources */,
+				8409053C1D840BD100550B08 /* v.glsl in Resources */,
 				84FD9B141D7B597F00922F1D /* MainWindow.xib in Resources */,
+				8409053A1D840BD100550B08 /* theme.mp3 in Resources */,
+				840905471D84109100550B08 /* game-over.mp3 in Resources */,
 				845ABE251D7CAB9D00F564AC /* CMakeLists.txt in Resources */,
-				845ABE351D7CAB9D00F564AC /* f.glsl in Resources */,
-				845ABE361D7CAB9D00F564AC /* v.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +471,9 @@
 				845ABE311D7CAB9D00F564AC /* irender.cpp in Sources */,
 				845ABE3A1D7CAB9D00F564AC /* zscene_wall_object.cpp in Sources */,
 				845ABE2B1D7CAB9D00F564AC /* zcircle_body.cpp in Sources */,
+				840905341D84083A00550B08 /* isound.cpp in Sources */,
 				845ABE2F1D7CAB9D00F564AC /* imodel.cpp in Sources */,
+				8409053F1D840C1D00550B08 /* ios_sound.mm in Sources */,
 				845ABE381D7CAB9D00F564AC /* zscene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
