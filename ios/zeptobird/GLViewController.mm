@@ -1,5 +1,5 @@
 #import "GLViewController.h"
-#import "GLView.h"
+#import "EAGLView.h"
 
 #include "ios_resource.h"
 

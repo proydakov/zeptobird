@@ -33,11 +33,12 @@
 		84E3F1FC1D7DE4A10062ADD6 /* zvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F1FA1D7DE4A10062ADD6 /* zvec.cpp */; };
 		84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */; };
 		84E3F2021D7F49570062ADD6 /* zscene_invisible_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F2001D7F49570062ADD6 /* zscene_invisible_object.cpp */; };
+		84E3F2051D81C6070062ADD6 /* zgame_logic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F2031D81C6070062ADD6 /* zgame_logic.cpp */; };
 		84FD9AAB1D7B1AE200922F1D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AAA1D7B1AE200922F1D /* QuartzCore.framework */; };
 		84FD9AAC1D7B1AE700922F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AA61D7B1AB300922F1D /* UIKit.framework */; };
 		84FD9AAE1D7B1AED00922F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AAD1D7B1AED00922F1D /* Foundation.framework */; };
 		84FD9AB21D7B1B0200922F1D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AB11D7B1B0200922F1D /* OpenGLES.framework */; };
-		84FD9AF51D7B4E8000922F1D /* GlView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AF41D7B4E8000922F1D /* GlView.mm */; };
+		84FD9AF51D7B4E8000922F1D /* EAGlView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AF41D7B4E8000922F1D /* EAGlView.mm */; };
 		84FD9B001D7B4FAA00922F1D /* GLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AFF1D7B4FAA00922F1D /* GLViewController.mm */; };
 		84FD9B141D7B597F00922F1D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FD9B121D7B597F00922F1D /* MainWindow.xib */; };
 		84FD9B521D7C076000922F1D /* ios_resource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9B511D7C076000922F1D /* ios_resource.mm */; };
@@ -97,12 +98,14 @@
 		84E3F1FE1D7F32350062ADD6 /* zaabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zaabb.h; sourceTree = "<group>"; };
 		84E3F2001D7F49570062ADD6 /* zscene_invisible_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_invisible_object.cpp; sourceTree = "<group>"; };
 		84E3F2011D7F49570062ADD6 /* zscene_invisible_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_invisible_object.h; sourceTree = "<group>"; };
+		84E3F2031D81C6070062ADD6 /* zgame_logic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zgame_logic.cpp; sourceTree = "<group>"; };
+		84E3F2041D81C6070062ADD6 /* zgame_logic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgame_logic.h; sourceTree = "<group>"; };
 		84FD9AA61D7B1AB300922F1D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		84FD9AAA1D7B1AE200922F1D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		84FD9AAD1D7B1AED00922F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84FD9AB11D7B1B0200922F1D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		84FD9AF31D7B4E1600922F1D /* GLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GLView.h; path = zeptobird/GLView.h; sourceTree = "<group>"; };
-		84FD9AF41D7B4E8000922F1D /* GlView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GlView.mm; path = zeptobird/GlView.mm; sourceTree = "<group>"; };
+		84FD9AF31D7B4E1600922F1D /* EAGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EAGLView.h; path = zeptobird/EAGLView.h; sourceTree = "<group>"; };
+		84FD9AF41D7B4E8000922F1D /* EAGlView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EAGlView.mm; path = zeptobird/EAGlView.mm; sourceTree = "<group>"; };
 		84FD9AFE1D7B4FAA00922F1D /* GLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLViewController.h; path = zeptobird/GLViewController.h; sourceTree = "<group>"; };
 		84FD9AFF1D7B4FAA00922F1D /* GLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GLViewController.mm; path = zeptobird/GLViewController.mm; sourceTree = "<group>"; };
 		84FD9B131D7B597F00922F1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = zeptobird/Base.lproj/MainWindow.xib; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 			children = (
 				845ABE201D7CAB9D00F564AC /* zscene.h */,
 				845ABE1F1D7CAB9D00F564AC /* zscene.cpp */,
+				84E3F2041D81C6070062ADD6 /* zgame_logic.h */,
+				84E3F2031D81C6070062ADD6 /* zgame_logic.cpp */,
 				845ABE1E1D7CAB9D00F564AC /* iscene_object.h */,
 				845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */,
 				845ABE221D7CAB9D00F564AC /* zscene_hero_object.h */,
@@ -282,8 +287,8 @@
 		84FD9AA41D7B16A200922F1D /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				84FD9AF31D7B4E1600922F1D /* GLView.h */,
-				84FD9AF41D7B4E8000922F1D /* GlView.mm */,
+				84FD9AF31D7B4E1600922F1D /* EAGLView.h */,
+				84FD9AF41D7B4E8000922F1D /* EAGlView.mm */,
 				84FD9AFE1D7B4FAA00922F1D /* GLViewController.h */,
 				84FD9AFF1D7B4FAA00922F1D /* GLViewController.mm */,
 				846DDAFD1D7B058E00B57C22 /* AppDelegate.h */,
@@ -405,11 +410,12 @@
 				845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */,
 				845ABE371D7CAB9D00F564AC /* iscene_object.cpp in Sources */,
 				84E3F2021D7F49570062ADD6 /* zscene_invisible_object.cpp in Sources */,
+				84E3F2051D81C6070062ADD6 /* zgame_logic.cpp in Sources */,
 				845ABE2E1D7CAB9D00F564AC /* iresource.cpp in Sources */,
 				845ABE391D7CAB9D00F564AC /* zscene_hero_object.cpp in Sources */,
 				845ABE2C1D7CAB9D00F564AC /* zrect_body.cpp in Sources */,
 				84FD9B521D7C076000922F1D /* ios_resource.mm in Sources */,
-				84FD9AF51D7B4E8000922F1D /* GlView.mm in Sources */,
+				84FD9AF51D7B4E8000922F1D /* EAGlView.mm in Sources */,
 				845ABE311D7CAB9D00F564AC /* irender.cpp in Sources */,
 				845ABE3A1D7CAB9D00F564AC /* zscene_wall_object.cpp in Sources */,
 				845ABE2B1D7CAB9D00F564AC /* zcircle_body.cpp in Sources */,

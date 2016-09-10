@@ -2,7 +2,7 @@
 
 @class GLViewController;
 
-@interface GLView : UIView
+@interface EAGLView : UIView
 {
 }
 

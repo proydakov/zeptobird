@@ -3,10 +3,10 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
-#import "GLView.h"
+#import "EAGLView.h"
 #import "GLViewController.h"
 
-@interface GLView ()
+@interface EAGLView ()
 {
     GLint  backingWidth;
     GLint  backingHeight;
@@ -22,7 +22,7 @@
 - (void)drawView;
 @end
 
-@implementation GLView
+@implementation EAGLView
 @synthesize controller, animating, context, animationFrameInterval, displayLink;
 + (Class)layerClass
 {

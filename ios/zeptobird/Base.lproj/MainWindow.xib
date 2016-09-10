@@ -25,7 +25,7 @@
             <point key="canvasLocation" x="519" y="344"/>
         </window>
         <viewController wantsFullScreenLayout="YES" id="10" userLabel="View Controller" customClass="GLViewController">
-            <view key="view" contentMode="scaleToFill" id="13" customClass="GLView">
+            <view key="view" contentMode="scaleToFill" id="13" customClass="EAGLView">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
