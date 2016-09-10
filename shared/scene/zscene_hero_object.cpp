@@ -62,7 +62,7 @@ void zscene_hero_object::set_speed(const zvec2& speed)
     m_body->set_speed(speed);
 }
 
-bool zscene_hero_object::is_alive() const
+ibody* zscene_hero_object::get_collided() const
 {
-    return !m_body->get_collided();
+    return m_body->get_collided();
 }

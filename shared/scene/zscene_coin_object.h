@@ -4,14 +4,14 @@
 #include <scene/iscene_object.h>
 
 class ibody;
-class imodel;
+class zmodel;
 class zworld;
 
-class zscene_hero_object : public iscene_object
+class zscene_coin_object : public iscene_object
 {
 public:
-    zscene_hero_object(zworld* world, float radius);
-    ~zscene_hero_object() override;
+    zscene_coin_object(zworld* world, float radius);
+    ~zscene_coin_object() override;
 
     void update(size_t ms) override;
     void render(irender* render) const override;
@@ -22,9 +22,9 @@ public:
     const zvec2& get_speed() const override;
     void set_speed(const zvec2& speed) override;
 
-    ibody* get_collided() const;
+    void set_active(bool active);
 
 private:
-    std::unique_ptr<ibody>  m_body;
-    std::unique_ptr<imodel> m_model;
+    std::unique_ptr<ibody> m_body;
+    std::unique_ptr<zmodel>     m_model;
 };

@@ -11,4 +11,4 @@ struct zaabb
     zvec2 r;        // halfwidths
 };
 
-bool test_AABB_AABB_SIMD(const zaabb &a, const zaabb &b);
+bool test_aabb_aabb_simd(const zaabb &a, const zaabb &b);

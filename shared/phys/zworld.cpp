@@ -78,21 +78,33 @@ void zworld::update(size_t ms)
         //std::cout << "speed: " << speed << std::endl;
     }
 
-    for(size_t i = 0; i < m_bodys.size(); i++) {
-        if(check_collided(m_hero, m_bodys[i])) {
-            m_hero->set_collided(true);
-            break;
+    bool collided = false;
+    for(size_t i = 0; i < m_bodys.size() && !collided; i++) {
+        ibody* test = m_bodys[i];
+        if(check_collided(m_hero, test)) {
+            m_hero->set_collided(test);
+            collided = true;
         }
     }
-    //m_hero->set_collided(false);
+    if(!collided) {
+        m_hero->set_collided(nullptr);
+    }
 }
 
 bool zworld::check_collided(const ibody* b1, const ibody* b2) const
 {
+    const bool active1 = b1->get_active();
+    const bool active2 = b2->get_active();
+    const bool active = active1 && active2;
+
+    if(!active) {
+        return false;
+    }
+
     auto aabb1 = b1->get_aabb();
     auto aabb2 = b2->get_aabb();
 
-    const bool aabb_collided = test_AABB_AABB_SIMD(aabb1, aabb2);
+    const bool aabb_collided = test_aabb_aabb_simd(aabb1, aabb2);
     if(!aabb_collided) {
         return false;
     }
@@ -100,6 +112,9 @@ bool zworld::check_collided(const ibody* b1, const ibody* b2) const
     bool collided = false;
     if(zbody_def::btype::circle == b1->get_type() && zbody_def::btype::rect == b2->get_type()) {
         collided = check_circle_and_rect_collided(b1, b2);
+    }
+    else if(zbody_def::btype::circle == b1->get_type() && zbody_def::btype::circle == b2->get_type()) {
+        collided = check_circle_and_circle_collided(b1, b2);
     }
     return collided;
 }
@@ -124,4 +139,22 @@ bool zworld::check_circle_and_rect_collided(const ibody* b1, const ibody* b2) co
     // Retrieve vector between center circle and closest point AABB and check if length <= radius
     difference = closest - circel_center;
     return difference.length() < zcircle->get_radius();
+}
+
+bool zworld::check_circle_and_circle_collided(const ibody* b1, const ibody* b2) const
+{
+    const zcircle_body* zcircle1 = static_cast<const zcircle_body*>(b1);
+    const zcircle_body* zcircle2 = static_cast<const zcircle_body*>(b2);
+
+    const zvec2 circel_center1 = b1->get_position();
+    const zvec2 circel_center2 = b2->get_position();
+
+    const zfloat radius1 = zcircle1->get_radius();
+    const zfloat radius2 = zcircle2->get_radius();
+
+    const zvec2 distance(circel_center1 - circel_center2);
+
+    const zfloat radius_quad = (radius1 + radius2) * (radius1 + radius2);
+
+    return distance.length2() < radius_quad;
 }

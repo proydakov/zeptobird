@@ -27,6 +27,7 @@ struct zvec2
     void operator /= (zfloat a);
 
     zfloat length() const;
+    zfloat length2() const;
 
     // data
 

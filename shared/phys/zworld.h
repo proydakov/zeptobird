@@ -23,6 +23,7 @@ public:
 private:
     bool check_collided(const ibody* b1, const ibody* b2) const;
     bool check_circle_and_rect_collided(const ibody* b1, const ibody* b2) const;
+    bool check_circle_and_circle_collided(const ibody* b1, const ibody* b2) const;
 
 private:
     const zvec2 m_gravity;

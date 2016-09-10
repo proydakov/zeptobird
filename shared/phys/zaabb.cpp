@@ -14,7 +14,7 @@ zaabb::zaabb(const zvec2& center, const zvec2& halfwidths) :
 {
 }
 
-bool test_AABB_AABB_SIMD(const zaabb &a, const zaabb &b)
+bool test_aabb_aabb_simd(const zaabb &a, const zaabb &b)
 {
     // SIMD optimized AABB-AABB test
     // Optimized by removing conditional branches

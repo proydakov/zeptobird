@@ -61,6 +61,11 @@ zfloat zvec2::length() const
     return std::sqrt(x * x + y * y);
 }
 
+zfloat zvec2::length2() const
+{
+    return x * x + y * y;
+}
+
 zvec2 operator * (zfloat s, const zvec2& a)
 {
     return zvec2(s * a.x, s * a.y);

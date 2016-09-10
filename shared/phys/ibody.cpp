@@ -1,7 +1,8 @@
 #include "ibody.h"
 
 ibody::ibody() :
-    m_collided(false)
+    m_active(true),
+    m_collided(nullptr)
 {
     m_position.set_zero();
     m_speed.set_zero();
@@ -31,12 +32,22 @@ const zvec2& ibody::get_speed() const
     return m_speed;
 }
 
-void ibody::set_collided(bool flag)
+void ibody::set_active(bool active)
 {
-    m_collided = flag;
+    m_active = active;
 }
 
-bool ibody::get_collided() const
+bool ibody::get_active() const
+{
+    return m_active;
+}
+
+void ibody::set_collided(ibody* collided)
+{
+    m_collided = collided;
+}
+
+ibody* ibody::get_collided() const
 {
     return m_collided;
 }

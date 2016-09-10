@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840905301D83EC7000550B08 /* zscene_coin_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8409052C1D83EC7000550B08 /* zscene_coin_object.cpp */; };
+		840905311D83EC7000550B08 /* zscene_game_logic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8409052E1D83EC7000550B08 /* zscene_game_logic.cpp */; };
 		845ABE251D7CAB9D00F564AC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */; };
 		845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDF61D7CAB9D00F564AC /* zframework.cpp */; };
 		845ABE2A1D7CAB9D00F564AC /* ibody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDFE1D7CAB9D00F564AC /* ibody.cpp */; };
@@ -45,6 +47,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8409052C1D83EC7000550B08 /* zscene_coin_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_coin_object.cpp; sourceTree = "<group>"; };
+		8409052D1D83EC7000550B08 /* zscene_coin_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_coin_object.h; sourceTree = "<group>"; };
+		8409052E1D83EC7000550B08 /* zscene_game_logic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_game_logic.cpp; sourceTree = "<group>"; };
+		8409052F1D83EC7000550B08 /* zscene_game_logic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_game_logic.h; sourceTree = "<group>"; };
 		845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		845ABDF61D7CAB9D00F564AC /* zframework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zframework.cpp; sourceTree = "<group>"; };
 		845ABDF71D7CAB9D00F564AC /* zframework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zframework.h; sourceTree = "<group>"; };
@@ -234,12 +240,14 @@
 			children = (
 				845ABE201D7CAB9D00F564AC /* zscene.h */,
 				845ABE1F1D7CAB9D00F564AC /* zscene.cpp */,
-				84E3F2041D81C6070062ADD6 /* zgame_logic.h */,
-				84E3F2031D81C6070062ADD6 /* zgame_logic.cpp */,
+				8409052F1D83EC7000550B08 /* zscene_game_logic.h */,
+				8409052E1D83EC7000550B08 /* zscene_game_logic.cpp */,
 				845ABE1E1D7CAB9D00F564AC /* iscene_object.h */,
 				845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */,
 				845ABE221D7CAB9D00F564AC /* zscene_hero_object.h */,
 				845ABE211D7CAB9D00F564AC /* zscene_hero_object.cpp */,
+				8409052D1D83EC7000550B08 /* zscene_coin_object.h */,
+				8409052C1D83EC7000550B08 /* zscene_coin_object.cpp */,
 				845ABE241D7CAB9D00F564AC /* zscene_wall_object.h */,
 				845ABE231D7CAB9D00F564AC /* zscene_wall_object.cpp */,
 				84E3F2011D7F49570062ADD6 /* zscene_invisible_object.h */,
@@ -404,13 +412,14 @@
 				845ABE321D7CAB9D00F564AC /* zcolor.cpp in Sources */,
 				845ABE301D7CAB9D00F564AC /* zgles2_render.cpp in Sources */,
 				845ABE2D1D7CAB9D00F564AC /* zworld.cpp in Sources */,
+				840905301D83EC7000550B08 /* zscene_coin_object.cpp in Sources */,
 				84E3F1FC1D7DE4A10062ADD6 /* zvec.cpp in Sources */,
 				84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */,
 				845ABE3E1D7CADC700F564AC /* zgame.cpp in Sources */,
 				845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */,
 				845ABE371D7CAB9D00F564AC /* iscene_object.cpp in Sources */,
 				84E3F2021D7F49570062ADD6 /* zscene_invisible_object.cpp in Sources */,
-				84E3F2051D81C6070062ADD6 /* zgame_logic.cpp in Sources */,
+				840905311D83EC7000550B08 /* zscene_game_logic.cpp in Sources */,
 				845ABE2E1D7CAB9D00F564AC /* iresource.cpp in Sources */,
 				845ABE391D7CAB9D00F564AC /* zscene_hero_object.cpp in Sources */,
 				845ABE2C1D7CAB9D00F564AC /* zrect_body.cpp in Sources */,

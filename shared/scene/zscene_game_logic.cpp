@@ -1,6 +1,6 @@
-#include "zgame_logic.h"
+#include "zscene_game_logic.h"
 
-hole_params zgame_logic::create_hole_params(float hole_y, float hole_height, float scene_size)
+hole_params zscene_game_logic::create_hole_params(float hole_y, float hole_height, float scene_size)
 {
     hole_params params;
 

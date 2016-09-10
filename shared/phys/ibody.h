@@ -19,11 +19,15 @@ public:
     void set_speed(const zvec2& speed);
     const zvec2& get_speed() const;
 
-    void set_collided(bool flag);
-    bool get_collided() const;
+    void set_active(bool active);
+    bool get_active() const;
+
+    void set_collided(ibody* collided);
+    ibody* get_collided() const;
 
 private:
-    zvec2 m_position;
-    zvec2 m_speed;
-    bool  m_collided;
+    zvec2  m_position;
+    zvec2  m_speed;
+    bool   m_active;
+    ibody* m_collided;
 };
