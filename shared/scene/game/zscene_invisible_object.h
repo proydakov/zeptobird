@@ -10,10 +10,10 @@ class zscene_invisible_object : public iscene_object
 public:
     zscene_invisible_object(float width, float height);
     ~zscene_invisible_object() override;
-    
+
     void update(size_t ms) override;
     void render(irender* render) const override;
-    
+
     const zvec2& get_position() const override;
     void set_position(const zvec2& position) override;
 

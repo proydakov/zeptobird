@@ -11,16 +11,16 @@ public:
 
     ~zmodel() override;
 
-    const std::vector<zvec2>& get_geometry() const override;
+    const std::vector<zvec2>& get_geom() const override;
     const std::vector<zvec2>& get_aabb() const override;
     const zcolor& get_color() const override;
     int get_layer() const override;
 
-    std::vector<zvec2>& get_geometry_ref();
+    std::vector<zvec2>& get_geom_ref();
     std::vector<zvec2>& get_aabb_ref();
 
 private:
-    std::vector<zvec2> m_geometry;
+    std::vector<zvec2> m_geom;
     std::vector<zvec2> m_aabb;
     const zcolor m_color;
     const int    m_layer;

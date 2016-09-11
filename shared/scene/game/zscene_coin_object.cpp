@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include <render/irender.h>
-#include <render/zmodel.h>
-#include <render/zmodel_builder.h>
+#include <model/zmodel.h>
+#include <model/zmodel_builder.h>
 
 #include <phys/zworld.h>
 #include <phys/zcircle_body.h>
@@ -40,7 +40,7 @@ void zscene_coin_object::update(size_t ms)
 void zscene_coin_object::render(irender* render) const
 {
     if(m_body->get_active()) {
-        render->render(m_model.get(), get_position());
+        render->render(m_model.get(), get_position(), 1);
     }
 }
 

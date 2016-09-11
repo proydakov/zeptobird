@@ -4,6 +4,7 @@
 #include <vector>
 #include <random>
 
+#include <scene/iscene.h>
 #include <render/zcolor.h>
 
 class isound;
@@ -15,20 +16,19 @@ class zscene_hero_object;
 class zscene_wall_object;
 class zscene_coin_object;
 
-class zscene final
+class zgame_scene final : public iscene
 {
 public:
-    zscene(isound* sound);
-    ~zscene();
+    zgame_scene(isound* sound);
+    ~zgame_scene() override;
 
-    void input();
-    void update(size_t ms);
-    void render(irender* render) const;
+    void input() override;
+    void update(size_t ms) override;
+    void render(irender* render) const override;
 
-    int get_width() const;
-    int get_height() const;
+    zsize get_size() const override;
 
-    bool is_done() const;
+    bool is_done() const override;
 
 private:
     void update_blocks();
@@ -51,5 +51,6 @@ private:
     std::uniform_int_distribution<> m_dis;
 
     size_t m_score;
-    bool   m_done;
+    bool   m_game_over;
+    size_t m_game_over_timer;
 };

@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include <render/irender.h>
-#include <render/zmodel.h>
-#include <render/zmodel_builder.h>
+#include <model/zmodel.h>
+#include <model/zmodel_builder.h>
 
 #include <phys/zworld.h>
 #include <phys/zrect_body.h>
@@ -39,7 +39,7 @@ void zscene_wall_object::update(size_t ms)
 
 void zscene_wall_object::render(irender* render) const
 {
-    render->render(m_model.get(), get_position());
+    render->render(m_model.get(), get_position(), 1);
 }
 
 const zvec2& zscene_wall_object::get_position() const
@@ -65,6 +65,6 @@ void zscene_wall_object::set_speed(const zvec2& speed)
 void zscene_wall_object::set_size(zfloat width, zfloat height)
 {
     m_body->set_size(width, height);
-    zmodel_builder::generate_rect_model(width, height, m_model->get_geometry_ref());
+    zmodel_builder::generate_rect_model(width, height, m_model->get_geom_ref());
     zmodel_builder::generate_rect_aabb(width, height, m_model->get_aabb_ref());
 }

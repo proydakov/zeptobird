@@ -1,16 +1,14 @@
 #include "zgame.h"
 
 #include <render/irender.h>
-#include <scene/zscene.h>
-
-namespace {
-const size_t SWAP_SCENE_TIMEOUT{3250};
-}
+#include <scene/menu/zmenu_scene.h>
+#include <scene/game/zgame_scene.h>
 
 zgame::zgame(isound* sound) :
-    m_sound(sound)
+    m_sound(sound),
+    m_scene_counter(false)
 {
-    restart();
+    next();
 }
 
 zgame::~zgame()
@@ -22,29 +20,30 @@ void zgame::input()
     if(!m_scene->is_done()) {
         m_scene->input();
     }
-
-    if(m_swap_scene_timer > SWAP_SCENE_TIMEOUT) {
-        restart();
-    }
 }
 
 void zgame::update(size_t ms)
 {
     m_scene->update(ms);
     if(m_scene->is_done()) {
-        m_swap_scene_timer += ms;
+        next();
     }
 }
 
 void zgame::render(irender* render)
 {
-    render->set_scene_size(m_scene->get_width(), m_scene->get_height());
+    render->set_scene_size(m_scene->get_size());
     m_scene->render(render);
 }
 
-void zgame::restart()
+void zgame::next()
 {
     m_scene.reset(nullptr);
-    m_scene.reset(new zscene(m_sound));
-    m_swap_scene_timer = 0;
+    if(m_scene_counter) {
+        m_scene.reset(new zgame_scene(m_sound));
+    }
+    else {
+        m_scene.reset(new zmenu_scene(m_sound));
+    }
+    m_scene_counter = !m_scene_counter;
 }

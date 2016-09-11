@@ -9,14 +9,15 @@ public:
     zgles2_render(const iresource* resource);
     virtual ~zgles2_render() override;
 
-    void init(int width, int height, float angle) override;
+    void init(const zsize& view_size, float angle) override;
     void deinit() override;
 
     void prepare() override;
-    void render(const imodel* model, const zvec2& position) override;
+    void render(const imodel* model, const zvec2& position, zfloat scale) override;
+    void render(const iwidget* widget, const zvec2& position, zfloat scale) override;
     void render() override;
 
-    void set_scene_size(int width, int height) override;
+    void set_scene_size(const zsize& scene_size) override;
     void set_background_color(const zcolor& color) override;
     void set_aabb_color(const zcolor& color) override;
 

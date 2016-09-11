@@ -22,7 +22,8 @@ zframework::~zframework()
 
 void zframework::init(int width, int height, float angle)
 {
-    m_render->init(width, height, angle);
+    const zsize size{width, height};
+    m_render->init(size, angle);
 }
 
 void zframework::deinit()

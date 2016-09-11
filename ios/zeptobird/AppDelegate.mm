@@ -22,8 +22,8 @@
 
     [rootController initialize];
     [window setRootViewController:rootController];
-    //rootController.view.frame = window.frame;
-    //rootController.view.contentScaleFactor = window.contentScaleFactor;
+    rootController.view.frame = window.frame;
+    rootController.view.contentScaleFactor = window.contentScaleFactor;
     [window makeKeyAndVisible];
 
     [(EAGLView *)rootController.view startAnimation];

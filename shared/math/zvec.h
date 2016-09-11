@@ -2,7 +2,7 @@
 
 #include <ostream>
 
-#include <math/zcommon.h>
+#include <math/ztypes.h>
 
 struct zvec2
 {

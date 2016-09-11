@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include <render/irender.h>
-#include <render/zmodel.h>
-#include <render/zmodel_builder.h>
+#include <model/zmodel.h>
+#include <model/zmodel_builder.h>
 
 #include <phys/zworld.h>
 #include <phys/zcircle_body.h>
@@ -39,7 +39,7 @@ void zscene_hero_object::update(size_t ms)
 
 void zscene_hero_object::render(irender* render) const
 {
-    render->render(m_model.get(), get_position());
+    render->render(m_model.get(), get_position(), 1);
 }
 
 const zvec2& zscene_hero_object::get_position() const

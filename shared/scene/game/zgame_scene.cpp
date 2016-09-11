@@ -5,13 +5,13 @@
 #include <render/irender.h>
 #include <platform/isound.h>
 
-#include "zscene.h"
 #include "zscene_coin_object.h"
 #include "zscene_wall_object.h"
 #include "zscene_hero_object.h"
 #include "zscene_invisible_object.h"
 
-#include "zscene_game_logic.h"
+#include "zgame_scene.h"
+#include "zgame_scene_logic.h"
 
 namespace {
 const zcolor SKY_COLOR  {0.65, 0.65, 0.65};
@@ -38,9 +38,11 @@ const size_t COIN_SCORE = 50;
 const std::string MAIN_THEME_MUSIC = "theme";
 const std::string CATCH_COIN_SOUND = "coin";
 const std::string GAME_OVER_SOUND  = "game-over";
+
+const int GAME_OVER_TIMEOUT = 7000;
 }
 
-zscene::zscene(isound* sound) :
+zgame_scene::zgame_scene(isound* sound) :
     m_sound(sound),
     m_hero(nullptr),
     m_world(new zworld(GRAVITY_SPEED)),
@@ -48,9 +50,10 @@ zscene::zscene(isound* sound) :
     m_gen(m_rd()),
     m_dis(MIN_HOLE_Y, MAX_HOLE_Y),
     m_score(0),
-    m_done(false)
+    m_game_over(false),
+    m_game_over_timer(0)
 {
-    std::cout << "zscene" << std::endl;
+    std::cout << "zgame_scene" << std::endl;
 
     m_objects.reserve(16);
     {
@@ -119,29 +122,36 @@ zscene::zscene(isound* sound) :
     m_sound->play_music(MAIN_THEME_MUSIC);
 }
 
-zscene::~zscene()
+zgame_scene::~zgame_scene()
 {
-    std::cout << "~zscene" << std::endl;
+    std::cout << "~zgame_scene" << std::endl;
 }
 
-void zscene::input()
+void zgame_scene::input()
 {
+    if(m_game_over) {
+        return;
+    }
     zvec2 speed = m_hero->get_speed();
     speed += 1.25 * JUMP_SPEED;
     speed = zmin(speed, JUMP_SPEED);
     m_hero->set_speed(speed);
 }
 
-void zscene::update(size_t ms)
+void zgame_scene::update(size_t ms)
 {
     m_world->update(ms);
 
     update_blocks();
     update_coins();
     update_hero();
+
+    if(m_game_over) {
+        m_game_over_timer += ms;
+    }
 }
 
-void zscene::render(irender* render) const
+void zgame_scene::render(irender* render) const
 {
     render->set_background_color(m_background_color);
     for(size_t i = 0; i < m_objects.size(); i++) {
@@ -149,22 +159,17 @@ void zscene::render(irender* render) const
     }
 }
 
-int zscene::get_width() const
+zsize zgame_scene::get_size() const
 {
-    return SCENE_SIZE;
+    return zsize{SCENE_SIZE, SCENE_SIZE};
 }
 
-int zscene::get_height() const
+bool zgame_scene::is_done() const
 {
-    return SCENE_SIZE;
+    return m_game_over_timer > GAME_OVER_TIMEOUT;
 }
 
-bool zscene::is_done() const
-{
-    return m_done;
-}
-
-void zscene::update_blocks()
+void zgame_scene::update_blocks()
 {
     for(size_t i = 0; i < m_blocks.size(); i++) {
         zvec2 position = m_blocks[i].first->get_position();
@@ -185,7 +190,7 @@ void zscene::update_blocks()
     }
 }
 
-void zscene::update_coins()
+void zgame_scene::update_coins()
 {
     for(size_t i = 0; i < m_coins.size(); i++) {
         zvec2 position = m_coins[i]->get_position();
@@ -198,9 +203,9 @@ void zscene::update_coins()
     }
 }
 
-void zscene::update_hero()
+void zgame_scene::update_hero()
 {
-    if(m_done) {
+    if(m_game_over) {
         return;
     }
 
@@ -229,8 +234,7 @@ void zscene::update_hero()
     if(game_over) {
         m_sound->stop_music();
         m_sound->play_sound(GAME_OVER_SOUND);
-        m_done = true;
+        m_game_over = true;
         m_background_color = BLOOD_COLOR;
     }
 }
-

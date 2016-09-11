@@ -3,17 +3,16 @@
 #include <cassert>
 #include <iostream>
 
+#include <math/zmath.h>
 #include <platform/iresource.h>
 #include <render/imodel.h>
+#include <render/iwidget.h>
 
 #include "zgles2.h"
 #include "zgles2_render.h"
 
 namespace {
 GLuint load_shader_impl(GLenum type, const char *shaderSrc);
-std::vector<GLfloat> ortho_matrix(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far);
-std::vector<GLfloat> rotate_around_z_matrix(float radians);
-std::vector<GLfloat> identity_matrix();
 
 struct model_vertex
 {
@@ -82,8 +81,11 @@ zgles2_render::~zgles2_render()
     deinit();
 }
 
-void zgles2_render::init(int width, int height, float angle)
+void zgles2_render::init(const zsize& view_size, float angle)
 {
+    const int width = view_size.width;
+    const int height = view_size.height;
+
     std::cout << "zgles2_render::init() " << width << ", " << height << std::endl;
 
     m_data->view_width  = width;
@@ -108,12 +110,12 @@ void zgles2_render::deinit()
 
 void zgles2_render::prepare()
 {
-    /// @todo : impl vbo
+    /// @todo : test vbo impl
 }
 
-void zgles2_render::render(const imodel* model, const zvec2& position)
+void zgles2_render::render(const imodel* model, const zvec2& position, zfloat scale)
 {
-    /// @todo : impl vbo
+    /// @todo : test vbo impl
 
     const auto layer = model->get_layer();
     {
@@ -126,7 +128,7 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
     }
     {
         const auto& color = model->get_color();
-        const auto geom = model->get_geometry();
+        const auto geom = model->get_geom();
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec2 result = geom[i] + position;
             m_data->model_buffer.push_back(model_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
@@ -134,15 +136,17 @@ void zgles2_render::render(const imodel* model, const zvec2& position)
     }
 }
 
+void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat scale)
+{
+    /// @todo : test vbo impl
+}
+
 void zgles2_render::render()
 {
-    /// @todo : impl vbo
+    /// @todo : test vbo impl
 
     glClearColor(m_data->background_color.r, m_data->background_color.g, m_data->background_color.b, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // Use the program object
-    glUseProgram(m_data->program);
 
     /// @todo : think how to improve
     assert(m_data->scene_width == m_data->scene_height);
@@ -151,10 +155,13 @@ void zgles2_render::render()
     const GLfloat bottom = -1.0 * m_data->scene_height / 2;
     const GLfloat top    = +1.0 * m_data->scene_height / 2;
 
-    std::vector<GLfloat> orto(ortho_matrix( left, right, bottom, top, +10.0, -10.0 ) );
-    glUniformMatrix4fv(m_data->projection_uniform, 1, GL_FALSE, orto.data());
+    std::vector<GLfloat> orto(zortho_matrix<GLfloat>( left, right, bottom, top, +10.0, -10.0 ) );
+    std::vector<GLfloat> model_view( zrotate_around_z_matrix<GLfloat>(m_data->view_angle * M_PI / 180) );
 
-    std::vector<GLfloat> model_view( rotate_around_z_matrix(m_data->view_angle * M_PI / 180) );
+    // Use the program object
+    glUseProgram(m_data->program);
+
+    glUniformMatrix4fv(m_data->projection_uniform, 1, GL_FALSE, orto.data());
     glUniformMatrix4fv(m_data->model_view_uniform, 1, GL_FALSE, model_view.data());
 
     // draw model
@@ -165,7 +172,7 @@ void zgles2_render::render()
         glVertexAttribPointer(m_data->color_attribute, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->model_buffer[0].color);
         glEnableVertexAttribArray(m_data->color_attribute);
 
-        glDrawArrays(GL_TRIANGLES, 0, m_data->model_buffer.size());
+        glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_data->model_buffer.size()));
     }
 
     // draw aabb
@@ -176,17 +183,17 @@ void zgles2_render::render()
         glVertexAttribPointer(m_data->color_attribute, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->aabb_buffer[0].color);
         glEnableVertexAttribArray(m_data->color_attribute);
 
-        glDrawArrays(GL_LINES, 0, m_data->aabb_buffer.size());
+        glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(m_data->aabb_buffer.size()));
     }
 
     m_data->model_buffer.resize(0);
     m_data->aabb_buffer.resize(0);
 }
 
-void zgles2_render::set_scene_size(int width, int height)
+void zgles2_render::set_scene_size(const zsize& view_size)
 {
-    m_data->scene_width = width;
-    m_data->scene_height = height;
+    m_data->scene_width = view_size.width;
+    m_data->scene_height = view_size.height;
 }
 
 void zgles2_render::set_background_color(const zcolor& color)
@@ -201,8 +208,8 @@ void zgles2_render::set_aabb_color(const zcolor& color)
 
 bool zgles2_render::load_shaders(const iresource* resource)
 {
-    const auto vShaderStr = resource->get_text_resource("v.glsl");
-    const auto fShaderStr = resource->get_text_resource("f.glsl");
+    const auto vShaderStr = resource->get_text_resource("model_vertex.glsl");
+    const auto fShaderStr = resource->get_text_resource("model_fragment.glsl");
 
     GLuint vertexShader;
     GLuint fragmentShader;
@@ -213,6 +220,10 @@ bool zgles2_render::load_shaders(const iresource* resource)
     vertexShader = load_shader_impl( GL_VERTEX_SHADER, (const char*) vShaderStr.data() );
     fragmentShader = load_shader_impl( GL_FRAGMENT_SHADER,  (const char*) fShaderStr.data() );
 
+    if(0 == vertexShader || 0 == fragmentShader) {
+        return false;
+    }
+
     // Create the program object
     programObject = glCreateProgram();
 
@@ -222,9 +233,6 @@ bool zgles2_render::load_shaders(const iresource* resource)
 
     glAttachShader( programObject, vertexShader );
     glAttachShader( programObject, fragmentShader );
-
-    // Bind vPosition to attribute 0
-    glBindAttribLocation( programObject, 0, "vPosition" );
 
     // Link the program
     glLinkProgram( programObject );
@@ -295,82 +303,6 @@ GLuint load_shader_impl( GLenum type, const char *shaderSrc )
         return 0;
     }
     return shader;
-}
-
-std::vector<GLfloat> ortho_matrix(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far)
-{
-    std::vector<GLfloat> matrix(16, 0);
-
-    GLfloat r_l = right - left;
-    GLfloat t_b = top - bottom;
-    GLfloat f_n = far - near;
-    GLfloat tx = - (right + left) / (right - left);
-    GLfloat ty = - (top + bottom) / (top - bottom);
-    GLfloat tz = - (far + near) / (far - near);
-
-    matrix[0] = 2.0f / r_l;
-    matrix[1] = 0.0f;
-    matrix[2] = 0.0f;
-    matrix[3] = tx;
-
-    matrix[4] = 0.0f;
-    matrix[5] = 2.0f / t_b;
-    matrix[6] = 0.0f;
-    matrix[7] = ty;
-
-    matrix[8] = 0.0f;
-    matrix[9] = 0.0f;
-    matrix[10] = 2.0f / f_n;
-    matrix[11] = tz;
-
-    matrix[12] = 0.0f;
-    matrix[13] = 0.0f;
-    matrix[14] = 0.0f;
-    matrix[15] = 1.0f;
-
-    return matrix;
-}
-
-std::vector<GLfloat> rotate_around_z_matrix(float radians)
-{
-    std::vector<GLfloat> matrix(16, 0);
-
-    matrix[0] = std::cos(radians);
-    matrix[1] = std::sin(radians);
-    matrix[2] = 0.0f;
-
-    matrix[4] = -std::sin(radians);
-    matrix[5] = +std::cos(radians);
-    matrix[6] = 0.0f;
-
-    matrix[8] = 0.0f;
-    matrix[9] = 0.0f;
-    matrix[10] = 1.0f;
-
-    matrix[15] = 1.0f;
-
-    return matrix;
-}
-
-std::vector<GLfloat> identity_matrix()
-{
-    std::vector<GLfloat> matrix(16, 0);
-
-    matrix[0] = 1.0f;
-    matrix[1] = 0.0f;
-    matrix[2] = 0.0f;
-
-    matrix[4] = 0.0f;
-    matrix[5] = 1.0f;
-    matrix[6] = 0.0f;
-
-    matrix[8] = 0.0f;
-    matrix[9] = 0.0f;
-    matrix[10] = 1.0f;
-
-    matrix[15] = 1.0f;
-
-    return matrix;
 }
 
 }

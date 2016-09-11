@@ -3,7 +3,7 @@
 class isound;
 class irender;
 
-class zscene;
+class iscene;
 
 #include <memory>
 
@@ -18,10 +18,10 @@ public:
     void render(irender* render);
 
 private:
-    void restart();
+    void next();
 
 private:
     isound* m_sound;
-    std::unique_ptr<zscene> m_scene;
-    size_t m_swap_scene_timer;
+    bool m_scene_counter;
+    std::unique_ptr<iscene> m_scene;
 };
