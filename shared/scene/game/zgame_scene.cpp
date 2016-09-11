@@ -1,9 +1,13 @@
+#include <string>
+#include <sstream>
 #include <cassert>
 #include <iostream>
 
 #include <phys/zworld.h>
 #include <render/irender.h>
 #include <platform/isound.h>
+
+#include <ui/ztext_widget.h>
 
 #include "zscene_coin_object.h"
 #include "zscene_wall_object.h"
@@ -19,9 +23,10 @@ const zcolor BLOOD_COLOR{187.0 / 255,  10.0 / 255,  30.0 / 255};
 
 const int SCENE_SIZE = 100;
 
-const zvec2 GRAVITY_SPEED(0.0, -9.8);
-const zvec2 JUMP_SPEED( 0.0,  9.8);
-const zvec2 WALL_SPEED(-10.0, 0.0);
+const zvec2 GRAVITY_ACCELERATION( 0.0, -9.8);
+
+const zvec2 JUMP_SPEED   ( 0.0,  10.0);
+const zvec2 WALL_SPEED   (-10.0,  0.0);
 
 const float HERO_RADIUS = 6;
 const float COIN_RADIUS = 4;
@@ -40,12 +45,16 @@ const std::string CATCH_COIN_SOUND = "coin";
 const std::string GAME_OVER_SOUND  = "game-over";
 
 const int GAME_OVER_TIMEOUT = 7000;
+
+const size_t SCORE_WIDTH = 5;
+
+std::string score_2_text(size_t score, size_t width);
 }
 
 zgame_scene::zgame_scene(isound* sound) :
     m_sound(sound),
     m_hero(nullptr),
-    m_world(new zworld(GRAVITY_SPEED)),
+    m_world(new zworld(GRAVITY_ACCELERATION)),
     m_background_color(SKY_COLOR),
     m_gen(m_rd()),
     m_dis(MIN_HOLE_Y, MAX_HOLE_Y),
@@ -54,6 +63,15 @@ zgame_scene::zgame_scene(isound* sound) :
     m_game_over_timer(0)
 {
     std::cout << "zgame_scene" << std::endl;
+
+    m_widgets.reserve(16);
+
+    {
+        m_score_widget = new ztext_widget(score_2_text(m_score, SCORE_WIDTH), 5, 7);
+        std::unique_ptr<zwidget> play_widget( m_score_widget );
+        play_widget->set_position(zvec2{35, 45});
+        m_widgets.push_back(std::move(play_widget));
+    }
 
     m_objects.reserve(16);
     {
@@ -65,7 +83,6 @@ zgame_scene::zgame_scene(isound* sound) :
         auto hero_ptr = new zscene_hero_object( m_world.get(), HERO_RADIUS );
         std::unique_ptr<iscene_object> hero( hero_ptr );
         hero->set_position(zvec2( -SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3, 0));
-        hero->set_speed(GRAVITY_SPEED);
         m_objects.push_back(std::move(hero));
         m_hero = hero_ptr;
     }
@@ -132,14 +149,15 @@ void zgame_scene::input()
     if(m_game_over) {
         return;
     }
-    zvec2 speed = m_hero->get_speed();
-    speed += 1.25 * JUMP_SPEED;
-    speed = zmin(speed, JUMP_SPEED);
-    m_hero->set_speed(speed);
+    m_hero->set_speed(JUMP_SPEED);
 }
 
 void zgame_scene::update(size_t ms)
 {
+    for(size_t i = 0; i < m_widgets.size(); i++) {
+        m_widgets[i]->update(ms);
+    }
+
     m_world->update(ms);
 
     update_blocks();
@@ -154,6 +172,12 @@ void zgame_scene::update(size_t ms)
 void zgame_scene::render(irender* render) const
 {
     render->set_background_color(m_background_color);
+
+    for(size_t i = 0; i < m_widgets.size(); i++) {
+        const auto& widget = m_widgets[i];
+        render->render(widget.get(), widget->get_position(), widget->get_scale());
+    }
+
     for(size_t i = 0; i < m_objects.size(); i++) {
         m_objects[i]->render(render);
     }
@@ -219,6 +243,7 @@ void zgame_scene::update_hero()
         else if(zbody_def::btype::circle == type) {
             collided->set_active(false);
             m_score += COIN_SCORE;
+            m_score_widget->set_text(score_2_text(m_score, SCORE_WIDTH));
             m_sound->play_sound(CATCH_COIN_SOUND);
             std::cout << "SCORE: " << m_score << std::endl;
         }
@@ -237,4 +262,19 @@ void zgame_scene::update_hero()
         m_game_over = true;
         m_background_color = BLOOD_COLOR;
     }
+}
+
+namespace {
+
+std::string score_2_text(size_t score, size_t width)
+{
+    std::stringstream sstream;
+    std::string score_str = std::to_string(score);
+    for(size_t i = score_str.size(); i < width; i++) {
+        sstream << "0";
+    }
+    sstream << score_str;
+    return sstream.str();
+}
+
 }

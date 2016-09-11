@@ -2,22 +2,30 @@
 #include <vector>
 #include <cassert>
 #include <iostream>
+#include <algorithm>
 
 #include <math/zmath.h>
-#include <platform/iresource.h>
 #include <render/imodel.h>
 #include <render/iwidget.h>
+#include <platform/iresource.h>
 
 #include "zgles2.h"
 #include "zgles2_render.h"
+#include "zgles2_program.h"
+#include "zgles2_texture.h"
 
 namespace {
-GLuint load_shader_impl(GLenum type, const char *shaderSrc);
 
 struct model_vertex
 {
     GLfloat position[3];
     GLfloat color   [3];
+};
+
+struct text_vertex
+{
+    GLfloat position[3];
+    GLfloat texture[2];
 };
 
 }
@@ -33,17 +41,18 @@ struct zgles2_render::data
     int scene_width;
     int scene_height;
 
-    std::vector<model_vertex> model_buffer;
+    std::vector<model_vertex> geom_buffer;
     std::vector<model_vertex> aabb_buffer;
+
+    std::vector<text_vertex> text_buffer;
 
     zcolor background_color;
     zcolor aabb_color;
 
-    GLuint program;
-    int    position_attribute;
-    int    color_attribute;
-    int    model_view_uniform;
-    int    projection_uniform;
+    zgles2_program model_program;
+    zgles2_program widget_program;
+
+    zgles2_texture alphabet_texture;
 
     bool flag;
 };
@@ -57,15 +66,12 @@ zgles2_render::data::data()
     scene_width = 1;
     scene_height = 1;
 
-    model_buffer.reserve(1024);
+    geom_buffer.reserve(1024);
     aabb_buffer.reserve(1024);
+    text_buffer.reserve(1024);
 
     background_color = {1.0f, 1.0f, 1.0f};
     aabb_color = {1.0f, 1.0f, 1.0f};
-
-    program = 0;
-    model_view_uniform = 0;
-    projection_uniform = 0;
 
     flag = false;
 }
@@ -96,16 +102,19 @@ void zgles2_render::init(const zsize& view_size, float angle)
     glViewport(0, 0, width, height);
 
     load_shaders(get_resource());
+    load_textures(get_resource());
 }
 
 void zgles2_render::deinit()
 {
     std::cout << "zgles2_render::deinit()" << std::endl;
 
-    if (m_data->program) {
-        glDeleteProgram(m_data->program);
-        m_data->program = 0;
-    }
+    // remove text
+    m_data->alphabet_texture.unload();
+
+    // remove programs
+    m_data->model_program.unload();
+    m_data->widget_program.unload();
 }
 
 void zgles2_render::prepare()
@@ -131,7 +140,7 @@ void zgles2_render::render(const imodel* model, const zvec2& position, zfloat sc
         const auto geom = model->get_geom();
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec2 result = geom[i] + position;
-            m_data->model_buffer.push_back(model_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
+            m_data->geom_buffer.push_back(model_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
         }
     }
 }
@@ -139,6 +148,35 @@ void zgles2_render::render(const imodel* model, const zvec2& position, zfloat sc
 void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat scale)
 {
     /// @todo : test vbo impl
+
+    const auto layer = widget->get_layer();
+    // geom AABB
+    {
+        const auto& aabb_color = m_data->aabb_color;
+        const auto aabb = widget->get_aabb();
+        for(size_t i = 0 ; i < aabb.size(); i++) {
+            const zvec2 result = aabb[i] + position;
+            m_data->aabb_buffer.push_back(model_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
+        }
+    }
+    // geom
+    {
+        const auto& color = widget->get_color();
+        const auto geom = widget->get_geom();
+        for(size_t i = 0; i < geom.size(); i++) {
+            const zvec2 result = geom[i] + position;
+            m_data->geom_buffer.push_back(model_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
+        }
+    }
+    // texture
+    {
+        const auto geom = widget->get_textured_geom();
+        const auto coord = widget->get_textured_coord();
+        for(size_t i = 0 ; i < geom.size(); i++) {
+            const zvec2 result = geom[i] + position;
+            m_data->text_buffer.push_back(text_vertex({result.x, result.y, layer + 0.01f, coord[i].x, coord[i].y}));
+        }
+    }
 }
 
 void zgles2_render::render()
@@ -158,36 +196,61 @@ void zgles2_render::render()
     std::vector<GLfloat> orto(zortho_matrix<GLfloat>( left, right, bottom, top, +10.0, -10.0 ) );
     std::vector<GLfloat> model_view( zrotate_around_z_matrix<GLfloat>(m_data->view_angle * M_PI / 180) );
 
-    // Use the program object
-    glUseProgram(m_data->program);
-
-    glUniformMatrix4fv(m_data->projection_uniform, 1, GL_FALSE, orto.data());
-    glUniformMatrix4fv(m_data->model_view_uniform, 1, GL_FALSE, model_view.data());
-
-    // draw model
+    // render objects
     {
-        glVertexAttribPointer(m_data->position_attribute, 3, GL_FLOAT, GL_FALSE, sizeof(model_vertex), &m_data->model_buffer[0].position);
-        glEnableVertexAttribArray(m_data->position_attribute);
+        glUseProgram(m_data->model_program.get_id());
 
-        glVertexAttribPointer(m_data->color_attribute, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->model_buffer[0].color);
-        glEnableVertexAttribArray(m_data->color_attribute);
+        glUniformMatrix4fv(m_data->model_program.get_uniform_location("vProjection"), 1, GL_FALSE, orto.data());
+        glUniformMatrix4fv(m_data->model_program.get_uniform_location("vModelView"), 1, GL_FALSE, model_view.data());
 
-        glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_data->model_buffer.size()));
+        const int vPositionAttr = m_data->model_program.get_attribute_location("vPosition");
+        const int vColorAttr = m_data->model_program.get_attribute_location("vColor");
+
+        glEnableVertexAttribArray(vPositionAttr);
+        glEnableVertexAttribArray(vColorAttr);
+
+        // draw model
+        {
+            glVertexAttribPointer(vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(model_vertex), &m_data->geom_buffer[0].position);
+            glVertexAttribPointer(vColorAttr, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->geom_buffer[0].color);
+            glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_data->geom_buffer.size()));
+        }
+
+        // draw aabb
+        {
+            glVertexAttribPointer(vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(model_vertex), &m_data->aabb_buffer[0].position);
+            glVertexAttribPointer(vColorAttr, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->aabb_buffer[0].color);
+            glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(m_data->aabb_buffer.size()));
+        }
+
+        m_data->geom_buffer.resize(0);
+        m_data->aabb_buffer.resize(0);
     }
 
-    // draw aabb
+    // render ui text
     {
-        glVertexAttribPointer(m_data->position_attribute, 3, GL_FLOAT, GL_FALSE, sizeof(model_vertex), &m_data->aabb_buffer[0].position);
-        glEnableVertexAttribArray(m_data->position_attribute);
+        glUseProgram(m_data->widget_program.get_id());
 
-        glVertexAttribPointer(m_data->color_attribute, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->aabb_buffer[0].color);
-        glEnableVertexAttribArray(m_data->color_attribute);
+        glUniformMatrix4fv(m_data->widget_program.get_uniform_location("vProjection"), 1, GL_FALSE, orto.data());
+        glUniformMatrix4fv(m_data->widget_program.get_uniform_location("vModelView"), 1, GL_FALSE, model_view.data());
 
-        glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(m_data->aabb_buffer.size()));
+        const int vPositionAttr = m_data->widget_program.get_attribute_location("vPosition");
+        const int vTexCoordAttr = m_data->widget_program.get_attribute_location("vTexCoord");
+
+        glEnableVertexAttribArray(vPositionAttr);
+        glEnableVertexAttribArray(vTexCoordAttr);
+
+        glActiveTexture( GL_TEXTURE0 );
+        glBindTexture( GL_TEXTURE_2D, m_data->alphabet_texture.get_id() );
+
+        glUniform1i( m_data->widget_program.get_uniform_location("fTexture"), 0 );
+
+        glVertexAttribPointer( vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(text_vertex), &m_data->text_buffer[0].position);
+        glVertexAttribPointer( vTexCoordAttr, 2, GL_FLOAT, GL_TRUE, sizeof(text_vertex), &m_data->text_buffer[0].texture);
+        glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_data->text_buffer.size()));
+
+        m_data->text_buffer.resize(0);
     }
-
-    m_data->model_buffer.resize(0);
-    m_data->aabb_buffer.resize(0);
 }
 
 void zgles2_render::set_scene_size(const zsize& view_size)
@@ -208,101 +271,70 @@ void zgles2_render::set_aabb_color(const zcolor& color)
 
 bool zgles2_render::load_shaders(const iresource* resource)
 {
-    const auto vShaderStr = resource->get_text_resource("model_vertex.glsl");
-    const auto fShaderStr = resource->get_text_resource("model_fragment.glsl");
+    bool load = m_data->model_program.load(resource, "model_vertex.glsl", "model_fragment.glsl",
+                                           std::vector<std::string>{ "vPosition",  "vColor" },
+                                           std::vector<std::string>{ "vModelView", "vProjection" });
 
-    GLuint vertexShader;
-    GLuint fragmentShader;
-    GLuint programObject;
-    GLint linked;
+    assert(load);
 
-    // Load the vertex/fragment shaders
-    vertexShader = load_shader_impl( GL_VERTEX_SHADER, (const char*) vShaderStr.data() );
-    fragmentShader = load_shader_impl( GL_FRAGMENT_SHADER,  (const char*) fShaderStr.data() );
+    load *= m_data->widget_program.load(resource, "widget_vertex.glsl", "widget_fragment.glsl",
+                                        std::vector<std::string>{ "vPosition",  "vTexCoord" },
+                                        std::vector<std::string>{ "vModelView", "vProjection", "fTexture" });
 
-    if(0 == vertexShader || 0 == fragmentShader) {
-        return false;
-    }
-
-    // Create the program object
-    programObject = glCreateProgram();
-
-    if ( programObject == 0 ) {
-        return 0;
-    }
-
-    glAttachShader( programObject, vertexShader );
-    glAttachShader( programObject, fragmentShader );
-
-    // Link the program
-    glLinkProgram( programObject );
-
-    // Check the link status
-    glGetProgramiv( programObject, GL_LINK_STATUS, &linked );
-
-    if( !linked ) {
-        GLint infoLen = 0;
-        glGetProgramiv( programObject, GL_INFO_LOG_LENGTH, &infoLen );
-
-        if( infoLen > 1 ) {
-            char* infoLog = (char*) malloc (sizeof(char) * infoLen );
-            glGetProgramInfoLog( programObject, infoLen, NULL, infoLog );
-            std::cerr << "Error linking program:\n" << infoLog << std::endl;
-            free( infoLog );
-        }
-        glDeleteProgram( programObject );
-        return false;
-    }
-
-    // Store the program object
-    m_data->program = programObject;
-
-    m_data->position_attribute = glGetAttribLocation(programObject, "vPosition");
-    m_data->color_attribute = glGetAttribLocation(programObject, "vColor");
-
-    m_data->model_view_uniform = glGetUniformLocation( programObject, "vModelView" );
-    m_data->projection_uniform = glGetUniformLocation( programObject, "vProjection" );
+    assert(load);
 
     return true;
 }
 
-namespace {
-
-GLuint load_shader_impl( GLenum type, const char *shaderSrc )
+bool zgles2_render::load_textures(const iresource* resource)
 {
-    GLuint shader;
-    GLint compiled;
+    const size_t alphabet_width = 128;
+    const size_t alphabet_height = 128;
+    const size_t alphabet_length(alphabet_width * alphabet_height);
 
-    // Create the shader object
-    shader = glCreateShader ( type );
+    std::string alphabet = resource->get_text_resource("alphabet.txt");
 
-    if ( shader == 0 ) {
-        return 0;
-    }
+    auto it = std::remove(alphabet.begin(), alphabet.end(), '\n');
+    alphabet.erase(it, alphabet.end());
 
-    // Load the shader source
-    glShaderSource ( shader, 1, &shaderSrc, NULL );
+    std::cout << "loaded alphabet size: " << alphabet.size() << std::endl;
 
-    // Compile the shader
-    glCompileShader ( shader );
+    assert(alphabet_length == alphabet.size());
 
-    // Check the compile status
-    glGetShaderiv ( shader, GL_COMPILE_STATUS, &compiled );
+    GLubyte pixels[alphabet_length * 3];
+    for(int i = 0, p = 0; i < alphabet_length; i++, p += 3) {
+        switch(alphabet[i]) {
+            case '+':
+            case '*':
+            case '-':
+            case '|':
+            case '/':
+            case '\\':
+                pixels[p + 0] = 255;
+                pixels[p + 1] = 255;
+                pixels[p + 2] = 255;
+                break;
 
-    if ( !compiled ) {
-        GLint infoLen = 0;
-        glGetShaderiv ( shader, GL_INFO_LOG_LENGTH, &infoLen );
-
-        if ( infoLen > 1 ) {
-            char* infoLog = (char*) malloc (sizeof(char) * infoLen );
-            glGetShaderInfoLog ( shader, infoLen, NULL, infoLog );
-            std::cerr << "Error compiling shader:\n" << infoLog << std::endl;
-            free ( infoLog );
+            default:
+                pixels[p + 0] = 0;
+                pixels[p + 1] = 0;
+                pixels[p + 2] = 0;
+                break;
         }
-        glDeleteShader ( shader );
-        return 0;
     }
-    return shader;
-}
+    bool load = m_data->alphabet_texture.load(alphabet_width, alphabet_height, &pixels);
 
+    /*
+    // 2x2 Image, 3 bytes per pixel (R, G, B)
+    GLubyte pixels[4 * 3] =
+    {
+        255,   0,   0, // Red
+        0, 255,   0, // Green
+        0,   0, 255, // Blue
+        255, 255,   0  // Yellow2
+    };
+    bool load = m_data->alphabet_texture.load(2, 2, &pixels);
+    */
+
+    return load;
 }

@@ -69,22 +69,27 @@ const std::string& zwidget::get_texture_name() const
     return m_texture_name;
 }
 
+void zwidget::set_color(const zcolor& color)
+{
+    m_color = color;
+}
+
 std::vector<zvec2>& zwidget::get_geom_ref()
 {
     return m_geom;
 }
 
-std::vector<zvec2>& zwidget::get_aabb()
+std::vector<zvec2>& zwidget::get_aabb_ref()
 {
     return m_aabb;
 }
 
-std::vector<zvec2>& zwidget::get_textured_geom()
+std::vector<zvec2>& zwidget::get_textured_geom_ref()
 {
     return m_textured_geom;
 }
 
-std::vector<zvec2>& zwidget::get_textured_coord()
+std::vector<zvec2>& zwidget::get_textured_coord_ref()
 {
     return m_textured_coord;
 }

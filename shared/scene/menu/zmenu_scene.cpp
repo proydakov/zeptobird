@@ -3,6 +3,7 @@
 #include <render/irender.h>
 #include <platform/isound.h>
 #include <ui/ztext_widget.h>
+#include <ui/zcolor_widget.h>
 
 #include "zmenu_scene.h"
 
@@ -20,12 +21,27 @@ zmenu_scene::zmenu_scene(isound* sound) :
     m_done(false)
 {
     std::cout << "zmenu_scene" << std::endl;
-    m_widgets.reserve(0);
 
+    m_widgets.reserve(16);
     {
-        auto text_widget_ptr = new ztext_widget("Play", 5);
-        std::unique_ptr<zwidget> play_widget(text_widget_ptr);
+        std::unique_ptr<zwidget> background_widget(new zcolor_widget(zcolor{ 0x00 / 255.0, 0x64 / 255.0, 0x00 / 255.0 }, 60, 30, 5));
+        background_widget->set_position(zvec2{0, 0});
+        m_widgets.push_back(std::move(background_widget));
+    }
+    {
+        std::unique_ptr<zwidget> background_widget(new zcolor_widget(zcolor{ 0x00 / 255.0, 0x00 / 255.0, 0x00 / 255.0 }, 50, 20, 6));
+        background_widget->set_position(zvec2{0, 0});
+        m_widgets.push_back(std::move(background_widget));
+    }
+    {
+        std::unique_ptr<zwidget> play_widget(new ztext_widget("PLAY", 10, 7));
+        play_widget->set_position(zvec2{0, 0});
         m_widgets.push_back(std::move(play_widget));
+    }
+    {
+        std::unique_ptr<zwidget> author_widget(new ztext_widget("(c)E.PROYDAKOV@GMAIL.COM", 5, 5));
+        author_widget->set_position(zvec2{0, -45});
+        m_widgets.push_back(std::move(author_widget));
     }
 
     m_sound->play_music(MENU_THEME_MUSIC);

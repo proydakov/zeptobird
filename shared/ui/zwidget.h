@@ -29,11 +29,13 @@ public:
     const std::string& get_texture_name() const override;
 
 protected:
-    std::vector<zvec2>& get_geom_ref();
-    std::vector<zvec2>& get_aabb();
+    void set_color(const zcolor& color);
 
-    std::vector<zvec2>& get_textured_geom();
-    std::vector<zvec2>& get_textured_coord();
+    std::vector<zvec2>& get_geom_ref();
+    std::vector<zvec2>& get_aabb_ref();
+
+    std::vector<zvec2>& get_textured_geom_ref();
+    std::vector<zvec2>& get_textured_coord_ref();
 
 private:
     std::vector<zvec2> m_geom;
@@ -42,8 +44,8 @@ private:
     std::vector<zvec2> m_textured_geom;
     std::vector<zvec2> m_textured_coord;
 
-    const int    m_layer;
-    const zcolor m_color;
+    const int m_layer;
+    zcolor    m_color;
 
     zvec2  m_position;
     zfloat m_scale;

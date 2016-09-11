@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cmath>
 #include <vector>
 
 template<class T>

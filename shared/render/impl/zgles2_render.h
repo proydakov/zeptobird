@@ -3,7 +3,8 @@
 #include <memory>
 #include <render/irender.h>
 
-class zgles2_render : public irender
+// Export impl class
+class zgles2_render final : public irender
 {
 public:
     zgles2_render(const iresource* resource);
@@ -23,6 +24,7 @@ public:
 
 private:
     bool load_shaders(const iresource* resource);
+    bool load_textures(const iresource* resource);
 
 private:
     struct data;

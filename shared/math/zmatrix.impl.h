@@ -1,3 +1,5 @@
+#include <cmath>
+
 template<class T>
 std::vector<T> zortho_matrix(T left, T right, T bottom, T top, T near, T far)
 {

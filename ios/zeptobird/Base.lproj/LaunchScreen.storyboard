@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,43 +15,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Loading" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ax4-Rd-wPK">
-                                <rect key="frame" x="176" y="247" width="249" height="106"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="64"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="276" y="247" width="249" height="106"/>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="151" y="18" width="498" height="364"/>
-                                </variation>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" red="0.71989182692307696" green="0.71989182692307696" blue="0.71989182692307696" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ax4-Rd-wPK" secondAttribute="trailing" constant="255" id="JwW-Yn-vZu"/>
-                            <constraint firstItem="Ax4-Rd-wPK" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="8" symbolic="YES" id="XV2-Fr-Tb1"/>
-                            <constraint firstItem="Ax4-Rd-wPK" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="256" id="Yxf-32-3sO"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Ax4-Rd-wPK" secondAttribute="bottom" constant="8" symbolic="YES" id="xeC-uJ-mDO"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="JwW-Yn-vZu"/>
-                                <exclude reference="XV2-Fr-Tb1"/>
-                                <exclude reference="Yxf-32-3sO"/>
-                                <exclude reference="xeC-uJ-mDO"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=regular">
-                            <mask key="constraints">
-                                <include reference="JwW-Yn-vZu"/>
-                                <include reference="XV2-Fr-Tb1"/>
-                                <include reference="Yxf-32-3sO"/>
-                                <include reference="xeC-uJ-mDO"/>
-                            </mask>
-                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

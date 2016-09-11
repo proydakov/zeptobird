@@ -16,6 +16,9 @@ class zscene_hero_object;
 class zscene_wall_object;
 class zscene_coin_object;
 
+class zwidget;
+class ztext_widget;
+
 class zgame_scene final : public iscene
 {
 public:
@@ -38,8 +41,12 @@ private:
 private:
     isound* m_sound;
 
+    std::vector<std::unique_ptr<zwidget>> m_widgets;
+    ztext_widget* m_score_widget;
+
     zscene_hero_object*     m_hero;
     std::unique_ptr<zworld> m_world;
+
     std::vector<std::unique_ptr<iscene_object>> m_objects;
     std::vector<std::pair<zscene_wall_object*, zscene_wall_object*>> m_blocks;
     std::vector<zscene_coin_object*> m_coins;

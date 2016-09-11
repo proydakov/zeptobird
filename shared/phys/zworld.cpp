@@ -72,7 +72,6 @@ void zworld::update(size_t ms)
         zvec2 speed = m_hero->get_speed();
         position += delta * speed;
         speed += delta * m_gravity;
-        speed = zmax(speed, m_gravity);
         m_hero->set_position(position);
         m_hero->set_speed(speed);
         //std::cout << "speed: " << speed << std::endl;
