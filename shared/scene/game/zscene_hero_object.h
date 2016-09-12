@@ -10,7 +10,7 @@ class zworld;
 class zscene_hero_object : public iscene_object
 {
 public:
-    zscene_hero_object(zworld* world, float radius);
+    zscene_hero_object(zworld* world, float radius, int layer);
     ~zscene_hero_object() override;
 
     void update(size_t ms) override;

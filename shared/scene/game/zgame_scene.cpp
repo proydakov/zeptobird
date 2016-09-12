@@ -75,12 +75,12 @@ zgame_scene::zgame_scene(isound* sound) :
 
     m_objects.reserve(16);
     {
-        std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( SCENE_SIZE - 2, SCENE_SIZE - 2 ) );
+        std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( SCENE_SIZE - 2, SCENE_SIZE - 2, 0 ) );
         aabb->set_position(zvec2(0, 0));
         m_objects.push_back(std::move(aabb));
     }
     {
-        auto hero_ptr = new zscene_hero_object( m_world.get(), HERO_RADIUS );
+        auto hero_ptr = new zscene_hero_object( m_world.get(), HERO_RADIUS, 1 );
         std::unique_ptr<iscene_object> hero( hero_ptr );
         hero->set_position(zvec2( -SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3, 0));
         m_objects.push_back(std::move(hero));
@@ -96,7 +96,7 @@ zgame_scene::zgame_scene(isound* sound) :
 
             std::pair<zscene_wall_object*, zscene_wall_object*> pair;
             {
-                zscene_wall_object* wall_ptr = new zscene_wall_object( m_world.get(), WALL_WIDTH, params.height1 );
+                zscene_wall_object* wall_ptr = new zscene_wall_object( m_world.get(), WALL_WIDTH, params.height1, 0 );
                 pair.first = wall_ptr;
 
                 std::unique_ptr<iscene_object> wall( wall_ptr );
@@ -105,7 +105,7 @@ zgame_scene::zgame_scene(isound* sound) :
                 m_objects.push_back(std::move(wall));
             }
             {
-                zscene_wall_object* wall_ptr = new zscene_wall_object( m_world.get(), WALL_WIDTH, params.height2 );
+                zscene_wall_object* wall_ptr = new zscene_wall_object( m_world.get(), WALL_WIDTH, params.height2, 0 );
                 pair.second = wall_ptr;
 
                 std::unique_ptr<iscene_object> wall( wall_ptr );
@@ -125,7 +125,7 @@ zgame_scene::zgame_scene(isound* sound) :
         for(size_t i = 0; i < coin_count; i++) {
             const float coin_y = m_dis(m_gen) - SCENE_SIZE / 2;
 
-            auto coin_ptr = new zscene_coin_object( m_world.get(), COIN_RADIUS );
+            auto coin_ptr = new zscene_coin_object( m_world.get(), COIN_RADIUS, 1 );
             std::unique_ptr<iscene_object> coin( coin_ptr );
             coin->set_position(zvec2(coin_x,coin_y));
             coin->set_speed(WALL_SPEED);

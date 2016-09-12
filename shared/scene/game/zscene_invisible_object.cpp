@@ -9,7 +9,7 @@
 
 #include "zscene_invisible_object.h"
 
-zscene_invisible_object::zscene_invisible_object(float width, float height)
+zscene_invisible_object::zscene_invisible_object(float width, float height, int layer)
 {
     std::cout << "zscene_invisible_object" << std::endl;
 
@@ -22,7 +22,6 @@ zscene_invisible_object::zscene_invisible_object(float width, float height)
     zmodel_builder::generate_rect_aabb(width, height, aabb);
 
     const zcolor color{0, 1, 0};
-    const int layer{0};
 
     m_model.reset(new zmodel(geometry, aabb, color, layer));
 }

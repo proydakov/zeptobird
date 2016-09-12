@@ -9,7 +9,7 @@
 
 #include "zscene_wall_object.h"
 
-zscene_wall_object::zscene_wall_object(zworld* world, float width, float height)
+zscene_wall_object::zscene_wall_object(zworld* world, float width, float height, int layer)
 {
     std::cout << "zscene_wall_object" << std::endl;
 
@@ -23,7 +23,6 @@ zscene_wall_object::zscene_wall_object(zworld* world, float width, float height)
     zmodel_builder::generate_rect_aabb(width, height, aabb);
 
     const zcolor color{0.0 / 255, 0.0 / 255, 0.0 / 255};
-    const int layer{0};
 
     m_model.reset(new zmodel(geometry, aabb, color, layer));
 }

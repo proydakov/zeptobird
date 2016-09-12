@@ -9,7 +9,7 @@
 
 #include "zscene_hero_object.h"
 
-zscene_hero_object::zscene_hero_object(zworld* world, float radius)
+zscene_hero_object::zscene_hero_object(zworld* world, float radius, int layer)
 {
     std::cout << "zscene_hero_object" << std::endl;
 
@@ -23,7 +23,6 @@ zscene_hero_object::zscene_hero_object(zworld* world, float radius)
     zmodel_builder::generate_circle_aabb(radius, aabb);
 
     const zcolor color{0.0 / 255, 168.0 / 255, 107.0 / 255};
-    const int layer{1};
 
     m_model.reset(new zmodel(geometry, aabb, color, layer));
 }

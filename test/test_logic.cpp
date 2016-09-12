@@ -15,7 +15,7 @@ int main()
     const int hole_y = 50;
     const auto params1 = zscene_game_logic::create_hole_params(hole_y, HOLE_HEIGHT, SCENE_SIZE);
 
-    zscene_wall_object wall(&world, WALL_WIDTH, params1.height1);
+    zscene_wall_object wall(&world, WALL_WIDTH, params1.height1, 0);
     wall.set_position(zvec2(0, params1.center1));
 
     return 0;

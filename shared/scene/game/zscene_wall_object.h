@@ -10,7 +10,7 @@ class zrect_body;
 class zscene_wall_object : public iscene_object
 {
 public:
-    zscene_wall_object(zworld* world, float width, float height);
+    zscene_wall_object(zworld* world, float width, float height, int layer);
     ~zscene_wall_object() override;
 
     void update(size_t ms) override;

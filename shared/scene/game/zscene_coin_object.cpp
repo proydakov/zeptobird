@@ -9,7 +9,7 @@
 
 #include "zscene_coin_object.h"
 
-zscene_coin_object::zscene_coin_object(zworld* world, float radius)
+zscene_coin_object::zscene_coin_object(zworld* world, float radius, int layer)
 {
     std::cout << "zscene_coin_object" << std::endl;
 
@@ -17,13 +17,12 @@ zscene_coin_object::zscene_coin_object(zworld* world, float radius)
     world->add_body(m_body.get());
 
     std::vector<zvec2> geometry;
-    zmodel_builder::generate_circle_model(radius, 10, geometry);
+    zmodel_builder::generate_circle_model(radius, 30, geometry);
 
     std::vector<zvec2> aabb;
     zmodel_builder::generate_circle_aabb(radius, aabb);
 
     const zcolor color{255.0 / 255, 255.0 / 255, 0.0 / 255};
-    const int layer{1};
 
     m_model.reset(new zmodel(geometry, aabb, color, layer));
 }

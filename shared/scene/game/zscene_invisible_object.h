@@ -8,7 +8,7 @@ class imodel;
 class zscene_invisible_object : public iscene_object
 {
 public:
-    zscene_invisible_object(float width, float height);
+    zscene_invisible_object(float width, float height, int layer);
     ~zscene_invisible_object() override;
 
     void update(size_t ms) override;
