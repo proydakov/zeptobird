@@ -3,7 +3,7 @@
 #include <memory>
 #include <scene/iscene_object.h>
 
-class imodel;
+class zmodel;
 
 class zscene_invisible_object : public iscene_object
 {
@@ -21,7 +21,7 @@ public:
     void set_speed(const zvec2& speed) override;
 
 private:
-    std::unique_ptr<imodel> m_model;
+    std::unique_ptr<zmodel> m_model;
     zvec2 m_position;
     zvec2 m_speed;
 };

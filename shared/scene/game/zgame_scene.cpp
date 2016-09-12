@@ -175,7 +175,7 @@ void zgame_scene::render(irender* render) const
 
     for(size_t i = 0; i < m_widgets.size(); i++) {
         const auto& widget = m_widgets[i];
-        render->render(widget.get(), widget->get_position(), widget->get_scale());
+        render->render(widget.get(), widget->get_position(), widget->get_rotation(), widget->get_scale());
     }
 
     for(size_t i = 0; i < m_objects.size(); i++) {

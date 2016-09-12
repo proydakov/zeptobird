@@ -5,6 +5,7 @@ const std::string zwidget::m_texture_name = "alphabet";
 zwidget::zwidget(int layer) :
     m_layer(layer),
     m_color{0, 0, 0},
+    m_rotation(0),
     m_scale(1)
 {
     m_position.set_zero();
@@ -22,6 +23,16 @@ const zvec2& zwidget::get_position() const
 void zwidget::set_position(const zvec2& position)
 {
     m_position = position;
+}
+
+zfloat zwidget::get_rotation() const
+{
+    return m_rotation;
+}
+
+void zwidget::set_rotation(zfloat rotation)
+{
+    m_rotation = rotation;
 }
 
 zfloat zwidget::get_scale() const

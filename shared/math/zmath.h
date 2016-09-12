@@ -1,6 +1,6 @@
 #pragma once
 
-#include <math/ztypes.h>
+#include <common/ztypes.h>
 
 #include <math/zvec.h>
 #include <math/zmatrix.h>

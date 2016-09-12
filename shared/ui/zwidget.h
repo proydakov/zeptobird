@@ -14,6 +14,9 @@ public:
     const zvec2& get_position() const;
     void set_position(const zvec2& position);
 
+    zfloat get_rotation() const;
+    void set_rotation(zfloat rotation);
+
     zfloat get_scale() const;
     void set_scale(zfloat scale);
 
@@ -48,6 +51,7 @@ private:
     zcolor    m_color;
 
     zvec2  m_position;
+    zfloat m_rotation;
     zfloat m_scale;
 
     static const std::string m_texture_name;

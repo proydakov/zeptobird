@@ -19,9 +19,18 @@ public:
     std::vector<zvec2>& get_geom_ref();
     std::vector<zvec2>& get_aabb_ref();
 
+    zfloat get_rotation() const;
+    void set_rotation(zfloat rotation);
+
+    zfloat get_scale() const;
+    void set_scale(zfloat scale);
+
 private:
     std::vector<zvec2> m_geom;
     std::vector<zvec2> m_aabb;
     const zcolor m_color;
     const int    m_layer;
+
+    zfloat m_rotation;
+    zfloat m_scale;
 };

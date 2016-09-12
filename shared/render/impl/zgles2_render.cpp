@@ -6,7 +6,7 @@
 
 #include <math/zmath.h>
 
-#include <render/types.h>
+#include <render/ztypes.h>
 #include <render/imodel.h>
 #include <render/iwidget.h>
 
@@ -109,7 +109,7 @@ void zgles2_render::prepare()
     /// @todo : test vbo impl
 }
 
-void zgles2_render::render(const imodel* model, const zvec2& position, zfloat scale)
+void zgles2_render::render(const imodel* model, const zvec2& position, zfloat rotation, zfloat scale)
 {
     /// @todo : test vbo impl
 
@@ -132,7 +132,7 @@ void zgles2_render::render(const imodel* model, const zvec2& position, zfloat sc
     }
 }
 
-void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat scale)
+void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat rotation, zfloat scale)
 {
     /// @todo : test vbo impl
 

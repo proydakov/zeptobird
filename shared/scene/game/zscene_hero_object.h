@@ -4,7 +4,7 @@
 #include <scene/iscene_object.h>
 
 class ibody;
-class imodel;
+class zmodel;
 class zworld;
 
 class zscene_hero_object : public iscene_object
@@ -26,5 +26,5 @@ public:
 
 private:
     std::unique_ptr<ibody>  m_body;
-    std::unique_ptr<imodel> m_model;
+    std::unique_ptr<zmodel> m_model;
 };

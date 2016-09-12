@@ -39,7 +39,7 @@ void zscene_coin_object::update(size_t ms)
 void zscene_coin_object::render(irender* render) const
 {
     if(m_body->get_active()) {
-        render->render(m_model.get(), get_position(), 1);
+        render->render(m_model.get(), get_position(), m_model->get_rotation(), m_model->get_scale());
     }
 }
 

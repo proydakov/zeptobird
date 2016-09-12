@@ -6,7 +6,9 @@ zmodel::zmodel(const std::vector<zvec2>& geom,
     m_geom(geom),
     m_aabb(aabb),
     m_color(color),
-    m_layer(layer)
+    m_layer(layer),
+    m_rotation(0),
+    m_scale(1)
 {
 }
 
@@ -42,4 +44,24 @@ std::vector<zvec2>& zmodel::get_geom_ref()
 std::vector<zvec2>& zmodel::get_aabb_ref()
 {
     return m_aabb;
+}
+
+zfloat zmodel::get_rotation() const
+{
+    return m_rotation;
+}
+
+void zmodel::set_rotation(zfloat rotation)
+{
+    m_rotation = rotation;
+}
+
+zfloat zmodel::get_scale() const
+{
+    return m_scale;
+}
+
+void zmodel::set_scale(zfloat scale)
+{
+    m_scale = scale;
 }

@@ -38,7 +38,7 @@ void zscene_hero_object::update(size_t ms)
 
 void zscene_hero_object::render(irender* render) const
 {
-    render->render(m_model.get(), get_position(), 1);
+    render->render(m_model.get(), get_position(), m_model->get_rotation(), m_model->get_scale());
 }
 
 const zvec2& zscene_hero_object::get_position() const
