@@ -5,30 +5,17 @@
 #include <algorithm>
 
 #include <math/zmath.h>
+
+#include <render/types.h>
 #include <render/imodel.h>
 #include <render/iwidget.h>
+
 #include <platform/iresource.h>
 
 #include "zgles2.h"
 #include "zgles2_render.h"
 #include "zgles2_program.h"
 #include "zgles2_texture.h"
-
-namespace {
-
-struct model_vertex
-{
-    GLfloat position[3];
-    GLfloat color   [3];
-};
-
-struct text_vertex
-{
-    GLfloat position[3];
-    GLfloat texture[2];
-};
-
-}
 
 struct zgles2_render::data
 {
@@ -41,10 +28,10 @@ struct zgles2_render::data
     int scene_width;
     int scene_height;
 
-    std::vector<model_vertex> geom_buffer;
-    std::vector<model_vertex> aabb_buffer;
+    std::vector<color_vertex> geom_buffer;
+    std::vector<color_vertex> aabb_buffer;
 
-    std::vector<text_vertex> text_buffer;
+    std::vector<texture_vertex> text_buffer;
 
     zcolor background_color;
     zcolor aabb_color;
@@ -132,7 +119,7 @@ void zgles2_render::render(const imodel* model, const zvec2& position, zfloat sc
         const auto aabb = model->get_aabb();
         for(size_t i = 0 ; i < aabb.size(); i++) {
             const zvec2 result = aabb[i] + position;
-            m_data->aabb_buffer.push_back(model_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
+            m_data->aabb_buffer.push_back(color_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
         }
     }
     {
@@ -140,7 +127,7 @@ void zgles2_render::render(const imodel* model, const zvec2& position, zfloat sc
         const auto geom = model->get_geom();
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec2 result = geom[i] + position;
-            m_data->geom_buffer.push_back(model_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
+            m_data->geom_buffer.push_back(color_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
         }
     }
 }
@@ -156,7 +143,7 @@ void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat 
         const auto aabb = widget->get_aabb();
         for(size_t i = 0 ; i < aabb.size(); i++) {
             const zvec2 result = aabb[i] + position;
-            m_data->aabb_buffer.push_back(model_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
+            m_data->aabb_buffer.push_back(color_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
         }
     }
     // geom
@@ -165,7 +152,7 @@ void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat 
         const auto geom = widget->get_geom();
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec2 result = geom[i] + position;
-            m_data->geom_buffer.push_back(model_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
+            m_data->geom_buffer.push_back(color_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
         }
     }
     // texture
@@ -174,7 +161,7 @@ void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat 
         const auto coord = widget->get_textured_coord();
         for(size_t i = 0 ; i < geom.size(); i++) {
             const zvec2 result = geom[i] + position;
-            m_data->text_buffer.push_back(text_vertex({result.x, result.y, layer + 0.01f, coord[i].x, coord[i].y}));
+            m_data->text_buffer.push_back(texture_vertex({result.x, result.y, layer + 0.01f, coord[i].x, coord[i].y}));
         }
     }
 }
@@ -211,15 +198,15 @@ void zgles2_render::render()
 
         // draw model
         {
-            glVertexAttribPointer(vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(model_vertex), &m_data->geom_buffer[0].position);
-            glVertexAttribPointer(vColorAttr, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->geom_buffer[0].color);
+            glVertexAttribPointer(vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(color_vertex), &m_data->geom_buffer[0].position);
+            glVertexAttribPointer(vColorAttr, 3, GL_FLOAT, GL_TRUE, sizeof(color_vertex), &m_data->geom_buffer[0].color);
             glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_data->geom_buffer.size()));
         }
 
         // draw aabb
         {
-            glVertexAttribPointer(vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(model_vertex), &m_data->aabb_buffer[0].position);
-            glVertexAttribPointer(vColorAttr, 3, GL_FLOAT, GL_TRUE, sizeof(model_vertex), &m_data->aabb_buffer[0].color);
+            glVertexAttribPointer(vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(color_vertex), &m_data->aabb_buffer[0].position);
+            glVertexAttribPointer(vColorAttr, 3, GL_FLOAT, GL_TRUE, sizeof(color_vertex), &m_data->aabb_buffer[0].color);
             glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(m_data->aabb_buffer.size()));
         }
 
@@ -245,8 +232,8 @@ void zgles2_render::render()
 
         glUniform1i( m_data->widget_program.get_uniform_location("fTexture"), 0 );
 
-        glVertexAttribPointer( vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(text_vertex), &m_data->text_buffer[0].position);
-        glVertexAttribPointer( vTexCoordAttr, 2, GL_FLOAT, GL_TRUE, sizeof(text_vertex), &m_data->text_buffer[0].texture);
+        glVertexAttribPointer( vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(texture_vertex), &m_data->text_buffer[0].position);
+        glVertexAttribPointer( vTexCoordAttr, 2, GL_FLOAT, GL_TRUE, sizeof(texture_vertex), &m_data->text_buffer[0].texture);
         glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_data->text_buffer.size()));
 
         m_data->text_buffer.resize(0);
