@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include <phys/zworld.h>
-#include <scene/zscene_wall_object.h>
-#include <scene/zscene_game_logic.h>
+#include <scene/game/zgame_scene_logic.h>
+#include <scene/game/zscene_wall_object.h>
 
 const int WALL_WIDTH  = 10;
 const int HOLE_HEIGHT = 20;

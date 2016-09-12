@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "zwidget_builder.h"
 
 void zwidget_builder::generate_text_geom(const std::string& text, float width, float height, std::vector<zvec2>& buffer)

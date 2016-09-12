@@ -283,7 +283,7 @@ bool zgles2_render::load_shaders(const iresource* resource)
 
     assert(load);
 
-    return true;
+    return (load);
 }
 
 bool zgles2_render::load_textures(const iresource* resource)

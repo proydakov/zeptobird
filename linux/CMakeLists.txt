@@ -13,6 +13,8 @@ add_library(linux_context STATIC
 add_executable(zeptobird
     linux_resource.h
     linux_resource.cpp
+    linux_sound.h
+    linux_sound.cpp
     generated_resource.h
     main.cpp
 )

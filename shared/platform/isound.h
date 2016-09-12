@@ -10,5 +10,5 @@ public:
     virtual void play_music(const std::string& music) = 0;
     virtual void stop_music() = 0;
 
-    virtual void play_sound(const std::string& music) = 0;
+    virtual void play_sound(const std::string& sound) = 0;
 };
