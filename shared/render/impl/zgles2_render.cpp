@@ -202,7 +202,7 @@ void zgles2_render::render()
     const GLfloat bottom = -1.0 * m_data->scene_height / 2;
     const GLfloat top    = +1.0 * m_data->scene_height / 2;
 
-    std::vector<GLfloat> orto(zortho_matrix<GLfloat>( left, right, bottom, top, +10.0, -10.0 ) );
+    std::vector<GLfloat> orto(zortho_matrix<GLfloat>( left, right, bottom, top, +10000.0, -10000.0 ) );
     std::vector<GLfloat> model_view( zrotate_around_z_matrix<GLfloat>(m_data->view_angle * M_PI / 180) );
 
     // render objects

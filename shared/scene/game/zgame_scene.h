@@ -34,6 +34,12 @@ public:
     bool is_done() const override;
 
 private:
+    void init_ui();
+    void init_scene();
+    void init_hero();
+    void init_walls();
+    void init_coins();
+
     void update_blocks();
     void update_coins();
     void update_hero();

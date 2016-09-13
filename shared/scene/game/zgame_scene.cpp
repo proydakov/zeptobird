@@ -66,76 +66,15 @@ zgame_scene::zgame_scene(isound* sound) :
 
     m_widgets.reserve(16);
 
-    {
-        m_score_widget = new ztext_widget(score_2_text(m_score, SCORE_WIDTH), 5, 7);
-        std::unique_ptr<zwidget> play_widget( m_score_widget );
-        play_widget->set_position(zvec2{35, 45});
-        m_widgets.push_back(std::move(play_widget));
-    }
+    init_ui();
 
     m_objects.reserve(16);
-    {
-        std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( SCENE_SIZE - 2, SCENE_SIZE - 2, 0 ) );
-        aabb->set_position(zvec2(0, 0));
-        m_objects.push_back(std::move(aabb));
-    }
-    {
-        auto hero_ptr = new zscene_hero_object( m_world.get(), HERO_RADIUS, 1 );
-        std::unique_ptr<iscene_object> hero( hero_ptr );
-        hero->set_position(zvec2( -SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3, 0));
-        m_objects.push_back(std::move(hero));
-        m_hero = hero_ptr;
-    }
-    {
-        const size_t wall_count = 3;
-        int hole_x = SCENE_SIZE / 2;
-        const int hole_x_step = 2 * SCENE_SIZE / 3;
-        for(size_t i = 0; i < wall_count; i++) {
-            const float hole_y = m_dis(m_gen);
-            hole_params params = zscene_game_logic::create_hole_params(hole_y, HOLE_HEIGHT, SCENE_SIZE);
 
-            std::pair<zscene_wall_object*, zscene_wall_object*> pair;
-            {
-                zscene_wall_object* wall_ptr = new zscene_wall_object( m_world.get(), WALL_WIDTH, params.height1, 0 );
-                pair.first = wall_ptr;
+    init_scene();
+    init_hero();
+    init_walls();
+    init_coins();
 
-                std::unique_ptr<iscene_object> wall( wall_ptr );
-                wall->set_position(zvec2(hole_x, params.center1));
-                wall->set_speed(WALL_SPEED);
-                m_objects.push_back(std::move(wall));
-            }
-            {
-                zscene_wall_object* wall_ptr = new zscene_wall_object( m_world.get(), WALL_WIDTH, params.height2, 0 );
-                pair.second = wall_ptr;
-
-                std::unique_ptr<iscene_object> wall( wall_ptr );
-                wall->set_position(zvec2(hole_x, params.center2));
-                wall->set_speed(WALL_SPEED);
-                m_objects.push_back(std::move(wall));
-            }
-            m_blocks.push_back(std::move(pair));
-
-            hole_x += hole_x_step;
-        }
-    }
-    {
-        const size_t coin_count = 3;
-        int coin_x = SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3;
-        const int coin_x_step = 2 * SCENE_SIZE / 3;
-        for(size_t i = 0; i < coin_count; i++) {
-            const float coin_y = m_dis(m_gen) - SCENE_SIZE / 2;
-
-            auto coin_ptr = new zscene_coin_object( m_world.get(), COIN_RADIUS, 1 );
-            std::unique_ptr<iscene_object> coin( coin_ptr );
-            coin->set_position(zvec2(coin_x,coin_y));
-            coin->set_speed(WALL_SPEED);
-
-            m_objects.push_back(std::move(coin));
-            m_coins.push_back(coin_ptr);
-
-            coin_x += coin_x_step;
-        }
-    }
     m_sound->play_music(MAIN_THEME_MUSIC);
 }
 
@@ -191,6 +130,84 @@ zsize zgame_scene::get_size() const
 bool zgame_scene::is_done() const
 {
     return m_game_over_timer > GAME_OVER_TIMEOUT;
+}
+
+void zgame_scene::init_ui()
+{
+    m_score_widget = new ztext_widget(score_2_text(m_score, SCORE_WIDTH), 5, 7);
+    std::unique_ptr<zwidget> play_widget( m_score_widget );
+    play_widget->set_position(zvec2{35, 45});
+    m_widgets.push_back(std::move(play_widget));
+}
+
+void zgame_scene::init_scene()
+{
+    std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( SCENE_SIZE - 2, SCENE_SIZE - 2, 0 ) );
+    aabb->set_position(zvec2(0, 0));
+    m_objects.push_back(std::move(aabb));
+}
+
+void zgame_scene::init_hero()
+{
+    auto hero_ptr = new zscene_hero_object( m_world.get(), HERO_RADIUS, 1 );
+    std::unique_ptr<iscene_object> hero( hero_ptr );
+    hero->set_position(zvec2( -SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3, 0));
+    m_objects.push_back(std::move(hero));
+    m_hero = hero_ptr;
+}
+
+void zgame_scene::init_walls()
+{
+    const size_t wall_count = 3;
+    int hole_x = SCENE_SIZE / 2;
+    const int hole_x_step = 2 * SCENE_SIZE / 3;
+    for(size_t i = 0; i < wall_count; i++) {
+        const float hole_y = m_dis(m_gen);
+        hole_params params = zscene_game_logic::create_hole_params(hole_y, HOLE_HEIGHT, SCENE_SIZE);
+
+        std::pair<zscene_wall_object*, zscene_wall_object*> pair;
+        {
+            zscene_wall_object* wall_ptr = new zscene_wall_object( m_world.get(), WALL_WIDTH, params.height1, 0 );
+            pair.first = wall_ptr;
+
+            std::unique_ptr<iscene_object> wall( wall_ptr );
+            wall->set_position(zvec2(hole_x, params.center1));
+            wall->set_speed(WALL_SPEED);
+            m_objects.push_back(std::move(wall));
+        }
+        {
+            zscene_wall_object* wall_ptr = new zscene_wall_object( m_world.get(), WALL_WIDTH, params.height2, 0 );
+            pair.second = wall_ptr;
+
+            std::unique_ptr<iscene_object> wall( wall_ptr );
+            wall->set_position(zvec2(hole_x, params.center2));
+            wall->set_speed(WALL_SPEED);
+            m_objects.push_back(std::move(wall));
+        }
+        m_blocks.push_back(std::move(pair));
+
+        hole_x += hole_x_step;
+    }
+}
+
+void zgame_scene::init_coins()
+{
+    const size_t coin_count = 3;
+    int coin_x = SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3;
+    const int coin_x_step = 2 * SCENE_SIZE / 3;
+    for(size_t i = 0; i < coin_count; i++) {
+        const float coin_y = m_dis(m_gen) - SCENE_SIZE / 2;
+
+        auto coin_ptr = new zscene_coin_object( m_world.get(), COIN_RADIUS, 1 );
+        std::unique_ptr<iscene_object> coin( coin_ptr );
+        coin->set_position(zvec2(coin_x,coin_y));
+        coin->set_speed(WALL_SPEED);
+
+        m_objects.push_back(std::move(coin));
+        m_coins.push_back(coin_ptr);
+
+        coin_x += coin_x_step;
+    }
 }
 
 void zgame_scene::update_blocks()

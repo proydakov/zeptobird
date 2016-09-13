@@ -74,7 +74,6 @@ void zworld::update(size_t ms)
         speed += delta * m_gravity;
         m_hero->set_position(position);
         m_hero->set_speed(speed);
-        //std::cout << "speed: " << speed << std::endl;
     }
 
     bool collided = false;
