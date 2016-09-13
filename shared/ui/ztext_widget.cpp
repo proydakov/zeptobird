@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include <model/zmodel_builder.h>
 
 #include "ztext_widget.h"
@@ -16,8 +18,11 @@ ztext_widget::~ztext_widget()
 
 void ztext_widget::set_text(const std::string& text)
 {
+    const bool rebuild = m_text != text;
     m_text = text;
-    rebuild_text_coord();
+    if(rebuild) {
+        rebuild_text_coord();
+    }
 }
 
 const std::string& ztext_widget::get_text() const
@@ -27,7 +32,6 @@ const std::string& ztext_widget::get_text() const
 
 void ztext_widget::update(size_t ms)
 {
-    
 }
 
 void ztext_widget::rebuild_text_coord()

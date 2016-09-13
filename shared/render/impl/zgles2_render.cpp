@@ -28,6 +28,9 @@ struct zgles2_render::data
     int scene_width;
     int scene_height;
 
+    bool scene_change_notify;
+    std::function<void(const zsize&)> scene_change_callback;
+
     std::vector<color_vertex> geom_buffer;
     std::vector<color_vertex> aabb_buffer;
 
@@ -52,6 +55,8 @@ zgles2_render::data::data()
 
     scene_width = 1;
     scene_height = 1;
+
+    scene_change_notify = false;
 
     geom_buffer.reserve(1024);
     aabb_buffer.reserve(1024);
@@ -113,35 +118,23 @@ void zgles2_render::render(const imodel* model, const zvec2& position, zfloat ro
 {
     /// @todo : test vbo impl
 
+    zmat33 mtranslate = ztranslate(position);
+    zmat33 mrotate = zrotate(rotation);
+    zmat33 mscale = zscale(scale);
+    zmat33 mtransform = zmul(zmul(mtranslate, mrotate), mscale);
+
     const auto layer = model->get_layer();
+    // AABB
     {
         const auto& aabb_color = m_data->aabb_color;
         const auto aabb = model->get_aabb();
         for(size_t i = 0 ; i < aabb.size(); i++) {
-            const zvec2 result = aabb[i] + position;
+            const zvec3 src(aabb[i].x, aabb[i].y, 1);
+            const zvec3 result = zmul(mtransform, src);
             m_data->aabb_buffer.push_back(color_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
         }
     }
-
-    zmat33 mtransform;
-
-    zmat33 mtranslate;
-    mtranslate.ex.x = 1.0f; mtranslate.ey.x = 0.0f; mtranslate.ez.x = position.x;
-    mtranslate.ex.y = 0.0f; mtranslate.ey.y = 1.0f; mtranslate.ez.y = position.y;
-    mtranslate.ex.z = 0.0f; mtranslate.ey.z = 0.0f; mtranslate.ez.z = 1.0f;
-
-    zmat33 mrotate;
-    mrotate.ex.x = +std::cos(rotation); mrotate.ey.x = -std::sin(rotation); mrotate.ez.x = 0.0f;
-    mrotate.ex.y = +std::sin(rotation); mrotate.ey.y = +std::cos(rotation); mrotate.ez.y = 0.0f;
-    mrotate.ex.z = +0.0f;               mrotate.ey.z = +0.0f;               mrotate.ez.z = 1.0f;
-
-    zmat33 mscale;
-    mscale.ex.x = scale; mscale.ey.x = 0.0f;  mscale.ez.x = 0.0f;
-    mscale.ex.y = 0.0f;  mscale.ey.y = scale; mscale.ez.y = 0.0f;
-    mscale.ex.z = 0.0f;  mscale.ey.z = 0.0f;  mscale.ez.z = 1.0f;
-
-    mtransform = zmul(zmul(mtranslate, mrotate), mscale);
-
+    // GEOM
     {
         const auto& color = model->get_color();
         const auto geom = model->get_geom();
@@ -157,31 +150,39 @@ void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat 
 {
     /// @todo : test vbo impl
 
+    zmat33 mtranslate = ztranslate(position);
+    zmat33 mrotate = zrotate(rotation);
+    zmat33 mscale = zscale(scale);
+    zmat33 mtransform = zmul(zmul(mtranslate, mrotate), mscale);
+
     const auto layer = widget->get_layer();
-    // geom AABB
+    // AABB
     {
         const auto& aabb_color = m_data->aabb_color;
         const auto aabb = widget->get_aabb();
         for(size_t i = 0 ; i < aabb.size(); i++) {
-            const zvec2 result = aabb[i] + position;
+            const zvec3 src(aabb[i].x, aabb[i].y, 1);
+            const zvec3 result = zmul(mtransform, src);
             m_data->aabb_buffer.push_back(color_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
         }
     }
-    // geom
+    // GEOM
     {
         const auto& color = widget->get_color();
         const auto geom = widget->get_geom();
         for(size_t i = 0; i < geom.size(); i++) {
-            const zvec2 result = geom[i] + position;
+            const zvec3 src(geom[i].x, geom[i].y, 1);
+            const zvec3 result = zmul(mtransform, src);
             m_data->geom_buffer.push_back(color_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
         }
     }
-    // texture
+    // TEXTURED
     {
         const auto geom = widget->get_textured_geom();
         const auto coord = widget->get_textured_coord();
         for(size_t i = 0 ; i < geom.size(); i++) {
-            const zvec2 result = geom[i] + position;
+            const zvec3 src(geom[i].x, geom[i].y, 1);
+            const zvec3 result = zmul(mtransform, src);
             m_data->text_buffer.push_back(texture_vertex({result.x, result.y, layer + 0.01f, coord[i].x, coord[i].y}));
         }
     }
@@ -261,10 +262,13 @@ void zgles2_render::render()
     }
 }
 
-void zgles2_render::set_scene_size(const zsize& view_size)
+void zgles2_render::set_scene_size(const zsize& scene_size)
 {
-    m_data->scene_width = view_size.width;
-    m_data->scene_height = view_size.height;
+    m_data->scene_width = scene_size.width;
+    m_data->scene_height = scene_size.height;
+    if(m_data->scene_change_notify) {
+        m_data->scene_change_callback(scene_size);
+    }
 }
 
 void zgles2_render::set_background_color(const zcolor& color)
@@ -275,6 +279,12 @@ void zgles2_render::set_background_color(const zcolor& color)
 void zgles2_render::set_aabb_color(const zcolor& color)
 {
     m_data->aabb_color = color;
+}
+
+void zgles2_render::set_scene_size_change_callback(const std::function<void(const zsize&)>& functor)
+{
+    m_data->scene_change_notify = true;
+    m_data->scene_change_callback = functor;
 }
 
 bool zgles2_render::load_shaders(const iresource* resource)
@@ -312,22 +322,22 @@ bool zgles2_render::load_textures(const iresource* resource)
     GLubyte pixels[alphabet_length * 3];
     for(int i = 0, p = 0; i < alphabet_length; i++, p += 3) {
         switch(alphabet[i]) {
-            case '+':
-            case '*':
-            case '-':
-            case '|':
-            case '/':
-            case '\\':
-                pixels[p + 0] = 255;
-                pixels[p + 1] = 255;
-                pixels[p + 2] = 255;
-                break;
+        case '+':
+        case '*':
+        case '-':
+        case '|':
+        case '/':
+        case '\\':
+            pixels[p + 0] = 255;
+            pixels[p + 1] = 255;
+            pixels[p + 2] = 255;
+            break;
 
-            default:
-                pixels[p + 0] = 0;
-                pixels[p + 1] = 0;
-                pixels[p + 2] = 0;
-                break;
+        default:
+            pixels[p + 0] = 0;
+            pixels[p + 1] = 0;
+            pixels[p + 2] = 0;
+            break;
         }
     }
     bool load = m_data->alphabet_texture.load(alphabet_width, alphabet_height, &pixels);

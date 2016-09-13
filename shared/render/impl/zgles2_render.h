@@ -22,6 +22,8 @@ public:
     void set_background_color(const zcolor& color) override;
     void set_aabb_color(const zcolor& color) override;
 
+    void set_scene_size_change_callback(const std::function<void(const zsize&)>& functor) override;
+
 private:
     bool load_shaders(const iresource* resource);
     bool load_textures(const iresource* resource);

@@ -299,35 +299,12 @@ int ESUTIL_API esCreateWindow ( ESContext *esContext, const char* title, int wid
 
 void ESUTIL_API esMainLoop ( ESContext *esContext )
 {
-    struct timeval t1, t2;
-    struct timezone tz;
-    float deltatime;
-    float totaltime = 0.0f;
-    unsigned int frames = 0;
-
-    gettimeofday ( &t1 , &tz );
-
     while(userInterrupt(esContext) == GL_FALSE)
     {
-        gettimeofday(&t2, &tz);
-        deltatime = (float)(t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec) * 1e-6);
-        t1 = t2;
-
-        if (esContext->updateFunc != NULL)
-            esContext->updateFunc(esContext, deltatime);
         if (esContext->drawFunc != NULL)
             esContext->drawFunc(esContext);
 
         eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
-
-        totaltime += deltatime;
-        frames++;
-        if (totaltime >  2.0f)
-        {
-            printf("%4d frames rendered in %1.4f seconds -> FPS=%3.4f\n", frames, totaltime, frames/totaltime);
-            totaltime -= 2.0f;
-            frames = 0;
-        }
     }
 }
 
@@ -339,16 +316,6 @@ void ESUTIL_API esRegisterDrawFunc ( ESContext *esContext, void (ESCALLBACK *dra
 {
     esContext->drawFunc = drawFunc;
 }
-
-
-///
-//  esRegisterUpdateFunc()
-//
-void ESUTIL_API esRegisterUpdateFunc ( ESContext *esContext, void (ESCALLBACK *updateFunc) ( ESContext*, float ) )
-{
-    esContext->updateFunc = updateFunc;
-}
-
 
 ///
 //  esRegisterKeyFunc()

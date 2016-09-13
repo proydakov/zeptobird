@@ -85,7 +85,6 @@ typedef struct _escontext
     void (ESCALLBACK *drawFunc) ( struct _escontext * );
     void (ESCALLBACK *keyFunc) ( struct _escontext *, unsigned char, int, int );
     void (ESCALLBACK *mouseFunc) ( struct _escontext *, int, int );
-    void (ESCALLBACK *updateFunc) ( struct _escontext *, float deltaTime );
 } ESContext;
 
 
@@ -127,13 +126,6 @@ void ESUTIL_API esMainLoop ( ESContext *esContext );
 /// \param drawFunc Draw callback function that will be used to render the scene
 //
 void ESUTIL_API esRegisterDrawFunc ( ESContext *esContext, void (ESCALLBACK *drawFunc) ( ESContext* ) );
-
-//
-/// \brief Register an update callback function to be used to update on each time step
-/// \param esContext Application context
-/// \param updateFunc Update callback function that will be used to render the scene
-//
-void ESUTIL_API esRegisterUpdateFunc ( ESContext *esContext, void (ESCALLBACK *updateFunc) ( ESContext*, float ) );
 
 //
 /// \brief Register an keyboard input processing callback function

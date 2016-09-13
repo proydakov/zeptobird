@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "zmat33.h"
 
 zmat33::zmat33()
@@ -33,4 +35,31 @@ zvec3 zmul(const zmat33& A, const zvec3& v)
 zmat33 zmul(const zmat33& A, const zmat33& B)
 {
     return zmat33(zmul(A, B.ex), zmul(A, B.ey), zmul(A, B.ez));
+}
+
+zmat33 ztranslate(const zvec2& position)
+{
+    zmat33 mtranslate;
+    mtranslate.ex.x = 1.0f; mtranslate.ey.x = 0.0f; mtranslate.ez.x = position.x;
+    mtranslate.ex.y = 0.0f; mtranslate.ey.y = 1.0f; mtranslate.ez.y = position.y;
+    mtranslate.ex.z = 0.0f; mtranslate.ey.z = 0.0f; mtranslate.ez.z = 1.0f;
+    return mtranslate;
+}
+
+zmat33 zrotate(zfloat rotation)
+{
+    zmat33 mrotate;
+    mrotate.ex.x = +std::cos(rotation); mrotate.ey.x = -std::sin(rotation); mrotate.ez.x = 0.0f;
+    mrotate.ex.y = +std::sin(rotation); mrotate.ey.y = +std::cos(rotation); mrotate.ez.y = 0.0f;
+    mrotate.ex.z = +0.0f;               mrotate.ey.z = +0.0f;               mrotate.ez.z = 1.0f;
+    return mrotate;
+}
+
+zmat33 zscale(zfloat scale)
+{
+    zmat33 mscale;
+    mscale.ex.x = scale; mscale.ey.x = 0.0f;  mscale.ez.x = 0.0f;
+    mscale.ex.y = 0.0f;  mscale.ey.y = scale; mscale.ez.y = 0.0f;
+    mscale.ex.z = 0.0f;  mscale.ey.z = 0.0f;  mscale.ez.z = 1.0f;
+    return mscale;
 }

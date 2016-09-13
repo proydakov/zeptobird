@@ -1,12 +1,14 @@
 #pragma once
 
-class imodel;
-class iwidget;
-class iresource;
+#include <functional>
 
 #include <math/zmath.h>
 #include <common/zsize.h>
 #include <render/zcolor.h>
+
+class imodel;
+class iwidget;
+class iresource;
 
 class irender
 {
@@ -25,6 +27,8 @@ public:
     virtual void set_scene_size(const zsize& scene_size) = 0;
     virtual void set_background_color(const zcolor& color) = 0;
     virtual void set_aabb_color(const zcolor& color) = 0;
+
+    virtual void set_scene_size_change_callback(const std::function<void(const zsize&)>& functor) = 0;
 
 protected:
     const iresource* get_resource() const;
