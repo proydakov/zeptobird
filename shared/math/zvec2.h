@@ -1,7 +1,6 @@
 #pragma once
 
 #include <ostream>
-
 #include <common/ztypes.h>
 
 struct zvec2
@@ -10,7 +9,6 @@ struct zvec2
 
     zvec2();
     zvec2(zfloat x_, zfloat y_);
-    ~zvec2();
 
     void set_zero();
 

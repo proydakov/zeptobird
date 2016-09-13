@@ -122,11 +122,32 @@ void zgles2_render::render(const imodel* model, const zvec2& position, zfloat ro
             m_data->aabb_buffer.push_back(color_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
         }
     }
+
+    zmat33 mtransform;
+
+    zmat33 mtranslate;
+    mtranslate.ex.x = 1.0f; mtranslate.ey.x = 0.0f; mtranslate.ez.x = position.x;
+    mtranslate.ex.y = 0.0f; mtranslate.ey.y = 1.0f; mtranslate.ez.y = position.y;
+    mtranslate.ex.z = 0.0f; mtranslate.ey.z = 0.0f; mtranslate.ez.z = 1.0f;
+
+    zmat33 mrotate;
+    mrotate.ex.x = +std::cos(rotation); mrotate.ey.x = -std::sin(rotation); mrotate.ez.x = 0.0f;
+    mrotate.ex.y = +std::sin(rotation); mrotate.ey.y = +std::cos(rotation); mrotate.ez.y = 0.0f;
+    mrotate.ex.z = +0.0f;               mrotate.ey.z = +0.0f;               mrotate.ez.z = 1.0f;
+
+    zmat33 mscale;
+    mscale.ex.x = scale; mscale.ey.x = 0.0f;  mscale.ez.x = 0.0f;
+    mscale.ex.y = 0.0f;  mscale.ey.y = scale; mscale.ez.y = 0.0f;
+    mscale.ex.z = 0.0f;  mscale.ey.z = 0.0f;  mscale.ez.z = 1.0f;
+
+    mtransform = zmul(zmul(mtranslate, mrotate), mscale);
+
     {
         const auto& color = model->get_color();
         const auto geom = model->get_geom();
         for(size_t i = 0; i < geom.size(); i++) {
-            const zvec2 result = geom[i] + position;
+            const zvec3 src(geom[i].x, geom[i].y, 1);
+            const zvec3 result = zmul(mtransform, src);
             m_data->geom_buffer.push_back(color_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
         }
     }

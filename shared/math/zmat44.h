@@ -13,4 +13,4 @@ std::vector<T> zidentity_matrix();
 
 // impl
 
-#include <math/zmatrix.impl.h>
+#include <math/zmat44.impl.h>

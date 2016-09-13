@@ -1,21 +1,13 @@
 #include <cmath>
-#include <iostream>
 
 #include "zmath.h"
 
 zvec2::zvec2()
 {
-    //std::cout << "zvec2" << std::endl;
 }
 
 zvec2::zvec2(zfloat x_, zfloat y_) : x(x_), y(y_)
 {
-    //std::cout << "zvec2 inited" << std::endl;
-}
-
-zvec2::~zvec2()
-{
-    //std::cout << "~zvec2" << std::endl;
 }
 
 void zvec2::set_zero()
@@ -32,7 +24,8 @@ void zvec2::set(zfloat x_, zfloat y_)
 
 zvec2 zvec2::operator -() const
 {
-    zvec2 v; v.set(-x, -y);
+    zvec2 v;
+    v.set(-x, -y);
     return v;
 }
 
