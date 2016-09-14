@@ -10,7 +10,7 @@ public:
     zgles2_render(const iresource* resource);
     virtual ~zgles2_render() override;
 
-    void init(const zsize& view_size, float angle) override;
+    void init(const zsize& view_size) override;
     void deinit() override;
 
     void prepare() override;
@@ -22,6 +22,7 @@ public:
     void set_aabb_color(const zcolor& color) override;
 
     void set_scene_size_change_callback(const std::function<void(const zsize&)>& functor) override;
+    size_t get_vertex_statistic() const override;
 
 private:
     bool load_shaders(const iresource* resource);

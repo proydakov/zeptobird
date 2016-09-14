@@ -6,10 +6,8 @@ class iresource;
 class isound;
 
 class irender;
-class zfps_calculator;
-
 class zgame;
-class ztext_widget;
+class idebug;
 
 class zframework final
 {
@@ -17,7 +15,7 @@ public:
     zframework(iresource* resource, isound* sound);
     ~zframework();
 
-    void init(int width, int height, float angle = 0);
+    void init(int width, int height);
     void deinit();
 
     void input();
@@ -31,11 +29,8 @@ private:
     isound*    m_sound;
 
     std::unique_ptr<irender> m_render;
-    std::unique_ptr<zfps_calculator> m_fps_calculator;
-
-    std::unique_ptr<zgame> m_game;
-
-    std::unique_ptr<ztext_widget> m_fps_widget;
+    std::unique_ptr<zgame>  m_game;
+    std::unique_ptr<idebug> m_debug;
 
     size_t m_time;
 };

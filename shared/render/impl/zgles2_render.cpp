@@ -34,11 +34,12 @@ struct texture_vertex
 
 struct zgles2_render::data
 {
-    data();
+    data(const iresource*);
+
+    const iresource* resource;
 
     int view_width;
     int view_height;
-    float view_angle;
 
     int scene_width;
     int scene_height;
@@ -48,8 +49,9 @@ struct zgles2_render::data
 
     std::vector<color_vertex> geom_buffer;
     std::vector<color_vertex> aabb_buffer;
-
     std::vector<texture_vertex> text_buffer;
+
+    size_t vertex_statistic;
 
     zcolor background_color;
     zcolor aabb_color;
@@ -62,11 +64,11 @@ struct zgles2_render::data
     bool flag;
 };
 
-zgles2_render::data::data()
+zgles2_render::data::data(const iresource* resource) :
+    resource(resource)
 {
     view_width = 1;
     view_height = 1;
-    view_angle = 0;
 
     scene_width = 1;
     scene_height = 1;
@@ -77,6 +79,8 @@ zgles2_render::data::data()
     aabb_buffer.reserve(1024 * 32);
     text_buffer.reserve(1024 * 32);
 
+    vertex_statistic = 0;
+
     background_color = {1.0f, 1.0f, 1.0f};
     aabb_color = {1.0f, 1.0f, 1.0f};
 
@@ -84,8 +88,7 @@ zgles2_render::data::data()
 }
 
 zgles2_render::zgles2_render(const iresource* resource) :
-    irender(resource),
-    m_data(new data())
+    m_data(new data(resource))
 {
 }
 
@@ -94,7 +97,7 @@ zgles2_render::~zgles2_render()
     deinit();
 }
 
-void zgles2_render::init(const zsize& view_size, float angle)
+void zgles2_render::init(const zsize& view_size)
 {
     const int width = view_size.width;
     const int height = view_size.height;
@@ -103,13 +106,12 @@ void zgles2_render::init(const zsize& view_size, float angle)
 
     m_data->view_width  = width;
     m_data->view_height = height;
-    m_data->view_angle  = angle;
 
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
 
-    load_shaders(get_resource());
-    load_textures(get_resource());
+    load_shaders(m_data->resource);
+    load_textures(m_data->resource);
 }
 
 void zgles2_render::deinit()
@@ -186,7 +188,9 @@ void zgles2_render::render()
     const GLfloat top    = +1.0 * m_data->scene_height / 2;
 
     std::vector<GLfloat> orto(zortho_matrix<GLfloat>( left, right, bottom, top, +10000.0, -10000.0 ) );
-    std::vector<GLfloat> model_view( zrotate_around_z_matrix<GLfloat>(m_data->view_angle * M_PI / 180) );
+    std::vector<GLfloat> model_view( zidentity_matrix<GLfloat>() );
+
+    m_data->vertex_statistic = 0;
 
     // render objects
     {
@@ -215,10 +219,11 @@ void zgles2_render::render()
             glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(m_data->aabb_buffer.size()));
         }
 
-        std::cout << "m_data->geom_buffer: " << m_data->geom_buffer.size() << std::endl;
+        m_data->vertex_statistic += m_data->aabb_buffer.size();
+        m_data->vertex_statistic += m_data->geom_buffer.size();
 
-        m_data->geom_buffer.resize(0);
         m_data->aabb_buffer.resize(0);
+        m_data->geom_buffer.resize(0);
     }
 
     // render ui text
@@ -242,6 +247,8 @@ void zgles2_render::render()
         glVertexAttribPointer( vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(texture_vertex), &m_data->text_buffer[0].position);
         glVertexAttribPointer( vTexCoordAttr, 2, GL_FLOAT, GL_TRUE, sizeof(texture_vertex), &m_data->text_buffer[0].texture);
         glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_data->text_buffer.size()));
+
+        m_data->vertex_statistic += m_data->text_buffer.size();
 
         m_data->text_buffer.resize(0);
     }
@@ -270,6 +277,11 @@ void zgles2_render::set_scene_size_change_callback(const std::function<void(cons
 {
     m_data->scene_change_notify = true;
     m_data->scene_change_callback = functor;
+}
+
+size_t zgles2_render::get_vertex_statistic() const
+{
+    return m_data->vertex_statistic;
 }
 
 bool zgles2_render::load_shaders(const iresource* resource)
