@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <common/ztime.h>
 
 class iresource;
 class isound;
@@ -32,5 +33,5 @@ private:
     std::unique_ptr<zgame>  m_game;
     std::unique_ptr<idebug> m_debug;
 
-    size_t m_time;
+    ztime m_time;
 };

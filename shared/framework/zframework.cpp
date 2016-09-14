@@ -57,7 +57,7 @@ void zframework::update()
 {
     std::chrono::time_point<std::chrono::high_resolution_clock> now = std::chrono::high_resolution_clock::now();
     auto duration = now.time_since_epoch();
-    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    auto millis = static_cast<ztime>(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count());
 
     if(0 == m_time) {
         m_time = millis;

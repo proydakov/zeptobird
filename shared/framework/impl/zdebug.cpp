@@ -11,7 +11,7 @@
 
 namespace {
 
-const float COUNTER_UNIT  = 5;
+const float COUNTER_UNIT  = 2.5;
 const int   COUNTER_LAYER = 9;
 
 std::string build_fps_text(float fps)

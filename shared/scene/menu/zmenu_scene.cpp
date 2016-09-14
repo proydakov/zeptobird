@@ -66,8 +66,8 @@ zmenu_scene::zmenu_scene(isound* sound) :
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> position_dis(-SCENE_SIZE, SCENE_SIZE);
-        std::uniform_int_distribution<> speed_dis(0, speeds.size() - 1);
-        std::uniform_int_distribution<> color_dis(0, colors.size() - 1);
+        std::uniform_int_distribution<size_t> speed_dis(0, speeds.size() - 1);
+        std::uniform_int_distribution<size_t> color_dis(0, colors.size() - 1);
 
         for(int i = -750; i < 0; i++) {
             zvec2 position( position_dis(gen), position_dis(gen) );
