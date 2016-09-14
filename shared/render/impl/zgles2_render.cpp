@@ -5,10 +5,9 @@
 #include <algorithm>
 
 #include <math/zmath.h>
-
+#include <common/ztypes.h>
 #include <render/ztypes.h>
-#include <render/imodel.h>
-#include <render/iwidget.h>
+#include <render/irenderable.h>
 
 #include <platform/iresource.h>
 
@@ -16,6 +15,22 @@
 #include "zgles2_render.h"
 #include "zgles2_program.h"
 #include "zgles2_texture.h"
+
+namespace {
+
+struct color_vertex
+{
+    zfloat position[3];
+    zfloat color   [3];
+};
+
+struct texture_vertex
+{
+    zfloat position[3];
+    zfloat texture [2];
+};
+
+}
 
 struct zgles2_render::data
 {
@@ -58,9 +73,9 @@ zgles2_render::data::data()
 
     scene_change_notify = false;
 
-    geom_buffer.reserve(1024);
-    aabb_buffer.reserve(1024);
-    text_buffer.reserve(1024);
+    geom_buffer.reserve(1024 * 32);
+    aabb_buffer.reserve(1024 * 32);
+    text_buffer.reserve(1024 * 32);
 
     background_color = {1.0f, 1.0f, 1.0f};
     aabb_color = {1.0f, 1.0f, 1.0f};
@@ -114,7 +129,7 @@ void zgles2_render::prepare()
     /// @todo : test vbo impl
 }
 
-void zgles2_render::render(const imodel* model, const zvec2& position, zfloat rotation, zfloat scale)
+void zgles2_render::render(const irenderable* object, const zvec2& position, zfloat rotation, zfloat scale)
 {
     /// @todo : test vbo impl
 
@@ -123,11 +138,11 @@ void zgles2_render::render(const imodel* model, const zvec2& position, zfloat ro
     zmat33 mscale = zscale(scale);
     zmat33 mtransform = zmul(zmul(mtranslate, mrotate), mscale);
 
-    const auto layer = model->get_layer();
+    const auto layer = object->get_layer();
     // AABB
     {
         const auto& aabb_color = m_data->aabb_color;
-        const auto aabb = model->get_aabb();
+        const auto aabb = object->get_aabb();
         for(size_t i = 0 ; i < aabb.size(); i++) {
             const zvec3 src(aabb[i].x, aabb[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
@@ -136,40 +151,8 @@ void zgles2_render::render(const imodel* model, const zvec2& position, zfloat ro
     }
     // GEOM
     {
-        const auto& color = model->get_color();
-        const auto geom = model->get_geom();
-        for(size_t i = 0; i < geom.size(); i++) {
-            const zvec3 src(geom[i].x, geom[i].y, 1);
-            const zvec3 result = zmul(mtransform, src);
-            m_data->geom_buffer.push_back(color_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
-        }
-    }
-}
-
-void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat rotation, zfloat scale)
-{
-    /// @todo : test vbo impl
-
-    zmat33 mtranslate = ztranslate(position);
-    zmat33 mrotate = zrotate(rotation);
-    zmat33 mscale = zscale(scale);
-    zmat33 mtransform = zmul(zmul(mtranslate, mrotate), mscale);
-
-    const auto layer = widget->get_layer();
-    // AABB
-    {
-        const auto& aabb_color = m_data->aabb_color;
-        const auto aabb = widget->get_aabb();
-        for(size_t i = 0 ; i < aabb.size(); i++) {
-            const zvec3 src(aabb[i].x, aabb[i].y, 1);
-            const zvec3 result = zmul(mtransform, src);
-            m_data->aabb_buffer.push_back(color_vertex({result.x, result.y, layer + 0.01f, aabb_color.r, aabb_color.g, aabb_color.b}));
-        }
-    }
-    // GEOM
-    {
-        const auto& color = widget->get_color();
-        const auto geom = widget->get_geom();
+        const auto& color = object->get_color();
+        const auto geom = object->get_geom();
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec3 src(geom[i].x, geom[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
@@ -178,8 +161,8 @@ void zgles2_render::render(const iwidget* widget, const zvec2& position, zfloat 
     }
     // TEXTURED
     {
-        const auto geom = widget->get_textured_geom();
-        const auto coord = widget->get_textured_coord();
+        const auto geom = object->get_textured_geom();
+        const auto coord = object->get_textured_coord();
         for(size_t i = 0 ; i < geom.size(); i++) {
             const zvec3 src(geom[i].x, geom[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
@@ -231,6 +214,8 @@ void zgles2_render::render()
             glVertexAttribPointer(vColorAttr, 3, GL_FLOAT, GL_TRUE, sizeof(color_vertex), &m_data->aabb_buffer[0].color);
             glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(m_data->aabb_buffer.size()));
         }
+
+        std::cout << "m_data->geom_buffer: " << m_data->geom_buffer.size() << std::endl;
 
         m_data->geom_buffer.resize(0);
         m_data->aabb_buffer.resize(0);

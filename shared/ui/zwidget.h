@@ -1,9 +1,9 @@
 #pragma once
 
 #include <math/zmath.h>
-#include <render/iwidget.h>
+#include <render/irenderable.h>
 
-class zwidget : public iwidget
+class zwidget : public irenderable
 {
 public:
     zwidget(int layer);
@@ -28,7 +28,6 @@ public:
 
     const std::vector<zvec2>& get_textured_geom() const override;
     const std::vector<zvec2>& get_textured_coord() const override;
-
     const std::string& get_texture_name() const override;
 
 protected:

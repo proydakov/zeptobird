@@ -16,6 +16,11 @@ zmodel::~zmodel()
 {
 }
 
+int zmodel::get_layer() const
+{
+    return m_layer;
+}
+
 const std::vector<zvec2>& zmodel::get_geom() const
 {
     return m_geom;
@@ -31,9 +36,19 @@ const zcolor& zmodel::get_color() const
     return m_color;
 }
 
-int zmodel::get_layer() const
+const std::vector<zvec2>& zmodel::get_textured_geom() const
 {
-    return m_layer;
+    return m_textured_geom;
+}
+
+const std::vector<zvec2>& zmodel::get_textured_coord() const
+{
+    return m_textured_coord;
+}
+
+const std::string& zmodel::get_texture_name() const
+{
+    return m_texture_name;
 }
 
 std::vector<zvec2>& zmodel::get_geom_ref()
