@@ -6,7 +6,6 @@
 
 #include <math/zmath.h>
 #include <common/ztypes.h>
-#include <render/ztypes.h>
 #include <render/irenderable.h>
 
 #include <platform/iresource.h>

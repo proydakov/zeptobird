@@ -2,10 +2,10 @@
 #include <iomanip>
 #include <cassert>
 
-#include "zdebug.h"
-
 #include <render/irender.h>
-#include <render/zfps_calculator.h>
+
+#include "zdebug.h"
+#include "zfps_calculator.h"
 
 #include <ui/ztext_widget.h>
 
