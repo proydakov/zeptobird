@@ -13,7 +13,7 @@ public:
     zscene_wall_object(zworld* world, float width, float height, int layer);
     ~zscene_wall_object() override;
 
-    void update(size_t ms) override;
+    void update(ztime ms) override;
     void render(irender* render) const override;
 
     const zvec2& get_position() const override;

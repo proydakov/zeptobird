@@ -95,7 +95,7 @@ void zmenu_scene::input()
     m_done = true;
 }
 
-void zmenu_scene::update(size_t ms)
+void zmenu_scene::update(ztime ms)
 {
     for(size_t i = 0; i < m_objects.size(); i++) {
         m_objects[i]->update(ms);

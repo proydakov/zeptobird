@@ -1,12 +1,11 @@
 #include <chrono>
 #include <iostream>
 
-#include "zframework.h"
-
+#include <game/zgame.h>
+#include <common/ztime.h>
 #include <render/impl/zgles2_render.h>
 
-#include <game/zgame.h>
-
+#include "zframework.h"
 #include "impl/zdebug.h"
 #include "impl/znodebug.h"
 
@@ -64,7 +63,7 @@ void zframework::update()
         m_time = millis;
     }
 
-    const size_t delta = millis - m_time;
+    const ztime delta = static_cast<ztime>(millis - m_time);
 
     m_game->update(delta);
     m_debug->update(delta);

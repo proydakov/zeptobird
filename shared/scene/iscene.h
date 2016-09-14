@@ -2,6 +2,7 @@
 
 #include <ctime>
 #include <common/zsize.h>
+#include <common/ztime.h>
 
 class irender;
 
@@ -11,7 +12,7 @@ public:
     virtual ~iscene();
 
     virtual void input() = 0;
-    virtual void update(size_t ms) = 0;
+    virtual void update(ztime ms) = 0;
     virtual void render(irender* render) const = 0;
 
     virtual zsize get_size() const = 0;

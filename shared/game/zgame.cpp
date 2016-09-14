@@ -22,7 +22,7 @@ void zgame::input()
     }
 }
 
-void zgame::update(size_t ms)
+void zgame::update(ztime ms)
 {
     m_scene->update(ms);
     if(m_scene->is_done()) {

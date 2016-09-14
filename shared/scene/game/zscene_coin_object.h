@@ -13,7 +13,7 @@ public:
     zscene_coin_object(zworld* world, float radius, int layer);
     ~zscene_coin_object() override;
 
-    void update(size_t ms) override;
+    void update(ztime ms) override;
     void render(irender* render) const override;
 
     const zvec2& get_position() const override;

@@ -11,7 +11,7 @@ public:
     zmenu_scene_block(float width, float height, const zcolor& color, int layer);
     ~zmenu_scene_block() override;
 
-    void update(size_t ms) override;
+    void update(ztime ms) override;
     void render(irender* render) const override;
 
     const zvec2& get_position() const override;

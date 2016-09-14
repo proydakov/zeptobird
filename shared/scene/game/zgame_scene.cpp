@@ -91,7 +91,7 @@ void zgame_scene::input()
     m_hero->set_speed(JUMP_SPEED);
 }
 
-void zgame_scene::update(size_t ms)
+void zgame_scene::update(ztime ms)
 {
     for(size_t i = 0; i < m_widgets.size(); i++) {
         m_widgets[i]->update(ms);

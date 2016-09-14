@@ -3,6 +3,7 @@
 #include <vector>
 
 #include <math/zmath.h>
+#include <common/ztime.h>
 #include <phys/ibody.h>
 #include <phys/zbody_def.h>
 
@@ -18,7 +19,7 @@ public:
 
     void set_hero(ibody* hero);
 
-    void update(size_t ms);
+    void update(ztime ms);
 
 private:
     bool check_collided(const ibody* b1, const ibody* b2) const;

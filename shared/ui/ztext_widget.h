@@ -13,7 +13,7 @@ public:
     void set_text(const std::string& text);
     const std::string& get_text() const;
 
-    void update(size_t ms) override;
+    void update(ztime ms) override;
 
 private:
     void rebuild_text_coord();

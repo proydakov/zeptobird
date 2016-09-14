@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math/zmath.h>
+#include <common/ztime.h>
 
 class irender;
 
@@ -9,7 +10,7 @@ class iscene_object
 public:
     virtual ~iscene_object();
 
-    virtual void update(size_t ms) = 0;
+    virtual void update(ztime ms) = 0;
     virtual void render(irender* render) const = 0;
 
     virtual const zvec2& get_position() const = 0;

@@ -26,7 +26,7 @@ public:
     ~zgame_scene() override;
 
     void input() override;
-    void update(size_t ms) override;
+    void update(ztime ms) override;
     void render(irender* render) const override;
 
     zsize get_size() const override;

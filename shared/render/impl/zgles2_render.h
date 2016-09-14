@@ -3,6 +3,8 @@
 #include <memory>
 #include <render/irender.h>
 
+class iresource;
+
 // Export impl class
 class zgles2_render final : public irender
 {

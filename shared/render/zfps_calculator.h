@@ -1,13 +1,13 @@
 #pragma once
 
-#include <cstdio>
+#include <common/ztime.h>
 
 class zfps_calculator
 {
 public:
     zfps_calculator();
 
-    void update(size_t ms);
+    void update(ztime ms);
 
     float get_fps();
 

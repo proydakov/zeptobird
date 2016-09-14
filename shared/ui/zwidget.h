@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math/zmath.h>
+#include <common/ztime.h>
 #include <render/irenderable.h>
 
 class zwidget : public irenderable
@@ -9,7 +10,7 @@ public:
     zwidget(int layer);
     ~zwidget() override;
 
-    virtual void update(size_t ms) = 0;
+    virtual void update(ztime ms) = 0;
 
     const zvec2& get_position() const;
     void set_position(const zvec2& position);

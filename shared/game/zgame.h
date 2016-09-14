@@ -6,6 +6,7 @@ class irender;
 class iscene;
 
 #include <memory>
+#include <common/ztime.h>
 
 class zgame final
 {
@@ -14,7 +15,7 @@ public:
     ~zgame();
 
     void input();
-    void update(size_t ms);
+    void update(ztime ms);
     void render(irender* render);
 
 private:
