@@ -58,10 +58,14 @@ extern "C" {
 #define TRUE 1
 #endif
 
+#define ButtonPressEvent   1
+#define ButtonReleaseEvent 2
+#define MotionNotifyEvent  3
+
 typedef struct _escontext
 {
     /// Put your user data here...
-    void*       userData;
+    void*     userData;
 
     /// Window width
     int       width;
@@ -84,7 +88,7 @@ typedef struct _escontext
     /// Callbacks
     void (ESCALLBACK *drawFunc) ( struct _escontext * );
     void (ESCALLBACK *keyFunc) ( struct _escontext *, unsigned char, int, int );
-    void (ESCALLBACK *mouseFunc) ( struct _escontext *, int, int );
+    void (ESCALLBACK *mouseFunc) ( struct _escontext *, int, int, int );
 } ESContext;
 
 
@@ -139,7 +143,7 @@ void ESUTIL_API esRegisterKeyFunc ( ESContext *esContext, void (ESCALLBACK *keyF
 /// \param esContext Application context
 /// \param keyFunc Key callback function for application processing of mouse input
 //
-void ESUTIL_API esRegisterMouseFunc ( ESContext *esContext, void (ESCALLBACK *mouseFunc) ( ESContext*, int, int ) );
+void ESUTIL_API esRegisterMouseFunc ( ESContext *esContext, void (ESCALLBACK *mouseFunc) ( ESContext*, int, int, int ) );
 
 #ifdef __cplusplus
 }

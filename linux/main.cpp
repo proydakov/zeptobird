@@ -20,11 +20,23 @@ void draw( ESContext *esContext )
     framework->render();
 }
 
-void input( ESContext *esContext, int x, int y )
+void input( ESContext *esContext, int type, int x, int y )
 {
-    std::cout << "x: " << x << " y: " << y << std::endl;
+    //std::cout << "x: " << x << " y: " << y << std::endl;
     zframework* framework = (zframework*) esContext->userData;
-    framework->input();
+    switch (type) {
+    case ButtonPressEvent:
+        framework->input(touch_event::began, x, y);
+        break;
+
+    case ButtonReleaseEvent:
+        framework->input(touch_event::end, x, y);
+        break;
+
+    case MotionNotifyEvent:
+        framework->input(touch_event::move, x, y);
+        break;
+    }
 }
 
 int main( int argc, char *argv[] )

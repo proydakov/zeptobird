@@ -117,14 +117,11 @@ EGLBoolean WinCreate(ESContext *esContext, const char *title)
     Atom wm_state;
     XWMHints hints;
     XEvent xev;
-    EGLConfig ecfg;
-    EGLint num_config;
     Window win;
 
     /*
      * X11 native display initialization
      */
-
     x_display = XOpenDisplay(NULL);
     if ( x_display == NULL )
     {
@@ -133,7 +130,7 @@ EGLBoolean WinCreate(ESContext *esContext, const char *title)
 
     root = DefaultRootWindow(x_display);
 
-    swa.event_mask  =  ExposureMask | PointerMotionMask | KeyPressMask | ButtonPressMask;
+    swa.event_mask  =  ExposureMask | PointerMotionMask | KeyPressMask | ButtonPressMask | ButtonReleaseMask;
     win = XCreateWindow(
                 x_display, root,
                 0, 0, esContext->width, esContext->height, 0,
@@ -192,29 +189,60 @@ GLboolean userInterrupt(ESContext *esContext)
     {
         XNextEvent( x_display, &xev );
 
-        //printf("xev.type: %d\n", xev.type);
-
-        if ( xev.type == KeyPress )
+        switch( xev.type ) {
+        case KeyPress:
         {
-            if (XLookupString(&xev.xkey,&text,1,&key,0)==1)
-            {
+            //printf("KeyPress\n");
+            if (XLookupString(&xev.xkey,&text,1,&key,0) == 1) {
+                if(27 == text) {
+                    userinterrupt = GL_TRUE;
+                    break;
+                }
                 if (esContext->keyFunc != NULL) {
                     esContext->keyFunc(esContext, text, 0, 0);
                 }
             }
         }
-        else if (xev.type == ButtonPress) {
+            break;
+
+        case ButtonPress:
+        {
+            //printf("ButtonPress\n");
             if (esContext->mouseFunc != NULL) {
-                esContext->mouseFunc(esContext, xev.xbutton.x, xev.xbutton.y);
+                esContext->mouseFunc(esContext, ButtonPressEvent, xev.xbutton.x, xev.xbutton.y);
             }
-            fflush (stdout);
         }
-        if ( xev.type == DestroyNotify )
+            break;
+
+        case ButtonRelease:
+        {
+            //printf("ButtonRelease\n");
+            if (esContext->mouseFunc != NULL) {
+                esContext->mouseFunc(esContext, ButtonReleaseEvent, xev.xbutton.x, xev.xbutton.y);
+            }
+        }
+            break;
+
+        case MotionNotify:
+        {
+            //printf("MotionNotify\n");
+            if (esContext->mouseFunc != NULL) {
+                esContext->mouseFunc(esContext, MotionNotifyEvent, xev.xbutton.x, xev.xbutton.y);
+            }
+        }
+            break;
+
+        case DestroyNotify:
+        {
+            //printf("DestroyNotify\n");
             userinterrupt = GL_TRUE;
+        }
+            break;
+        }
+        //fflush(stdout);
     }
     return userinterrupt;
 }
-
 
 //////////////////////////////////////////////////////////////////
 //
@@ -301,9 +329,9 @@ void ESUTIL_API esMainLoop ( ESContext *esContext )
 {
     while(userInterrupt(esContext) == GL_FALSE)
     {
-        if (esContext->drawFunc != NULL)
+        if (esContext->drawFunc != NULL) {
             esContext->drawFunc(esContext);
-
+        }
         eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
     }
 }
@@ -317,19 +345,20 @@ void ESUTIL_API esRegisterDrawFunc ( ESContext *esContext, void (ESCALLBACK *dra
     esContext->drawFunc = drawFunc;
 }
 
+
 ///
 //  esRegisterKeyFunc()
 //
-void ESUTIL_API esRegisterKeyFunc ( ESContext *esContext,
-                                    void (ESCALLBACK *keyFunc) (ESContext*, unsigned char, int, int ) )
+void ESUTIL_API esRegisterKeyFunc ( ESContext *esContext, void (ESCALLBACK *keyFunc) (ESContext*, unsigned char, int, int ) )
 {
     esContext->keyFunc = keyFunc;
 }
 
+
 ///
 //  esRegisterMouseFunc()
 //
-void ESUTIL_API esRegisterMouseFunc ( ESContext *esContext, void (ESCALLBACK *mouseFunc) ( ESContext*, int, int ) )
+void ESUTIL_API esRegisterMouseFunc ( ESContext *esContext, void (ESCALLBACK *mouseFunc) ( ESContext*, int, int, int ) )
 {
     esContext->mouseFunc = mouseFunc;
 }
