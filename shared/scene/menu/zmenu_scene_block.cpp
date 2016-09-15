@@ -9,7 +9,7 @@
 
 zmenu_scene_block::zmenu_scene_block(float width, float height, const zcolor& color, int layer)
 {
-    std::cout << "zmenu_scene_block" << std::endl;
+    //std::cout << "zmenu_scene_block" << std::endl;
 
     m_position.set_zero();
     m_speed.set_zero();
@@ -25,7 +25,7 @@ zmenu_scene_block::zmenu_scene_block(float width, float height, const zcolor& co
 
 zmenu_scene_block::~zmenu_scene_block()
 {
-    std::cout << "~zmenu_scene_block" << std::endl;
+    //std::cout << "~zmenu_scene_block" << std::endl;
 }
 
 void zmenu_scene_block::update(size_t ms)

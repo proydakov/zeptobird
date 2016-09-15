@@ -54,6 +54,8 @@
 		84BBD91D1D89C7240089A277 /* zvec2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9171D89C7240089A277 /* zvec2.cpp */; };
 		84BBD91E1D89C7240089A277 /* zvec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9191D89C7240089A277 /* zvec3.cpp */; };
 		84BBD9211D89C7890089A277 /* zmenu_scene_block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD91F1D89C7890089A277 /* zmenu_scene_block.cpp */; };
+		84BBD9231D89E4940089A277 /* zmat44.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9221D89E4940089A277 /* zmat44.cpp */; };
+		84BBD9261D89E5180089A277 /* zvec4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9241D89E5180089A277 /* zvec4.cpp */; };
 		84C9E0551D85435600517A16 /* zgles2_texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84C9E0531D85435600517A16 /* zgles2_texture.cpp */; };
 		84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */; };
 		84EE839B1D8596A000759455 /* alphabet.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84EE839A1D8596A000759455 /* alphabet.txt */; };
@@ -158,13 +160,15 @@
 		84BBD9131D89C7240089A277 /* zmat33.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmat33.cpp; sourceTree = "<group>"; };
 		84BBD9141D89C7240089A277 /* zmat33.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmat33.h; sourceTree = "<group>"; };
 		84BBD9151D89C7240089A277 /* zmat44.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmat44.h; sourceTree = "<group>"; };
-		84BBD9161D89C7240089A277 /* zmat44.impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmat44.impl.h; sourceTree = "<group>"; };
 		84BBD9171D89C7240089A277 /* zvec2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zvec2.cpp; sourceTree = "<group>"; };
 		84BBD9181D89C7240089A277 /* zvec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zvec2.h; sourceTree = "<group>"; };
 		84BBD9191D89C7240089A277 /* zvec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zvec3.cpp; sourceTree = "<group>"; };
 		84BBD91A1D89C7240089A277 /* zvec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zvec3.h; sourceTree = "<group>"; };
 		84BBD91F1D89C7890089A277 /* zmenu_scene_block.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmenu_scene_block.cpp; sourceTree = "<group>"; };
 		84BBD9201D89C7890089A277 /* zmenu_scene_block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmenu_scene_block.h; sourceTree = "<group>"; };
+		84BBD9221D89E4940089A277 /* zmat44.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmat44.cpp; sourceTree = "<group>"; };
+		84BBD9241D89E5180089A277 /* zvec4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zvec4.cpp; sourceTree = "<group>"; };
+		84BBD9251D89E5180089A277 /* zvec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zvec4.h; sourceTree = "<group>"; };
 		84C9E0531D85435600517A16 /* zgles2_texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zgles2_texture.cpp; sourceTree = "<group>"; };
 		84C9E0541D85435600517A16 /* zgles2_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgles2_texture.h; sourceTree = "<group>"; };
 		84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zaabb.cpp; sourceTree = "<group>"; };
@@ -333,12 +337,14 @@
 				84BBD9171D89C7240089A277 /* zvec2.cpp */,
 				84BBD91A1D89C7240089A277 /* zvec3.h */,
 				84BBD9191D89C7240089A277 /* zvec3.cpp */,
+				84BBD9251D89E5180089A277 /* zvec4.h */,
+				84BBD9241D89E5180089A277 /* zvec4.cpp */,
 				84BBD9121D89C7240089A277 /* zmat22.h */,
 				84BBD9111D89C7240089A277 /* zmat22.cpp */,
 				84BBD9141D89C7240089A277 /* zmat33.h */,
 				84BBD9131D89C7240089A277 /* zmat33.cpp */,
 				84BBD9151D89C7240089A277 /* zmat44.h */,
-				84BBD9161D89C7240089A277 /* zmat44.impl.h */,
+				84BBD9221D89E4940089A277 /* zmat44.cpp */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -617,6 +623,7 @@
 				840905751D84538700550B08 /* zmodel.cpp in Sources */,
 				846DDAFC1D7B058E00B57C22 /* main.m in Sources */,
 				845ABE321D7CAB9D00F564AC /* zcolor.cpp in Sources */,
+				84BBD9231D89E4940089A277 /* zmat44.cpp in Sources */,
 				84F770DC1D85210400BB2F5D /* zgles2_program.cpp in Sources */,
 				84C9E0551D85435600517A16 /* zgles2_texture.cpp in Sources */,
 				845ABE301D7CAB9D00F564AC /* zgles2_render.cpp in Sources */,
@@ -634,6 +641,7 @@
 				845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */,
 				840905671D8438AB00550B08 /* zscene_wall_object.cpp in Sources */,
 				84BBD91D1D89C7240089A277 /* zvec2.cpp in Sources */,
+				84BBD9261D89E5180089A277 /* zvec4.cpp in Sources */,
 				84EE83A41D85F20200759455 /* zcolor_widget.cpp in Sources */,
 				845ABE371D7CAB9D00F564AC /* iscene_object.cpp in Sources */,
 				845ABE2E1D7CAB9D00F564AC /* iresource.cpp in Sources */,

@@ -1,16 +1,24 @@
 #pragma once
 
-#include <vector>
+#include <math/zvec3.h>
+#include <math/zvec4.h>
 
-template<class T>
-std::vector<T> zortho_matrix(T left, T right, T bottom, T top, T near, T far);
+struct zmat44
+{
+    zmat44();
+    zmat44(const zvec4& c1, const zvec4& c2, const zvec4& c3, const zvec4& c4);
 
-template<class T>
-std::vector<T> zrotate_around_z_matrix(T radians);
+    void set_zero();
+    void set_identity();
 
-template<class T>
-std::vector<T> zidentity_matrix();
+    zvec4 ex, ey, ez, ei;
+};
 
-// impl
+zvec4 zmul(const zmat44& A, const zvec4& v);
+zmat44 zmul(const zmat44& A, const zmat44& B);
 
-#include <math/zmat44.impl.h>
+zmat44 ztranslate4(const zvec3& position);
+zmat44 zrotate4(zfloat rotation);
+zmat44 zscale4(zfloat scalex, zfloat scaley, zfloat scalez);
+
+zmat44 zortho(zfloat left, zfloat right, zfloat bottom, zfloat top, zfloat near, zfloat far);

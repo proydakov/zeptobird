@@ -17,6 +17,6 @@ struct zmat33
 zvec3 zmul(const zmat33& A, const zvec3& v);
 zmat33 zmul(const zmat33& A, const zmat33& B);
 
-zmat33 ztranslate(const zvec2& position);
-zmat33 zrotate(zfloat rotation);
-zmat33 zscale(zfloat scale);
+zmat33 ztranslate3(const zvec2& position);
+zmat33 zrotate3(zfloat rotation);
+zmat33 zscale3(zfloat scalex, zfloat scaley);

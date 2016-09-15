@@ -3,6 +3,7 @@
 #include <cassert>
 #include <iostream>
 #include <algorithm>
+#include <type_traits>
 
 #include <math/zmath.h>
 #include <common/ztypes.h>
@@ -36,6 +37,8 @@ struct zgles2_render::data
     data(const iresource*);
 
     const iresource* resource;
+
+    zmat44 mvp;
 
     int view_width;
     int view_height;
@@ -111,6 +114,8 @@ void zgles2_render::init(const zsize& view_size)
 
     load_shaders(m_data->resource);
     load_textures(m_data->resource);
+
+    update_mvp();
 }
 
 void zgles2_render::deinit()
@@ -134,9 +139,9 @@ void zgles2_render::render(const irenderable* object, const zvec2& position, zfl
 {
     /// @todo : test vbo impl
 
-    zmat33 mtranslate = ztranslate(position);
-    zmat33 mrotate = zrotate(rotation);
-    zmat33 mscale = zscale(scale);
+    zmat33 mtranslate = ztranslate3(position);
+    zmat33 mrotate = zrotate3(rotation);
+    zmat33 mscale = zscale3(scale, scale);
     zmat33 mtransform = zmul(zmul(mtranslate, mrotate), mscale);
 
     const float layer = object->get_layer();
@@ -172,6 +177,8 @@ void zgles2_render::render(const irenderable* object, const zvec2& position, zfl
     }
 }
 
+static_assert( sizeof(GLfloat) == sizeof(zfloat), "invalid float size for shader" );
+
 void zgles2_render::render()
 {
     /// @todo : test vbo impl
@@ -179,24 +186,13 @@ void zgles2_render::render()
     glClearColor(m_data->background_color.r, m_data->background_color.g, m_data->background_color.b, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    /// @todo : think how to improve
-    assert(m_data->scene_width == m_data->scene_height);
-    const GLfloat left  = -1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
-    const GLfloat right = +1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
-    const GLfloat bottom = -1.0 * m_data->scene_height / 2;
-    const GLfloat top    = +1.0 * m_data->scene_height / 2;
-
-    std::vector<GLfloat> orto(zortho_matrix<GLfloat>( left, right, bottom, top, +1000.0, -1000.0 ) );
-    std::vector<GLfloat> model_view( zidentity_matrix<GLfloat>() );
-
     m_data->vertex_statistic = 0;
 
     // render objects
     {
         glUseProgram(m_data->model_program.get_id());
 
-        glUniformMatrix4fv(m_data->model_program.get_uniform_location("vProjection"), 1, GL_FALSE, orto.data());
-        glUniformMatrix4fv(m_data->model_program.get_uniform_location("vModelView"), 1, GL_FALSE, model_view.data());
+        glUniformMatrix4fv(m_data->model_program.get_uniform_location("vMVP"), 1, GL_FALSE, (GLfloat*)(&m_data->mvp));
 
         const int vPositionAttr = m_data->model_program.get_attribute_location("vPosition");
         const int vColorAttr = m_data->model_program.get_attribute_location("vColor");
@@ -229,8 +225,7 @@ void zgles2_render::render()
     {
         glUseProgram(m_data->widget_program.get_id());
 
-        glUniformMatrix4fv(m_data->widget_program.get_uniform_location("vProjection"), 1, GL_FALSE, orto.data());
-        glUniformMatrix4fv(m_data->widget_program.get_uniform_location("vModelView"), 1, GL_FALSE, model_view.data());
+        glUniformMatrix4fv(m_data->widget_program.get_uniform_location("vMVP"), 1, GL_FALSE, (GLfloat*)(&m_data->mvp));
 
         const int vPositionAttr = m_data->widget_program.get_attribute_location("vPosition");
         const int vTexCoordAttr = m_data->widget_program.get_attribute_location("vTexCoord");
@@ -260,6 +255,7 @@ void zgles2_render::set_scene_size(const zsize& scene_size)
     if(m_data->scene_change_notify) {
         m_data->scene_change_callback(scene_size);
     }
+    update_mvp();
 }
 
 void zgles2_render::set_background_color(const zcolor& color)
@@ -283,17 +279,31 @@ size_t zgles2_render::get_vertex_statistic() const
     return m_data->vertex_statistic;
 }
 
+void zgles2_render::update_mvp()
+{
+    /// @todo : think how to improve
+    assert(m_data->scene_width == m_data->scene_height);
+    const GLfloat left  = -1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
+    const GLfloat right = +1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
+    const GLfloat bottom = -1.0 * m_data->scene_height / 2;
+    const GLfloat top    = +1.0 * m_data->scene_height / 2;
+
+    zmat44 orto(zortho( left, right, bottom, top, +1000.0, -1000.0 ));
+    zmat44 model_view(zrotate4(M_PI * 0));
+    m_data->mvp = zmul(orto, model_view);
+}
+
 bool zgles2_render::load_shaders(const iresource* resource)
 {
     bool load = m_data->model_program.load(resource, "model_vertex.glsl", "model_fragment.glsl",
                                            std::vector<std::string>{ "vPosition",  "vColor" },
-                                           std::vector<std::string>{ "vModelView", "vProjection" });
+                                           std::vector<std::string>{ "vMVP" });
 
     assert(load);
 
     load *= m_data->widget_program.load(resource, "widget_vertex.glsl", "widget_fragment.glsl",
                                         std::vector<std::string>{ "vPosition",  "vTexCoord" },
-                                        std::vector<std::string>{ "vModelView", "vProjection", "fTexture" });
+                                        std::vector<std::string>{ "vMVP", "fTexture" });
 
     assert(load);
 

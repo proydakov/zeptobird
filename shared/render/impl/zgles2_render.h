@@ -27,6 +27,7 @@ public:
     size_t get_vertex_statistic() const override;
 
 private:
+    void update_mvp();
     bool load_shaders(const iresource* resource);
     bool load_textures(const iresource* resource);
 
