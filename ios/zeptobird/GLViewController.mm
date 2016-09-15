@@ -44,9 +44,9 @@
     self->framework->render();
 }
 
-- (void)input
+- (void)input:(touch_event)type withX:(int)x andY:(int)y;
 {
-    self->framework->input();
+    self->framework->input(type, x, y);
 }
 
 - (void)pause

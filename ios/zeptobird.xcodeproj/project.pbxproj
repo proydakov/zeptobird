@@ -169,6 +169,9 @@
 		84BBD9221D89E4940089A277 /* zmat44.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmat44.cpp; sourceTree = "<group>"; };
 		84BBD9241D89E5180089A277 /* zvec4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zvec4.cpp; sourceTree = "<group>"; };
 		84BBD9251D89E5180089A277 /* zvec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zvec4.h; sourceTree = "<group>"; };
+		84BBD9271D8A65BC0089A277 /* ztime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ztime.h; sourceTree = "<group>"; };
+		84BBD9281D8A65BC0089A277 /* ztypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ztypes.h; sourceTree = "<group>"; };
+		84BBD9291D8A66770089A277 /* zinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zinput.h; sourceTree = "<group>"; };
 		84C9E0531D85435600517A16 /* zgles2_texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zgles2_texture.cpp; sourceTree = "<group>"; };
 		84C9E0541D85435600517A16 /* zgles2_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgles2_texture.h; sourceTree = "<group>"; };
 		84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zaabb.cpp; sourceTree = "<group>"; };
@@ -238,7 +241,10 @@
 		8409054D1D84365700550B08 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				84BBD9271D8A65BC0089A277 /* ztime.h */,
 				8409054E1D84365700550B08 /* zsize.h */,
+				84BBD9281D8A65BC0089A277 /* ztypes.h */,
+				84BBD9291D8A66770089A277 /* zinput.h */,
 			);
 			path = common;
 			sourceTree = "<group>";

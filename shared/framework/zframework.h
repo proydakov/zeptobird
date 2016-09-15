@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <common/ztime.h>
+#include <common/zinput.h>
 
 class iresource;
 class isound;
@@ -19,7 +20,7 @@ public:
     void init(int width, int height);
     void deinit();
 
-    void input();
+    void input(touch_event type, int x, int y);
     void update();
     void render();
 

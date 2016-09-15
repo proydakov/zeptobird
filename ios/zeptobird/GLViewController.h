@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#include <common/zinput.h>
 
 @interface GLViewController : UIViewController
 {
@@ -9,7 +10,7 @@
 - (void)uninstall;
 
 - (void)draw;
-- (void)input;
+- (void)input:(touch_event)type withX:(int)x andY:(int)y;
 
 - (void)pause;
 

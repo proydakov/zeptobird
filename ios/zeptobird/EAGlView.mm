@@ -109,15 +109,28 @@
         NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
     [controller installWidth: backingWidth andHeight: backingHeight];
 
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    tapGesture.numberOfTapsRequired = 1;
-    [self addGestureRecognizer:tapGesture];
-
     [self drawView];
 }
 
--(void) handleTapGesture:(UIGestureRecognizer *) sender {
-    [controller input];
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *aTouch = [touches anyObject];
+    CGPoint position = [aTouch locationInView:self];
+    [controller input: touch_event::began withX:position.x andY:position.y];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *aTouch = [touches anyObject];
+    CGPoint position = [aTouch locationInView:self];
+    [controller input: touch_event::move withX:position.x andY:position.y];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *aTouch = [touches anyObject];
+    CGPoint position = [aTouch locationInView:self];
+    [controller input: touch_event::end withX:position.x andY:position.y];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
 }
 
 - (NSInteger)animationFrameInterval

@@ -48,9 +48,11 @@ void zframework::deinit()
     m_render->deinit();
 }
 
-void zframework::input()
+void zframework::input(touch_event type, int x, int y)
 {
-    m_game->input();
+    if(touch_event::began == type) {
+        m_game->input();
+    }
 }
 
 void zframework::update()
