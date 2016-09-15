@@ -6,7 +6,8 @@
 
 zgame::zgame(isound* sound) :
     m_sound(sound),
-    m_scene_counter(false)
+    m_scene_counter(false),
+    m_scene_resized(true)
 {
     next();
 }
@@ -15,10 +16,10 @@ zgame::~zgame()
 {
 }
 
-void zgame::input()
+void zgame::input(touch_event type, int x, int y)
 {
     if(!m_scene->is_done()) {
-        m_scene->input();
+        m_scene->input(type, x, y);
     }
 }
 
@@ -28,11 +29,19 @@ void zgame::update(ztime ms)
     if(m_scene->is_done()) {
         next();
     }
+    auto size = m_scene->get_size();
+    if(size != m_scene_size) {
+        m_scene_size = size;
+        m_scene_resized = true;
+    }
 }
 
 void zgame::render(irender* render)
 {
-    render->set_scene_size(m_scene->get_size());
+    if(m_scene_resized) {
+        m_scene_resized = false;
+        render->set_scene_size(m_scene->get_size());
+    }
     m_scene->render(render);
 }
 

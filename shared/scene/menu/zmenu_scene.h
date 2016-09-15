@@ -17,7 +17,7 @@ public:
     zmenu_scene(isound* sound);
     ~zmenu_scene() override;
 
-    void input() override;
+    void input(touch_event type, int x, int y) override;
     void update(ztime ms) override;
     void render(irender* render) const override;
 

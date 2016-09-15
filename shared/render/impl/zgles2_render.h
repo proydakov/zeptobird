@@ -23,6 +23,8 @@ public:
     void set_background_color(const zcolor& color) override;
     void set_aabb_color(const zcolor& color) override;
 
+    zvec2 view_2_scene(zvec2 view) override;
+
     void set_scene_size_change_callback(const std::function<void(const zsize&)>& functor) override;
     size_t get_vertex_statistic() const override;
 

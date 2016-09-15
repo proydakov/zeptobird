@@ -51,7 +51,8 @@ void zframework::deinit()
 void zframework::input(touch_event type, int x, int y)
 {
     if(touch_event::began == type) {
-        m_game->input();
+        auto scene = m_render->view_2_scene(zvec2(x, y));
+        m_game->input(type, scene.x, scene.y);
     }
 }
 

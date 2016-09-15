@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iomanip>
 
 #include "zmat33.h"
 
@@ -46,7 +47,7 @@ zmat33 ztranslate3(const zvec2& position)
     return mtranslate;
 }
 
-zmat33 zrotate3(zfloat rotation)
+zmat33 zrotate_around_z3(zfloat rotation)
 {
     zmat33 mrotate;
     mrotate.ex.x = +std::cos(rotation); mrotate.ey.x = -std::sin(rotation); mrotate.ez.x = 0.0f;
@@ -62,4 +63,16 @@ zmat33 zscale3(zfloat scalex, zfloat scaley)
     mscale.ex.y = 0.0f;   mscale.ey.y = scaley; mscale.ez.y = 0.0f;
     mscale.ex.z = 0.0f;   mscale.ey.z = 0.0f;   mscale.ez.z = 1.0f;
     return mscale;
+}
+
+std::ostream& operator<<(std::ostream& stream, const zmat33& mat)
+{
+    const int w = 10;
+    const int p = 3;
+
+    stream << "[" << std::setw(w) << std::setprecision( p ) << mat.ex.x << ", " << std::setw(w) << std::setprecision( p ) << mat.ey.x  << ", " << std::setw(w) << std::setprecision( p ) << mat.ez.x << "]\n";
+    stream << "[" << std::setw(w) << std::setprecision( p ) << mat.ex.y << ", " << std::setw(w) << std::setprecision( p ) << mat.ey.y  << ", " << std::setw(w) << std::setprecision( p ) << mat.ez.y << "]\n";
+    stream << "[" << std::setw(w) << std::setprecision( p ) << mat.ex.z << ", " << std::setw(w) << std::setprecision( p ) << mat.ey.z  << ", " << std::setw(w) << std::setprecision( p ) << mat.ez.z << "]\n";
+
+    return stream;
 }

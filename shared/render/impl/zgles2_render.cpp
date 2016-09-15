@@ -140,7 +140,7 @@ void zgles2_render::render(const irenderable* object, const zvec2& position, zfl
     /// @todo : test vbo impl
 
     zmat33 mtranslate = ztranslate3(position);
-    zmat33 mrotate = zrotate3(rotation);
+    zmat33 mrotate = zrotate_around_z3(rotation);
     zmat33 mscale = zscale3(scale, scale);
     zmat33 mtransform = zmul(zmul(mtranslate, mrotate), mscale);
 
@@ -268,6 +268,11 @@ void zgles2_render::set_aabb_color(const zcolor& color)
     m_data->aabb_color = color;
 }
 
+zvec2 zgles2_render::view_2_scene(zvec2 view)
+{
+    return zunproject(m_data->mvp, zvec4{0, 0, 1.0f * m_data->view_width, 1.0f * m_data->view_height}, view);
+}
+
 void zgles2_render::set_scene_size_change_callback(const std::function<void(const zsize&)>& functor)
 {
     m_data->scene_change_notify = true;
@@ -289,7 +294,8 @@ void zgles2_render::update_mvp()
     const GLfloat top    = +1.0 * m_data->scene_height / 2;
 
     zmat44 orto(zortho( left, right, bottom, top, +1000.0, -1000.0 ));
-    zmat44 model_view(zrotate4(M_PI * 0));
+    zmat44 model_view;
+    model_view.set_identity();
     m_data->mvp = zmul(orto, model_view);
 }
 

@@ -1,8 +1,10 @@
-add_executable(test_phys test_phys.cpp)
-target_link_libraries(test_phys shared)
-add_dependencies(test_phys shared)
+function(add_ztest NAME)
+    set(SAMPLE_NAME test_${NAME})
+    add_executable(${SAMPLE_NAME} ${NAME}.cpp)
+    add_dependencies(${SAMPLE_NAME}      shared)
+    target_link_libraries(${SAMPLE_NAME} shared)
+endfunction()
 
-add_executable(test_logic test_logic.cpp)
-target_link_libraries(test_logic shared)
-add_dependencies(test_logic shared)
-
+add_ztest(test_phys)
+add_ztest(test_logic)
+add_ztest(test_zmath)

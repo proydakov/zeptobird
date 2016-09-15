@@ -6,11 +6,11 @@
 struct zvec4
 {
     zvec4();
-    zvec4(zfloat x_, zfloat y_, zfloat z_, zfloat i_);
+    zvec4(zfloat x_, zfloat y_, zfloat z_, zfloat w_);
 
     void set_zero();
 
-    void set(zfloat x_, zfloat y_, zfloat z_, zfloat i_);
+    void set(zfloat x_, zfloat y_, zfloat z_, zfloat w_);
 
     zvec4 operator -() const;
 
@@ -22,7 +22,7 @@ struct zvec4
 
     void operator /= (zfloat a);
 
-    zfloat x, y, z, i;
+    zfloat x, y, z, w;
 };
 
 zvec4 operator * (zfloat s, const zvec4& a);

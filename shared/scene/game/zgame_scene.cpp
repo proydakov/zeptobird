@@ -83,12 +83,14 @@ zgame_scene::~zgame_scene()
     std::cout << "~zgame_scene" << std::endl;
 }
 
-void zgame_scene::input()
+void zgame_scene::input(touch_event type, int x, int y)
 {
     if(m_game_over) {
         return;
     }
-    m_hero->set_speed(JUMP_SPEED);
+    if(touch_event::began == type) {
+        m_hero->set_speed(JUMP_SPEED);
+    }
 }
 
 void zgame_scene::update(ztime ms)

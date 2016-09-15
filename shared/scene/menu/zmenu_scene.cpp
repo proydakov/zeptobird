@@ -90,7 +90,7 @@ zmenu_scene::~zmenu_scene()
     std::cout << "~zmenu_scene" << std::endl;
 }
 
-void zmenu_scene::input()
+void zmenu_scene::input(touch_event type, int x, int y)
 {
     m_done = true;
 }
