@@ -19,6 +19,9 @@ const int SCENE_SIZE = 100;
 
 zmenu_scene::zmenu_scene(isound* sound) :
     m_sound(sound),
+    m_border_style( new zstyle{ zcolor{ 0x00 / 255.0, 0x64 / 255.0, 0x00 / 255.0 }, zcolor{ 0xFF / 255.0, 0xFF / 255.0, 0x00 / 255.0 } } ),
+    m_body_style( new zstyle{ zcolor{ 0x00 / 255.0, 0x00 / 255.0, 0x00 / 255.0 }, zcolor{ 0x00 / 255.0, 0x00 / 255.0, 0x00 / 255.0 } } ),
+    m_focus(nullptr),
     m_background_color(BACKGROUND_COLOR),
     m_done(false)
 {
@@ -26,14 +29,25 @@ zmenu_scene::zmenu_scene(isound* sound) :
 
     m_widgets.reserve(16);
     {
-        std::unique_ptr<zwidget> background_widget(new zcolor_widget(zcolor{ 0x00 / 255.0, 0x64 / 255.0, 0x00 / 255.0 }, 60, 30, 5));
-        background_widget->set_position(zvec2{0, 0});
-        m_widgets.push_back(std::move(background_widget));
+        std::unique_ptr<zwidget> game_widget(new ztext_widget("ZEPTOBIRD", 7, 5));
+        game_widget->set_position(zvec2{0, 40});
+        m_widgets.push_back(std::move(game_widget));
     }
     {
-        std::unique_ptr<zwidget> background_widget(new zcolor_widget(zcolor{ 0x00 / 255.0, 0x00 / 255.0, 0x00 / 255.0 }, 50, 20, 6));
-        background_widget->set_position(zvec2{0, 0});
-        m_widgets.push_back(std::move(background_widget));
+        auto color_ptr = new zcolor_widget(*m_border_style.get(), 60, 30, 5);
+        std::unique_ptr<zwidget> border_widget(color_ptr);
+        border_widget->set_position(zvec2{0, 0});
+        m_widgets.push_back(std::move(border_widget));
+
+        std::function<void()> callback([this](){
+            this->m_done = true;
+        });
+        color_ptr->set_release_callback(callback);
+    }
+    {
+        std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 50, 20, 6));
+        body_widget->set_position(zvec2{0, 0});
+        m_widgets.push_back(std::move(body_widget));
     }
     {
         std::unique_ptr<zwidget> play_widget(new ztext_widget("PLAY", 10, 7));
@@ -92,7 +106,24 @@ zmenu_scene::~zmenu_scene()
 
 void zmenu_scene::input(touch_event type, int x, int y)
 {
-    m_done = true;
+    bool process = false;
+    zwidget* old_focus = m_focus;
+    const zpoint point{x, y};
+    for(size_t i = 0; i < m_widgets.size(); i++) {
+        auto rect = m_widgets[i]->get_rect();
+
+        if(zpoint_in_rect(rect, point) && m_widgets[i]->input(type)) {
+            m_focus = m_widgets[i].get();
+            process = true;
+            break;
+        }
+    }
+    if(!process) {
+        m_focus = nullptr;
+    }
+    if(old_focus && old_focus != m_focus) {
+        old_focus->input(touch_event::cancle);
+    }
 }
 
 void zmenu_scene::update(ztime ms)

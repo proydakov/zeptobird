@@ -1,5 +1,10 @@
 #import <UIKit/UIKit.h>
-#include <common/zinput.h>
+
+enum touch {
+    began,
+    move,
+    end
+};
 
 @interface GLViewController : UIViewController
 {
@@ -10,7 +15,7 @@
 - (void)uninstall;
 
 - (void)draw;
-- (void)input:(touch_event)type withX:(int)x andY:(int)y;
+- (void)input:(touch)type withX:(int)x andY:(int)y;
 
 - (void)pause;
 

@@ -13,12 +13,17 @@ public:
     void set_text(const std::string& text);
     const std::string& get_text() const;
 
+    bool input(touch_event type) override;
     void update(ztime ms) override;
+    zrect get_rect() const override;
 
 private:
     void rebuild_text_coord();
 
 private:
+    float m_width;
+    float m_height;
+
     float m_unit;
     std::string m_text;
 };

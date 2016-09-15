@@ -11,7 +11,7 @@
 
 namespace {
 
-const bool DEBUG = true;
+const bool DEBUG_ENGINE = true;
 
 }
 
@@ -22,7 +22,7 @@ zframework::zframework(iresource* resource, isound* sound) :
     m_game(new zgame(sound)),
     m_time(0)
 {
-    if(DEBUG) {
+    if(DEBUG_ENGINE) {
         m_debug.reset(new zdebug(m_render.get()));
     }
     else {
@@ -50,10 +50,8 @@ void zframework::deinit()
 
 void zframework::input(touch_event type, int x, int y)
 {
-    if(touch_event::began == type) {
-        auto scene = m_render->view_2_scene(zvec2(x, y));
-        m_game->input(type, scene.x, scene.y);
-    }
+    auto scene = m_render->view_2_scene(zvec2(x, y));
+    m_game->input(type, scene.x, scene.y);
 }
 
 void zframework::update()

@@ -11,6 +11,8 @@ class irender;
 class zwidget;
 class iscene_object;
 
+class zstyle;
+
 class zmenu_scene final : public iscene
 {
 public:
@@ -28,8 +30,12 @@ public:
 private:
     isound* m_sound;
 
+    std::unique_ptr<zstyle> m_border_style;
+    std::unique_ptr<zstyle> m_body_style;
+
     std::vector<std::unique_ptr<iscene_object>> m_objects;
     std::vector<std::unique_ptr<zwidget>> m_widgets;
+    zwidget* m_focus;
 
     zcolor m_background_color;
     bool   m_done;

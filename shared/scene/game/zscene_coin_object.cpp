@@ -17,7 +17,7 @@ zscene_coin_object::zscene_coin_object(zworld* world, float radius, int layer)
     world->add_body(m_body.get());
 
     std::vector<zvec2> geometry;
-    zmodel_builder::generate_circle_model(radius, 30, geometry);
+    zmodel_builder::generate_circle_model(radius, 15, geometry);
 
     std::vector<zvec2> aabb;
     zmodel_builder::generate_circle_aabb(radius, aabb);

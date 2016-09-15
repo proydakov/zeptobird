@@ -44,9 +44,21 @@
     self->framework->render();
 }
 
-- (void)input:(touch_event)type withX:(int)x andY:(int)y;
+- (void)input:(touch)type withX:(int)x andY:(int)y;
 {
-    self->framework->input(type, x, y);
+    switch (type) {
+        case began:
+            self->framework->input(touch_event::began, x, y);
+            break;
+
+        case move:
+            self->framework->input(touch_event::move, x, y);
+            break;
+
+        case end:
+            self->framework->input(touch_event::end, x, y);
+            break;
+    }
 }
 
 - (void)pause
