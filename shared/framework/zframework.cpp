@@ -3,6 +3,7 @@
 
 #include <game/zgame.h>
 #include <common/ztime.h>
+#include <common/zprofiler.h>
 #include <render/impl/zgles2_render.h>
 
 #include "zframework.h"
@@ -54,34 +55,11 @@ void zframework::input(touch_event type, int x, int y)
     m_game->input(type, scene.x, scene.y);
 }
 
-class profiler
-{
-public:
-    profiler(const std::string& name, size_t critical) :
-        m_name(name),
-        m_critical(critical)
-    {
-        m_start = std::chrono::high_resolution_clock::now();
-    }
 
-    ~profiler()
-    {
-        auto end = std::chrono::high_resolution_clock::now();
-        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - m_start).count();
-        if(ms > m_critical) {
-            std::cout << "profiler " << m_name << ": " << ms << " ms" << std::endl;
-        }
-    }
-
-private:
-    std::string m_name;
-    std::size_t m_critical;
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_start;
-};
 
 void zframework::update()
 {
-    profiler prof("update", 1);
+    zprofiler prof("update", 1);
     
     std::chrono::time_point<std::chrono::high_resolution_clock> now = std::chrono::high_resolution_clock::now();
     auto duration = now.time_since_epoch();
@@ -101,7 +79,7 @@ void zframework::update()
 
 void zframework::render()
 {
-    profiler prof("render", 15);
+    zprofiler prof("render", 20);
 
     m_render->prepare();
     m_game->render(m_render.get());
