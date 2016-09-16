@@ -83,7 +83,7 @@ zmenu_scene::zmenu_scene(isound* sound) :
         std::uniform_int_distribution<size_t> speed_dis(0, speeds.size() - 1);
         std::uniform_int_distribution<size_t> color_dis(0, colors.size() - 1);
 
-        for(int i = -750; i < 0; i++) {
+        for(int i = -250; i < 0; i++) {
             zvec2 position( position_dis(gen), position_dis(gen) );
             zvec2 speed( speeds[ speed_dis(gen) ] );
             zcolor color( colors[ color_dis(gen) ] );
