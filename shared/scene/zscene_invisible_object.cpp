@@ -4,9 +4,6 @@
 #include <model/zmodel.h>
 #include <model/zmodel_builder.h>
 
-#include <phys/zworld.h>
-#include <phys/zrect_body.h>
-
 #include "zscene_invisible_object.h"
 
 zscene_invisible_object::zscene_invisible_object(float width, float height, int layer)

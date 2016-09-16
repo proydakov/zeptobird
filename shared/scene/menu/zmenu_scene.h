@@ -29,6 +29,11 @@ public:
     bool is_done() const override;
 
 private:
+    void init_ui();
+    void init_scene();
+    void init_objects();
+
+private:
     isound* m_sound;
 
     std::unique_ptr<zstyle> m_border_style;

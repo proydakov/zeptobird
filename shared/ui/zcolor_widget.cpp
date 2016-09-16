@@ -11,9 +11,9 @@ zcolor_widget::zcolor_widget(const zstyle& style, float width, float height, int
     m_height(height),
     m_call_callback(false)
 {
-     set_color(m_style.main_color);
-     zmodel_builder::generate_rect_model(width, height, get_geom_ref());
-     zmodel_builder::generate_rect_aabb(width, height, get_aabb_ref());
+    set_color(m_style.main_color);
+    zmodel_builder::generate_rect_model(width, height, get_geom_ref());
+    zmodel_builder::generate_rect_aabb(width, height, get_aabb_ref());
 }
 
 zcolor_widget::~zcolor_widget()
@@ -27,20 +27,20 @@ bool zcolor_widget::input(touch_event type)
     }
 
     switch (type) {
-        case touch_event::began:
-        case touch_event::move:
-            set_color(m_style.hover_color);
-            break;
+    case touch_event::began:
+    case touch_event::move:
+        set_color(m_style.hover_color);
+        break;
 
-        case touch_event::end:
-            if(m_call_callback) {
-                m_callback();
-            }
-            break;
+    case touch_event::end:
+        if(m_call_callback) {
+            m_callback();
+        }
+        break;
 
-        case touch_event::cancle:
-            set_color(m_style.main_color);
-            break;
+    case touch_event::cancle:
+        set_color(m_style.main_color);
+        break;
     }
 
     return true;

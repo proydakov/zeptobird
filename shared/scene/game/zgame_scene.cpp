@@ -12,7 +12,7 @@
 #include "zscene_coin_object.h"
 #include "zscene_wall_object.h"
 #include "zscene_hero_object.h"
-#include "zscene_invisible_object.h"
+#include <scene/zscene_invisible_object.h>
 
 #include "zgame_scene.h"
 #include "zgame_scene_logic.h"
