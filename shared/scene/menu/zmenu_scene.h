@@ -12,6 +12,7 @@ class zwidget;
 class iscene_object;
 
 class zstyle;
+class zinput;
 
 class zmenu_scene final : public iscene
 {
@@ -35,7 +36,7 @@ private:
 
     std::vector<std::unique_ptr<iscene_object>> m_objects;
     std::vector<std::unique_ptr<zwidget>> m_widgets;
-    zwidget* m_focus;
+    std::unique_ptr<zinput> m_input;
 
     zcolor m_background_color;
     bool   m_done;

@@ -4,6 +4,8 @@
 #include <render/irender.h>
 #include <platform/isound.h>
 #include <ui/ztext_widget.h>
+
+#include <ui/zinput.h>
 #include <ui/zcolor_widget.h>
 
 #include "zmenu_scene.h"
@@ -21,7 +23,6 @@ zmenu_scene::zmenu_scene(isound* sound) :
     m_sound(sound),
     m_border_style( new zstyle{ zcolor{ 0x00 / 255.0, 0x64 / 255.0, 0x00 / 255.0 }, zcolor{ 0xFF / 255.0, 0xFF / 255.0, 0x00 / 255.0 } } ),
     m_body_style( new zstyle{ zcolor{ 0x00 / 255.0, 0x00 / 255.0, 0x00 / 255.0 }, zcolor{ 0x00 / 255.0, 0x00 / 255.0, 0x00 / 255.0 } } ),
-    m_focus(nullptr),
     m_background_color(BACKGROUND_COLOR),
     m_done(false)
 {
@@ -39,6 +40,7 @@ zmenu_scene::zmenu_scene(isound* sound) :
         border_widget->set_position(zvec2{0, 0});
         m_widgets.push_back(std::move(border_widget));
 
+    m_input.reset(new zinput(m_widgets));
         std::function<void()> callback([this](){
             this->m_done = true;
         });
