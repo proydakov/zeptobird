@@ -58,8 +58,9 @@ void zworld::update(size_t ms)
         return;
     }
 
-    const float delta =  1.0 * ms / 1000;
+    const zfloat delta =  1.0 * ms / 1000;
 
+    // update body
     for(size_t i = 0; i < m_bodys.size(); i++) {
         zvec2 position = m_bodys[i]->get_position();
         zvec2 speed = m_bodys[i]->get_speed();
@@ -67,6 +68,7 @@ void zworld::update(size_t ms)
         m_bodys[i]->set_position(position);
     }
 
+    // update hero
     {
         zvec2 position = m_hero->get_position();
         zvec2 speed = m_hero->get_speed();
@@ -76,6 +78,7 @@ void zworld::update(size_t ms)
         m_hero->set_speed(speed);
     }
 
+    // check collision
     bool collided = false;
     for(size_t i = 0; i < m_bodys.size() && !collided; i++) {
         ibody* test = m_bodys[i];

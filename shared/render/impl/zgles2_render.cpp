@@ -268,7 +268,7 @@ void zgles2_render::set_aabb_color(const zcolor& color)
     m_data->aabb_color = color;
 }
 
-zvec2 zgles2_render::view_2_scene(zvec2 view)
+zvec2 zgles2_render::view_2_scene(const zvec2& view)
 {
     return zunproject(m_data->mvp, zvec4{0, 0, 1.0f * m_data->view_width, 1.0f * m_data->view_height}, view);
 }
