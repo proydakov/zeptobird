@@ -6,6 +6,8 @@
 #include <common/zinput.h>
 #include <render/irenderable.h>
 
+class irender;
+
 class zwidget : public irenderable
 {
 public:
@@ -16,6 +18,8 @@ public:
     virtual void update(ztime ms) = 0;
     virtual zrect get_rect() const = 0;
 
+    void render(irender* render) const;
+
     const zvec2& get_position() const;
     void set_position(const zvec2& position);
 
@@ -24,6 +28,9 @@ public:
 
     zfloat get_scale() const;
     void set_scale(zfloat scale);
+
+    void set_visible(bool state);
+    bool get_visible() const;
 
     int get_layer() const override;
 
@@ -45,6 +52,8 @@ protected:
     std::vector<zvec2>& get_textured_coord_ref();
 
 private:
+    bool m_visible;
+
     std::vector<zvec2> m_geom;
     std::vector<zvec2> m_aabb;
 

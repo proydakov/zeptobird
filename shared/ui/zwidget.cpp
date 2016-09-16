@@ -1,8 +1,11 @@
 #include "zwidget.h"
 
+#include <render/irender.h>
+
 const std::string zwidget::m_texture_name = "alphabet";
 
 zwidget::zwidget(int layer) :
+    m_visible(true),
     m_layer(layer),
     m_color{0, 0, 0},
     m_rotation(0),
@@ -13,6 +16,13 @@ zwidget::zwidget(int layer) :
 
 zwidget::~zwidget()
 {
+}
+
+void zwidget::render(irender* render) const
+{
+    if(m_visible) {
+        render->render(this, get_position(), get_rotation(), get_scale());
+    }
 }
 
 const zvec2& zwidget::get_position() const
@@ -43,6 +53,16 @@ zfloat zwidget::get_scale() const
 void zwidget::set_scale(zfloat scale)
 {
     m_scale = scale;
+}
+
+void zwidget::set_visible(bool state)
+{
+    m_visible = state;
+}
+
+bool zwidget::get_visible() const
+{
+    return m_visible;
 }
 
 int zwidget::get_layer() const

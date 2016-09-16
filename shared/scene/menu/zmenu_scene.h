@@ -30,6 +30,10 @@ public:
 
 private:
     void init_ui();
+    void init_main_ui();
+    void init_record_ui();
+    void init_about_ui();
+
     void init_scene();
     void init_objects();
 
@@ -41,6 +45,11 @@ private:
 
     std::vector<std::unique_ptr<iscene_object>> m_objects;
     std::vector<std::unique_ptr<zwidget>> m_widgets;
+
+    std::vector<zwidget*> m_main_group;
+    std::vector<zwidget*> m_record_group;
+    std::vector<zwidget*> m_about_group;
+
     std::unique_ptr<zinput> m_input;
 
     zcolor m_background_color;

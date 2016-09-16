@@ -52,10 +52,10 @@ void zframework::deinit()
 void zframework::input(touch_event type, int x, int y)
 {
     auto scene = m_render->view_2_scene(zvec2(x, y));
+    /// view Y down, scene Y up
+    scene.y *= -1;
     m_game->input(type, scene.x, scene.y);
 }
-
-
 
 void zframework::update()
 {

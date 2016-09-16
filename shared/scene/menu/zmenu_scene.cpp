@@ -1,5 +1,6 @@
 #include <random>
 #include <iostream>
+#include <algorithm>
 
 #include <render/irender.h>
 #include <platform/isound.h>
@@ -19,6 +20,24 @@ const std::string MENU_THEME_MUSIC = "menu";
 const zcolor BACKGROUND_COLOR{0.65, 0.65, 0.65};
 
 const int SCENE_SIZE = 100;
+
+const std::vector<std::string> ABOUT_TEXT = {
+    "HELLO                    ",
+    "I AM EVGENY PROYDAKOV    ",
+    "C++ DEVELOPER            ",
+    "MY PASSION IS VIDEO GAMES",
+    "                         ",
+    "I WANT TO JOIN ZEPTOTEAM "
+};
+
+const std::vector<std::string> RECORD_TEXT = {
+    "1.MARIO:             5000",
+    "2.GORDON FREEMAN:    3750",
+    "3.MASTER CHIEF:      2750",
+    "4.LARA CROFT:        1750",
+    "5.UNKNOWN HERO          0"
+};
+
 }
 
 zmenu_scene::zmenu_scene(isound* sound) :
@@ -78,8 +97,7 @@ void zmenu_scene::render(irender* render) const
         m_objects[i]->render(render);
     }
     for(size_t i = 0; i < m_widgets.size(); i++) {
-        const auto& widget = m_widgets[i];
-        render->render(widget.get(), widget->get_position(), widget->get_rotation(), widget->get_scale());
+        m_widgets[i]->render(render);
     }
 }
 
@@ -96,36 +114,283 @@ bool zmenu_scene::is_done() const
 
 void zmenu_scene::init_ui()
 {
-    {
-        std::unique_ptr<zwidget> game_widget(new ztext_widget("ZEPTOBIRD", 7, 5));
-        game_widget->set_position(zvec2{0, 40});
-        m_widgets.push_back(std::move(game_widget));
-    }
-    {
-        auto color_ptr = new zcolor_widget(*m_border_style.get(), 40, 20, 5);
-        std::unique_ptr<zwidget> border_widget(color_ptr);
-        border_widget->set_position(zvec2{0, 0});
-        m_widgets.push_back(std::move(border_widget));
+    init_main_ui();
+    init_record_ui();
+    init_about_ui();
 
-        std::function<void()> callback([this](){
-            this->m_done = true;
-        });
-        color_ptr->set_release_callback(callback);
-    }
+    std::for_each(m_record_group.begin(), m_record_group.end(), [](zwidget* widget){
+        widget->set_visible(false);
+    });
+
+    std::for_each(m_about_group.begin(), m_about_group.end(), [](zwidget* widget){
+        widget->set_visible(false);
+    });
+}
+
+void zmenu_scene::init_main_ui()
+{
+    // logo
     {
-        std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 35, 15, 6));
-        body_widget->set_position(zvec2{0, 0});
-        m_widgets.push_back(std::move(body_widget));
+        std::unique_ptr<zwidget> logo_widget(new ztext_widget("ZEPTOBIRD", 9, 5));
+        m_main_group.push_back(logo_widget.get());
+
+        logo_widget->set_position(zvec2{0, 35});
+        m_widgets.push_back(std::move(logo_widget));
     }
+    // record button
     {
-        std::unique_ptr<zwidget> play_widget(new ztext_widget("PLAY", 7, 7));
-        play_widget->set_position(zvec2{0, 0});
-        m_widgets.push_back(std::move(play_widget));
+        const zvec2 revord_button_pos{-50, 0};
+        {
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), 35, 15, 5);
+            m_main_group.push_back(color_ptr);
+
+            std::unique_ptr<zwidget> border_widget(color_ptr);
+            border_widget->set_position(revord_button_pos);
+            m_widgets.push_back(std::move(border_widget));
+
+            std::function<void()> callback([this](){
+                std::cout << "record" << std::endl;
+
+                std::vector<zwidget*>& main_block = this->m_main_group;
+                std::for_each(main_block.begin(), main_block.end(), [](zwidget* widget){
+                    widget->set_visible(false);
+                });
+
+                std::vector<zwidget*>& about_block = this->m_record_group;
+                std::for_each(about_block.begin(), about_block.end(), [](zwidget* widget){
+                    widget->set_visible(true);
+                });
+            });
+            color_ptr->set_release_callback(callback);
+        }
+        {
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 30, 10, 6));
+            m_main_group.push_back(body_widget.get());
+
+            body_widget->set_position(revord_button_pos);
+            m_widgets.push_back(std::move(body_widget));
+        }
+        {
+            std::unique_ptr<zwidget> record_widget(new ztext_widget("Record", 4.5, 7));
+            m_main_group.push_back(record_widget.get());
+
+            record_widget->set_position(revord_button_pos);
+            m_widgets.push_back(std::move(record_widget));
+        }
     }
+    // play button
+    {
+        const zvec2 play_button_pos{0, 0};
+        {
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), 40, 20, 5);
+            m_main_group.push_back(color_ptr);
+
+            std::unique_ptr<zwidget> border_widget(color_ptr);
+            border_widget->set_position(play_button_pos);
+            m_widgets.push_back(std::move(border_widget));
+
+            std::function<void()> callback([this](){
+                this->m_done = true;
+            });
+            color_ptr->set_release_callback(callback);
+        }
+        {
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 35, 15, 6));
+            m_main_group.push_back(body_widget.get());
+
+            body_widget->set_position(play_button_pos);
+            m_widgets.push_back(std::move(body_widget));
+        }
+        {
+            std::unique_ptr<zwidget> play_widget(new ztext_widget("PLAY", 7, 7));
+            m_main_group.push_back(play_widget.get());
+
+            play_widget->set_position(play_button_pos);
+            m_widgets.push_back(std::move(play_widget));
+        }
+    }
+    // about button
+    {
+        const zvec2 about_button_pos{50, 0};
+        {
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), 35, 15, 5);
+            m_main_group.push_back(color_ptr);
+
+            std::unique_ptr<zwidget> border_widget(color_ptr);
+            border_widget->set_position(about_button_pos);
+            m_widgets.push_back(std::move(border_widget));
+
+            std::function<void()> callback([this](){
+                std::cout << "about" << std::endl;
+
+                std::vector<zwidget*>& main_block = this->m_main_group;
+                std::for_each(main_block.begin(), main_block.end(), [](zwidget* widget){
+                    widget->set_visible(false);
+                });
+
+                std::vector<zwidget*>& about_block = this->m_about_group;
+                std::for_each(about_block.begin(), about_block.end(), [](zwidget* widget){
+                    widget->set_visible(true);
+                });
+            });
+            color_ptr->set_release_callback(callback);
+        }
+        {
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 30, 10, 6));
+            m_main_group.push_back(body_widget.get());
+
+            body_widget->set_position(about_button_pos);
+            m_widgets.push_back(std::move(body_widget));
+        }
+        {
+            std::unique_ptr<zwidget> about_widget(new ztext_widget("About", 4.5, 7));
+            m_main_group.push_back(about_widget.get());
+
+            about_widget->set_position(about_button_pos);
+            m_widgets.push_back(std::move(about_widget));
+        }
+    }
+    // author
     {
         std::unique_ptr<zwidget> author_widget(new ztext_widget("(c)E.PROYDAKOV@GMAIL.COM", 5, 5));
+        m_main_group.push_back(author_widget.get());
+
         author_widget->set_position(zvec2{0, -45});
         m_widgets.push_back(std::move(author_widget));
+    }
+}
+
+void zmenu_scene::init_record_ui()
+{
+    // logo
+    {
+        std::unique_ptr<zwidget> logo_widget(new ztext_widget("Record", 9, 5));
+        m_record_group.push_back(logo_widget.get());
+
+        logo_widget->set_position(zvec2{0, 35});
+        m_widgets.push_back(std::move(logo_widget));
+    }
+    // text
+    {
+        const float text_unit(4.5);
+        const zvec2 top_position(0, RECORD_TEXT.size() / 2 * text_unit);
+        for(size_t i = 0; i < RECORD_TEXT.size(); i++) {
+            std::unique_ptr<zwidget> text_widget(new ztext_widget(RECORD_TEXT[i], text_unit, 7));
+            m_record_group.push_back(text_widget.get());
+
+            zvec2 text_position(top_position);
+            text_position.y -= i * text_unit;
+            text_widget->set_position(text_position);
+            m_widgets.push_back(std::move(text_widget));
+        }
+    }
+    // back button
+    {
+        const zvec2 back_button_pos{0, -30};
+        {
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), 35, 15, 5);
+            m_record_group.push_back(color_ptr);
+
+            std::unique_ptr<zwidget> border_widget(color_ptr);
+            border_widget->set_position(back_button_pos);
+            m_widgets.push_back(std::move(border_widget));
+
+            std::function<void()> callback([this](){
+                std::cout << "back" << std::endl;
+
+                std::vector<zwidget*>& main_block = this->m_main_group;
+                std::for_each(main_block.begin(), main_block.end(), [](zwidget* widget){
+                    widget->set_visible(true);
+                });
+
+                std::vector<zwidget*>& about_block = this->m_record_group;
+                std::for_each(about_block.begin(), about_block.end(), [](zwidget* widget){
+                    widget->set_visible(false);
+                });
+            });
+            color_ptr->set_release_callback(callback);
+        }
+        {
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 30, 10, 6));
+            m_record_group.push_back(body_widget.get());
+
+            body_widget->set_position(back_button_pos);
+            m_widgets.push_back(std::move(body_widget));
+        }
+        {
+            std::unique_ptr<zwidget> back_widget(new ztext_widget("Back", 4.5, 7));
+            m_record_group.push_back(back_widget.get());
+
+            back_widget->set_position(back_button_pos);
+            m_widgets.push_back(std::move(back_widget));
+        }
+    }
+}
+
+void zmenu_scene::init_about_ui()
+{
+    // logo
+    {
+        std::unique_ptr<zwidget> logo_widget(new ztext_widget("About", 9, 5));
+        m_about_group.push_back(logo_widget.get());
+
+        logo_widget->set_position(zvec2{0, 35});
+        m_widgets.push_back(std::move(logo_widget));
+    }
+    // text
+    {
+        const float text_unit(4.5);
+        const zvec2 top_position(0, ABOUT_TEXT.size() / 2 * text_unit);
+        for(size_t i = 0; i < ABOUT_TEXT.size(); i++) {
+            std::unique_ptr<zwidget> text_widget(new ztext_widget(ABOUT_TEXT[i], text_unit, 7));
+            m_about_group.push_back(text_widget.get());
+
+            zvec2 text_position(top_position);
+            text_position.y -= i * text_unit;
+            text_widget->set_position(text_position);
+            m_widgets.push_back(std::move(text_widget));
+        }
+    }
+    // back button
+    {
+        const zvec2 back_button_pos{0, -30};
+        {
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), 35, 15, 5);
+            m_about_group.push_back(color_ptr);
+
+            std::unique_ptr<zwidget> border_widget(color_ptr);
+            border_widget->set_position(back_button_pos);
+            m_widgets.push_back(std::move(border_widget));
+
+            std::function<void()> callback([this](){
+                std::cout << "back" << std::endl;
+
+                std::vector<zwidget*>& main_block = this->m_main_group;
+                std::for_each(main_block.begin(), main_block.end(), [](zwidget* widget){
+                    widget->set_visible(true);
+                });
+
+                std::vector<zwidget*>& about_block = this->m_about_group;
+                std::for_each(about_block.begin(), about_block.end(), [](zwidget* widget){
+                    widget->set_visible(false);
+                });
+            });
+            color_ptr->set_release_callback(callback);
+        }
+        {
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 30, 10, 6));
+            m_about_group.push_back(body_widget.get());
+
+            body_widget->set_position(back_button_pos);
+            m_widgets.push_back(std::move(body_widget));
+        }
+        {
+            std::unique_ptr<zwidget> back_widget(new ztext_widget("Back", 4.5, 7));
+            m_about_group.push_back(back_widget.get());
+
+            back_widget->set_position(back_button_pos);
+            m_widgets.push_back(std::move(back_widget));
+        }
     }
 }
 

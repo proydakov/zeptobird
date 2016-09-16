@@ -115,8 +115,7 @@ void zgame_scene::render(irender* render) const
     render->set_background_color(m_background_color);
 
     for(size_t i = 0; i < m_widgets.size(); i++) {
-        const auto& widget = m_widgets[i];
-        render->render(widget.get(), widget->get_position(), widget->get_rotation(), widget->get_scale());
+        m_widgets[i]->render(render);
     }
 
     for(size_t i = 0; i < m_objects.size(); i++) {
@@ -264,7 +263,6 @@ void zgame_scene::update_hero()
             m_score += COIN_SCORE;
             m_score_widget->set_text(score_2_text(m_score, SCORE_WIDTH));
             m_sound->play_sound(CATCH_COIN_SOUND);
-            std::cout << "SCORE: " << m_score << std::endl;
         }
         else {
             assert(false);

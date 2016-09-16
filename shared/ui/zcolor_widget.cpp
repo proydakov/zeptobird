@@ -22,7 +22,7 @@ zcolor_widget::~zcolor_widget()
 
 bool zcolor_widget::input(touch_event type)
 {
-    if(!m_call_callback) {
+    if(!get_visible() || !m_call_callback) {
         return false;
     }
 
@@ -36,6 +36,7 @@ bool zcolor_widget::input(touch_event type)
         if(m_call_callback) {
             m_callback();
         }
+        set_color(m_style.main_color);
         break;
 
     case touch_event::cancle:

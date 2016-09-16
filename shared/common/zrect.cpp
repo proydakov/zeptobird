@@ -8,8 +8,8 @@ zrect::zrect(const zpoint& center, int width, int height) :
 
 bool zpoint_in_rect(const zrect& rect, const zpoint& point)
 {
-    bool c1 = point > rect.min;
-    bool c2 = point < rect.max;
+    bool c1 = point >= rect.min;
+    bool c2 = point <= rect.max;
     return c1 && c2;
 }
 
