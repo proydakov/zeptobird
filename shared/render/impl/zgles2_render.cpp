@@ -214,6 +214,9 @@ void zgles2_render::render()
             glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(m_data->aabb_buffer.size()));
         }
 
+        glDisableVertexAttribArray(vPositionAttr);
+        glDisableVertexAttribArray(vPositionAttr);
+
         m_data->vertex_statistic += m_data->aabb_buffer.size();
         m_data->vertex_statistic += m_data->geom_buffer.size();
 
@@ -223,6 +226,8 @@ void zgles2_render::render()
 
     // render ui text
     {
+        glEnable(GL_TEXTURE);
+
         glUseProgram(m_data->widget_program.get_id());
 
         glUniformMatrix4fv(m_data->widget_program.get_uniform_location("vMVP"), 1, GL_FALSE, (GLfloat*)(&m_data->mvp));
@@ -242,10 +247,18 @@ void zgles2_render::render()
         glVertexAttribPointer( vTexCoordAttr, 2, GL_FLOAT, GL_TRUE, sizeof(texture_vertex), &m_data->text_buffer[0].texture);
         glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_data->text_buffer.size()));
 
+        glDisableVertexAttribArray(vPositionAttr);
+        glDisableVertexAttribArray(vTexCoordAttr);
+
         m_data->vertex_statistic += m_data->text_buffer.size();
 
         m_data->text_buffer.resize(0);
+
+        glDisable(GL_TEXTURE);
     }
+    glUseProgram(0);
+
+    glFlush();
 }
 
 void zgles2_render::set_scene_size(const zsize& scene_size)
