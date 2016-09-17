@@ -148,7 +148,7 @@ void zgles2_render::render(const irenderable* object, const zvec2& position, zfl
     // AABB
     {
         const auto& aabb_color = m_data->aabb_color;
-        const auto aabb = object->get_aabb();
+        const auto aabb = object->get_aabb_geom();
         for(size_t i = 0 ; i < aabb.size(); i++) {
             const zvec3 src(aabb[i].x, aabb[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
@@ -158,7 +158,7 @@ void zgles2_render::render(const irenderable* object, const zvec2& position, zfl
     // GEOM
     {
         const auto& color = object->get_color();
-        const auto geom = object->get_geom();
+        const auto geom = object->get_colored_geom();
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec3 src(geom[i].x, geom[i].y, 1);
             const zvec3 result = zmul(mtransform, src);

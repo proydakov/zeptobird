@@ -21,12 +21,12 @@ int zmodel::get_layer() const
     return m_layer;
 }
 
-const std::vector<zvec2>& zmodel::get_geom() const
+const std::vector<zvec2>& zmodel::get_colored_geom() const
 {
     return m_geom;
 }
 
-const std::vector<zvec2>& zmodel::get_aabb() const
+const std::vector<zvec2>& zmodel::get_aabb_geom() const
 {
     return m_aabb;
 }

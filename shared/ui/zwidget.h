@@ -39,8 +39,8 @@ public:
 
     int get_layer() const override;
 
-    const std::vector<zvec2>& get_geom() const override;
-    const std::vector<zvec2>& get_aabb() const override;
+    const std::vector<zvec2>& get_aabb_geom() const override;
+    const std::vector<zvec2>& get_colored_geom() const override;
     const zcolor& get_color() const override;
 
     const std::vector<zvec2>& get_textured_geom() const override;
