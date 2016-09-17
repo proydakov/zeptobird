@@ -41,11 +41,11 @@ zdebug::zdebug(irender* render) :
     ztext_widget* vert_widget = m_vert_widget.get();
 
     std::function<void(const zsize&)> size_change([fps_widget, vert_widget](const zsize& size) {
-        float xfps = -1 * size.width / 2;
+        float xfps = -1 * size.width / 2 + COUNTER_UNIT * 5;
         float yfps = size.height / 2 - COUNTER_UNIT;
         fps_widget->set_position(zvec2{xfps, yfps});
 
-        float xvetx = -1 * size.width / 2;
+        float xvetx = -1 * size.width / 2 + COUNTER_UNIT * 5;
         float yvetx = size.height / 2 - COUNTER_UNIT * 2;
         vert_widget->set_position(zvec2{xvetx, yvetx});
     });

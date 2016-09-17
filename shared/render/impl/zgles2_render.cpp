@@ -226,8 +226,6 @@ void zgles2_render::render()
 
     // render ui text
     {
-        glEnable(GL_TEXTURE);
-
         glUseProgram(m_data->widget_program.get_id());
 
         glUniformMatrix4fv(m_data->widget_program.get_uniform_location("vMVP"), 1, GL_FALSE, (GLfloat*)(&m_data->mvp));
@@ -253,12 +251,8 @@ void zgles2_render::render()
         m_data->vertex_statistic += m_data->text_buffer.size();
 
         m_data->text_buffer.resize(0);
-
-        glDisable(GL_TEXTURE);
     }
     glUseProgram(0);
-
-    glFlush();
 }
 
 void zgles2_render::set_scene_size(const zsize& scene_size)
@@ -299,12 +293,29 @@ size_t zgles2_render::get_vertex_statistic() const
 
 void zgles2_render::update_mvp()
 {
-    /// @todo : think how to improve
-    assert(m_data->scene_width == m_data->scene_height);
-    const GLfloat left  = -1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
-    const GLfloat right = +1.0 * m_data->scene_width / 2 * m_data->view_width / m_data->view_height;
-    const GLfloat bottom = -1.0 * m_data->scene_height / 2;
-    const GLfloat top    = +1.0 * m_data->scene_height / 2;
+    const GLfloat hk = 1.0f * m_data->scene_height / m_data->view_height;
+    const GLfloat wk = 1.0f * m_data->scene_width / m_data->view_width;
+
+    GLfloat left   = -100;
+    GLfloat right  = +100;
+    GLfloat bottom = -100;
+    GLfloat top    = +100;
+
+    //assert(m_data->scene_width == m_data->scene_height);
+    if(wk < hk) {
+        const GLfloat k = hk / wk;
+        left  = -1.0 * m_data->scene_width / 2 * k;
+        right = +1.0 * m_data->scene_width / 2 * k;
+        bottom = -1.0 * m_data->scene_height / 2;
+        top    = +1.0 * m_data->scene_height / 2;
+    }
+    else {
+        const GLfloat k = wk / hk;
+        left  = -1.0 * m_data->scene_width / 2;
+        right = +1.0 * m_data->scene_width / 2;
+        bottom = -1.0 * m_data->scene_height / 2 * k;
+        top    = +1.0 * m_data->scene_height / 2 * k;
+    }
 
     zmat44 orto(zortho( left, right, bottom, top, +1000.0, -1000.0 ));
     zmat44 model_view;

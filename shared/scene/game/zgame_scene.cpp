@@ -143,7 +143,8 @@ void zgame_scene::init_ui()
 
 void zgame_scene::init_scene()
 {
-    std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( SCENE_SIZE - 2, SCENE_SIZE - 2, 0 ) );
+    const auto size = get_size();
+    std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( size.width - 2, size.height - 2, 0 ) );
     aabb->set_position(zvec2(0, 0));
     m_objects.push_back(std::move(aabb));
 }

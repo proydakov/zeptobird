@@ -22,7 +22,6 @@
 		840905631D8438AB00550B08 /* zgame_scene_logic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840905551D8438AB00550B08 /* zgame_scene_logic.cpp */; };
 		840905641D8438AB00550B08 /* zscene_coin_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840905571D8438AB00550B08 /* zscene_coin_object.cpp */; };
 		840905651D8438AB00550B08 /* zscene_hero_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840905591D8438AB00550B08 /* zscene_hero_object.cpp */; };
-		840905661D8438AB00550B08 /* zscene_invisible_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8409055B1D8438AB00550B08 /* zscene_invisible_object.cpp */; };
 		840905671D8438AB00550B08 /* zscene_wall_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8409055D1D8438AB00550B08 /* zscene_wall_object.cpp */; };
 		840905681D8438AB00550B08 /* zmenu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840905601D8438AB00550B08 /* zmenu_scene.cpp */; };
 		8409056F1D8439D200550B08 /* ztext_widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8409056C1D8439D200550B08 /* ztext_widget.cpp */; };
@@ -60,6 +59,9 @@
 		84BBD9311D8B37310089A277 /* zpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD92F1D8B37310089A277 /* zpoint.cpp */; };
 		84BBD9371D8B52360089A277 /* zinput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9361D8B52360089A277 /* zinput.cpp */; };
 		84C9E0551D85435600517A16 /* zgles2_texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84C9E0531D85435600517A16 /* zgles2_texture.cpp */; };
+		84E21E631D8C57D700C4F4B1 /* zprofiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E21E621D8C57D700C4F4B1 /* zprofiler.cpp */; };
+		84E21E671D8C580600C4F4B1 /* zscene_invisible_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E21E651D8C580600C4F4B1 /* zscene_invisible_object.cpp */; };
+		84E21E6A1D8C583700C4F4B1 /* zinput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E21E681D8C583700C4F4B1 /* zinput.cpp */; };
 		84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */; };
 		84EE839B1D8596A000759455 /* alphabet.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84EE839A1D8596A000759455 /* alphabet.txt */; };
 		84EE83A11D85CB9500759455 /* zwidget_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84EE839F1D85CB9500759455 /* zwidget_builder.cpp */; };
@@ -102,8 +104,6 @@
 		840905581D8438AB00550B08 /* zscene_coin_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_coin_object.h; sourceTree = "<group>"; };
 		840905591D8438AB00550B08 /* zscene_hero_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_hero_object.cpp; sourceTree = "<group>"; };
 		8409055A1D8438AB00550B08 /* zscene_hero_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_hero_object.h; sourceTree = "<group>"; };
-		8409055B1D8438AB00550B08 /* zscene_invisible_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_invisible_object.cpp; sourceTree = "<group>"; };
-		8409055C1D8438AB00550B08 /* zscene_invisible_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_invisible_object.h; sourceTree = "<group>"; };
 		8409055D1D8438AB00550B08 /* zscene_wall_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_wall_object.cpp; sourceTree = "<group>"; };
 		8409055E1D8438AB00550B08 /* zscene_wall_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_wall_object.h; sourceTree = "<group>"; };
 		840905601D8438AB00550B08 /* zmenu_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zmenu_scene.cpp; sourceTree = "<group>"; };
@@ -182,6 +182,12 @@
 		84BBD9361D8B52360089A277 /* zinput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zinput.cpp; sourceTree = "<group>"; };
 		84C9E0531D85435600517A16 /* zgles2_texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zgles2_texture.cpp; sourceTree = "<group>"; };
 		84C9E0541D85435600517A16 /* zgles2_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgles2_texture.h; sourceTree = "<group>"; };
+		84E21E621D8C57D700C4F4B1 /* zprofiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zprofiler.cpp; sourceTree = "<group>"; };
+		84E21E641D8C57DE00C4F4B1 /* zprofiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zprofiler.h; sourceTree = "<group>"; };
+		84E21E651D8C580600C4F4B1 /* zscene_invisible_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_invisible_object.cpp; sourceTree = "<group>"; };
+		84E21E661D8C580600C4F4B1 /* zscene_invisible_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_invisible_object.h; sourceTree = "<group>"; };
+		84E21E681D8C583700C4F4B1 /* zinput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zinput.cpp; sourceTree = "<group>"; };
+		84E21E691D8C583700C4F4B1 /* zinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zinput.h; sourceTree = "<group>"; };
 		84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zaabb.cpp; sourceTree = "<group>"; };
 		84E3F1FE1D7F32350062ADD6 /* zaabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zaabb.h; sourceTree = "<group>"; };
 		84EE839A1D8596A000759455 /* alphabet.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = alphabet.txt; sourceTree = "<group>"; };
@@ -259,6 +265,8 @@
 				84BBD92F1D8B37310089A277 /* zpoint.cpp */,
 				84BBD92C1D8B32F50089A277 /* zrect.h */,
 				84BBD92D1D8B346C0089A277 /* zrect.cpp */,
+				84E21E641D8C57DE00C4F4B1 /* zprofiler.h */,
+				84E21E621D8C57D700C4F4B1 /* zprofiler.cpp */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -274,8 +282,6 @@
 				840905571D8438AB00550B08 /* zscene_coin_object.cpp */,
 				8409055A1D8438AB00550B08 /* zscene_hero_object.h */,
 				840905591D8438AB00550B08 /* zscene_hero_object.cpp */,
-				8409055C1D8438AB00550B08 /* zscene_invisible_object.h */,
-				8409055B1D8438AB00550B08 /* zscene_invisible_object.cpp */,
 				8409055E1D8438AB00550B08 /* zscene_wall_object.h */,
 				8409055D1D8438AB00550B08 /* zscene_wall_object.cpp */,
 			);
@@ -303,6 +309,8 @@
 				84EE83A21D85F20200759455 /* zcolor_widget.cpp */,
 				8409056D1D8439D200550B08 /* ztext_widget.h */,
 				8409056C1D8439D200550B08 /* ztext_widget.cpp */,
+				84E21E691D8C583700C4F4B1 /* zinput.h */,
+				84E21E681D8C583700C4F4B1 /* zinput.cpp */,
 				84EE83A01D85CB9500759455 /* zwidget_builder.h */,
 				84EE839F1D85CB9500759455 /* zwidget_builder.cpp */,
 			);
@@ -442,6 +450,8 @@
 				8409054A1D84342D00550B08 /* iscene.cpp */,
 				845ABE1E1D7CAB9D00F564AC /* iscene_object.h */,
 				845ABE1D1D7CAB9D00F564AC /* iscene_object.cpp */,
+				84E21E661D8C580600C4F4B1 /* zscene_invisible_object.h */,
+				84E21E651D8C580600C4F4B1 /* zscene_invisible_object.cpp */,
 				8409055F1D8438AB00550B08 /* menu */,
 				840905521D8438AB00550B08 /* game */,
 			);
@@ -638,7 +648,7 @@
 				84FD9B001D7B4FAA00922F1D /* GLViewController.mm in Sources */,
 				84BBD90E1D89C6A60089A277 /* zdebug.cpp in Sources */,
 				840905651D8438AB00550B08 /* zscene_hero_object.cpp in Sources */,
-				840905661D8438AB00550B08 /* zscene_invisible_object.cpp in Sources */,
+				84E21E671D8C580600C4F4B1 /* zscene_invisible_object.cpp in Sources */,
 				840905751D84538700550B08 /* zmodel.cpp in Sources */,
 				846DDAFC1D7B058E00B57C22 /* main.m in Sources */,
 				845ABE321D7CAB9D00F564AC /* zcolor.cpp in Sources */,
@@ -650,6 +660,7 @@
 				84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */,
 				84BBD90D1D89C6A60089A277 /* idebug.cpp in Sources */,
 				84BBD90F1D89C6A60089A277 /* zfps_calculator.cpp in Sources */,
+				84E21E631D8C57D700C4F4B1 /* zprofiler.cpp in Sources */,
 				84BBD9211D89C7890089A277 /* zmenu_scene_block.cpp in Sources */,
 				8409057C1D84587C00550B08 /* zwidget.cpp in Sources */,
 				845ABE3E1D7CADC700F564AC /* zgame.cpp in Sources */,
@@ -659,6 +670,7 @@
 				8409056F1D8439D200550B08 /* ztext_widget.cpp in Sources */,
 				845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */,
 				840905671D8438AB00550B08 /* zscene_wall_object.cpp in Sources */,
+				84E21E6A1D8C583700C4F4B1 /* zinput.cpp in Sources */,
 				84BBD91D1D89C7240089A277 /* zvec2.cpp in Sources */,
 				84BBD9261D89E5180089A277 /* zvec4.cpp in Sources */,
 				84EE83A41D85F20200759455 /* zcolor_widget.cpp in Sources */,

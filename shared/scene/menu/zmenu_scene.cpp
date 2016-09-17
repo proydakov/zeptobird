@@ -103,7 +103,7 @@ void zmenu_scene::render(irender* render) const
 
 zsize zmenu_scene::get_size() const
 {
-    zsize size{SCENE_SIZE, SCENE_SIZE};
+    zsize size{static_cast<int>(SCENE_SIZE * 1.5), SCENE_SIZE};
     return size;
 }
 
@@ -149,7 +149,7 @@ void zmenu_scene::init_main_ui()
             m_widgets.push_back(std::move(border_widget));
 
             std::function<void()> callback([this](){
-                std::cout << "record" << std::endl;
+                //std::cout << "record" << std::endl;
 
                 std::vector<zwidget*>& main_block = this->m_main_group;
                 std::for_each(main_block.begin(), main_block.end(), [](zwidget* widget){
@@ -221,7 +221,7 @@ void zmenu_scene::init_main_ui()
             m_widgets.push_back(std::move(border_widget));
 
             std::function<void()> callback([this](){
-                std::cout << "about" << std::endl;
+                //std::cout << "about" << std::endl;
 
                 std::vector<zwidget*>& main_block = this->m_main_group;
                 std::for_each(main_block.begin(), main_block.end(), [](zwidget* widget){
@@ -296,7 +296,7 @@ void zmenu_scene::init_record_ui()
             m_widgets.push_back(std::move(border_widget));
 
             std::function<void()> callback([this](){
-                std::cout << "back" << std::endl;
+                //std::cout << "back" << std::endl;
 
                 std::vector<zwidget*>& main_block = this->m_main_group;
                 std::for_each(main_block.begin(), main_block.end(), [](zwidget* widget){
@@ -363,7 +363,7 @@ void zmenu_scene::init_about_ui()
             m_widgets.push_back(std::move(border_widget));
 
             std::function<void()> callback([this](){
-                std::cout << "back" << std::endl;
+                //std::cout << "back" << std::endl;
 
                 std::vector<zwidget*>& main_block = this->m_main_group;
                 std::for_each(main_block.begin(), main_block.end(), [](zwidget* widget){
@@ -396,7 +396,8 @@ void zmenu_scene::init_about_ui()
 
 void zmenu_scene::init_scene()
 {
-    std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( SCENE_SIZE - 2, SCENE_SIZE - 2, 0 ) );
+    const auto size = get_size();
+    std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( size.width - 2, size.height - 2, 0 ) );
     aabb->set_position(zvec2(0, 0));
     m_objects.push_back(std::move(aabb));
 }

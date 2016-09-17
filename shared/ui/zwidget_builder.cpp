@@ -59,11 +59,13 @@ void zwidget_builder::generate_symbol_coord(char symbol, std::vector<zvec2>& buf
     buffer.resize(0);
     buffer.reserve(6);
 
-    buffer.push_back(zvec2{+0.0f + pos * step,        0.0f + row * step       });
-    buffer.push_back(zvec2{+0.0f + pos * step,        1.0f * step + row * step});
-    buffer.push_back(zvec2{+1.0f * step + pos * step, 0.0f + row * step       });
+    const float delta = 0.001;
 
-    buffer.push_back(zvec2{+0.0f + pos * step,        1.0f * step + row * step});
-    buffer.push_back(zvec2{+1.0f * step + pos * step, 0.0f + row * step       });
-    buffer.push_back(zvec2{+1.0f * step + pos * step, 1.0f * step + row * step});
+    buffer.push_back(zvec2{+0.0f + pos * step,        0.0f + row * step        + delta});
+    buffer.push_back(zvec2{+0.0f + pos * step,        1.0f * step + row * step        });
+    buffer.push_back(zvec2{+1.0f * step + pos * step, 0.0f + row * step        + delta});
+
+    buffer.push_back(zvec2{+0.0f + pos * step,        1.0f * step + row * step        });
+    buffer.push_back(zvec2{+1.0f * step + pos * step, 0.0f + row * step        + delta});
+    buffer.push_back(zvec2{+1.0f * step + pos * step, 1.0f * step + row * step        });
 }
