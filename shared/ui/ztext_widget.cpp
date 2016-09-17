@@ -6,10 +6,19 @@
 #include "zwidget_builder.h"
 
 ztext_widget::ztext_widget(const std::string& text, float unit, int layer) :
+    zwidget(layer),
     m_width(0),
     m_height(0),
-    m_unit(unit),
-    zwidget(layer)
+    m_unit(unit)
+{
+    set_text(text);
+}
+
+ztext_widget::ztext_widget(const std::string& text, float unit, int layer, std::unique_ptr<ianimation>&& animator) :
+    zwidget(layer, std::move(animator)),
+    m_width(0),
+    m_height(0),
+    m_unit(unit)
 {
     set_text(text);
 }
@@ -37,11 +46,7 @@ bool ztext_widget::input(touch_event type)
     return false;
 }
 
-void ztext_widget::update(size_t ms)
-{
-}
-
-zrect ztext_widget::get_rect() const
+zrect ztext_widget::get_rect_impl() const
 {
     zvec2 position = get_position();
     zrect rect(zpoint{static_cast<int>(position.x), static_cast<int>(position.y)}, m_width, m_height);

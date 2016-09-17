@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <math/zmath.h>
 #include <common/ztime.h>
 #include <common/zrect.h>
@@ -7,18 +9,21 @@
 #include <render/irenderable.h>
 
 class irender;
+class ianimation;
 
 class zwidget : public irenderable
 {
 public:
     zwidget(int layer);
+    zwidget(int layer, std::unique_ptr<ianimation>&& animator);
     ~zwidget() override;
 
-    virtual bool input(touch_event type) = 0;
-    virtual void update(ztime ms) = 0;
-    virtual zrect get_rect() const = 0;
-
+    void update(ztime ms);
     void render(irender* render) const;
+
+    zrect get_rect() const;
+
+    virtual bool input(touch_event type) = 0;
 
     const zvec2& get_position() const;
     void set_position(const zvec2& position);
@@ -52,6 +57,10 @@ protected:
     std::vector<zvec2>& get_textured_coord_ref();
 
 private:
+    virtual zrect get_rect_impl() const = 0;
+
+private:
+    std::unique_ptr<ianimation> m_animator;
     bool m_visible;
 
     std::vector<zvec2> m_geom;

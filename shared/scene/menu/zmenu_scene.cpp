@@ -9,6 +9,8 @@
 #include <ui/zinput.h>
 #include <ui/zcolor_widget.h>
 
+#include <animation/zscale_animation.h>
+
 #include <scene/zscene_invisible_object.h>
 
 #include "zmenu_scene.h"
@@ -21,6 +23,24 @@ const zcolor BACKGROUND_COLOR{0.65, 0.65, 0.65};
 
 const int SCENE_SIZE = 100;
 
+const zfloat MAX_BUTTON_SCALE = 1.1;
+
+const int SCOLOR_W = 30;
+const int SCOLOR_H = 15;
+
+const int SBUTTON_W = 35;
+const int SBUTTON_H = 20;
+
+const int BCOLOR_W = 35;
+const int BCOLOR_H = 20;
+
+const int BBUTTON_W = 40;
+const int BBUTTON_H = 25;
+
+const float H1_TEXT = 9.0;
+const float H2_TEXT = 7.0;
+const float H3_TEXT = 4.5;
+
 const std::vector<std::string> ABOUT_TEXT = {
     "HELLO                    ",
     "I AM EVGENY PROYDAKOV    ",
@@ -31,10 +51,10 @@ const std::vector<std::string> ABOUT_TEXT = {
 };
 
 const std::vector<std::string> RECORD_TEXT = {
-    "1.MARIO:             5000",
-    "2.GORDON FREEMAN:    3750",
-    "3.MASTER CHIEF:      2750",
-    "4.LARA CROFT:        1750",
+    "1.MARIO              5000",
+    "2.GORDON FREEMAN     3750",
+    "3.MASTER CHIEF       2750",
+    "4.LARA CROFT         1750",
     "5.UNKNOWN HERO          0"
 };
 
@@ -131,7 +151,7 @@ void zmenu_scene::init_main_ui()
 {
     // logo
     {
-        std::unique_ptr<zwidget> logo_widget(new ztext_widget("ZEPTOBIRD", 9, 5));
+        std::unique_ptr<zwidget> logo_widget(new ztext_widget("ZEPTOBIRD", H1_TEXT, 5));
         m_main_group.push_back(logo_widget.get());
 
         logo_widget->set_position(zvec2{0, 35});
@@ -141,7 +161,8 @@ void zmenu_scene::init_main_ui()
     {
         const zvec2 revord_button_pos{-50, 0};
         {
-            auto color_ptr = new zcolor_widget(*m_border_style.get(), 35, 15, 5);
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), SBUTTON_W, SBUTTON_H, 5, std::move(animator));
             m_main_group.push_back(color_ptr);
 
             std::unique_ptr<zwidget> border_widget(color_ptr);
@@ -164,14 +185,16 @@ void zmenu_scene::init_main_ui()
             color_ptr->set_release_callback(callback);
         }
         {
-            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 30, 10, 6));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), SCOLOR_W, SCOLOR_H, 6, std::move(animator)));
             m_main_group.push_back(body_widget.get());
 
             body_widget->set_position(revord_button_pos);
             m_widgets.push_back(std::move(body_widget));
         }
         {
-            std::unique_ptr<zwidget> record_widget(new ztext_widget("Record", 4.5, 7));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> record_widget(new ztext_widget("Record", H3_TEXT, 7, std::move(animator)));
             m_main_group.push_back(record_widget.get());
 
             record_widget->set_position(revord_button_pos);
@@ -182,7 +205,8 @@ void zmenu_scene::init_main_ui()
     {
         const zvec2 play_button_pos{0, 0};
         {
-            auto color_ptr = new zcolor_widget(*m_border_style.get(), 40, 20, 5);
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), BBUTTON_W, BBUTTON_H, 5, std::move(animator));
             m_main_group.push_back(color_ptr);
 
             std::unique_ptr<zwidget> border_widget(color_ptr);
@@ -195,14 +219,16 @@ void zmenu_scene::init_main_ui()
             color_ptr->set_release_callback(callback);
         }
         {
-            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 35, 15, 6));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), BCOLOR_W, BCOLOR_H, 6, std::move(animator)));
             m_main_group.push_back(body_widget.get());
 
             body_widget->set_position(play_button_pos);
             m_widgets.push_back(std::move(body_widget));
         }
         {
-            std::unique_ptr<zwidget> play_widget(new ztext_widget("PLAY", 7, 7));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> play_widget(new ztext_widget("PLAY", H2_TEXT, 7, std::move(animator)));
             m_main_group.push_back(play_widget.get());
 
             play_widget->set_position(play_button_pos);
@@ -213,7 +239,8 @@ void zmenu_scene::init_main_ui()
     {
         const zvec2 about_button_pos{50, 0};
         {
-            auto color_ptr = new zcolor_widget(*m_border_style.get(), 35, 15, 5);
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), SBUTTON_W, SBUTTON_H, 5, std::move(animator));
             m_main_group.push_back(color_ptr);
 
             std::unique_ptr<zwidget> border_widget(color_ptr);
@@ -236,14 +263,16 @@ void zmenu_scene::init_main_ui()
             color_ptr->set_release_callback(callback);
         }
         {
-            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 30, 10, 6));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), SCOLOR_W, SCOLOR_H, 6, std::move(animator)));
             m_main_group.push_back(body_widget.get());
 
             body_widget->set_position(about_button_pos);
             m_widgets.push_back(std::move(body_widget));
         }
         {
-            std::unique_ptr<zwidget> about_widget(new ztext_widget("About", 4.5, 7));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> about_widget(new ztext_widget("About", H3_TEXT, 7, std::move(animator)));
             m_main_group.push_back(about_widget.get());
 
             about_widget->set_position(about_button_pos);
@@ -264,7 +293,7 @@ void zmenu_scene::init_record_ui()
 {
     // logo
     {
-        std::unique_ptr<zwidget> logo_widget(new ztext_widget("Record", 9, 5));
+        std::unique_ptr<zwidget> logo_widget(new ztext_widget("Record", H1_TEXT, 5));
         m_record_group.push_back(logo_widget.get());
 
         logo_widget->set_position(zvec2{0, 35});
@@ -272,7 +301,7 @@ void zmenu_scene::init_record_ui()
     }
     // text
     {
-        const float text_unit(4.5);
+        const float text_unit(H3_TEXT);
         const zvec2 top_position(0, RECORD_TEXT.size() / 2 * text_unit);
         for(size_t i = 0; i < RECORD_TEXT.size(); i++) {
             std::unique_ptr<zwidget> text_widget(new ztext_widget(RECORD_TEXT[i], text_unit, 7));
@@ -288,7 +317,8 @@ void zmenu_scene::init_record_ui()
     {
         const zvec2 back_button_pos{0, -30};
         {
-            auto color_ptr = new zcolor_widget(*m_border_style.get(), 35, 15, 5);
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), SBUTTON_W, SBUTTON_H, 5, std::move(animator));
             m_record_group.push_back(color_ptr);
 
             std::unique_ptr<zwidget> border_widget(color_ptr);
@@ -311,14 +341,16 @@ void zmenu_scene::init_record_ui()
             color_ptr->set_release_callback(callback);
         }
         {
-            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 30, 10, 6));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), SCOLOR_W, SCOLOR_H, 6, std::move(animator)));
             m_record_group.push_back(body_widget.get());
 
             body_widget->set_position(back_button_pos);
             m_widgets.push_back(std::move(body_widget));
         }
         {
-            std::unique_ptr<zwidget> back_widget(new ztext_widget("Back", 4.5, 7));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> back_widget(new ztext_widget("Back", H3_TEXT, 7, std::move(animator)));
             m_record_group.push_back(back_widget.get());
 
             back_widget->set_position(back_button_pos);
@@ -331,7 +363,7 @@ void zmenu_scene::init_about_ui()
 {
     // logo
     {
-        std::unique_ptr<zwidget> logo_widget(new ztext_widget("About", 9, 5));
+        std::unique_ptr<zwidget> logo_widget(new ztext_widget("About", H1_TEXT, 5));
         m_about_group.push_back(logo_widget.get());
 
         logo_widget->set_position(zvec2{0, 35});
@@ -339,7 +371,7 @@ void zmenu_scene::init_about_ui()
     }
     // text
     {
-        const float text_unit(4.5);
+        const float text_unit(H3_TEXT);
         const zvec2 top_position(0, ABOUT_TEXT.size() / 2 * text_unit);
         for(size_t i = 0; i < ABOUT_TEXT.size(); i++) {
             std::unique_ptr<zwidget> text_widget(new ztext_widget(ABOUT_TEXT[i], text_unit, 7));
@@ -355,7 +387,8 @@ void zmenu_scene::init_about_ui()
     {
         const zvec2 back_button_pos{0, -30};
         {
-            auto color_ptr = new zcolor_widget(*m_border_style.get(), 35, 15, 5);
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            auto color_ptr = new zcolor_widget(*m_border_style.get(), SBUTTON_W, SBUTTON_H, 5, std::move(animator));
             m_about_group.push_back(color_ptr);
 
             std::unique_ptr<zwidget> border_widget(color_ptr);
@@ -378,14 +411,16 @@ void zmenu_scene::init_about_ui()
             color_ptr->set_release_callback(callback);
         }
         {
-            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), 30, 10, 6));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> body_widget(new zcolor_widget(*m_body_style.get(), SCOLOR_W, SCOLOR_H, 6, std::move(animator)));
             m_about_group.push_back(body_widget.get());
 
             body_widget->set_position(back_button_pos);
             m_widgets.push_back(std::move(body_widget));
         }
         {
-            std::unique_ptr<zwidget> back_widget(new ztext_widget("Back", 4.5, 7));
+            std::unique_ptr<ianimation> animator(new zscale_animation(MAX_BUTTON_SCALE));
+            std::unique_ptr<zwidget> back_widget(new ztext_widget("Back", H3_TEXT, 7, std::move(animator)));
             m_about_group.push_back(back_widget.get());
 
             back_widget->set_position(back_button_pos);

@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "zmath.h"
+#include "zvec2.h"
 
 zvec2::zvec2()
 {

@@ -7,3 +7,13 @@ file(GLOB_RECURSE SHARED_SRC
 )
 
 add_library(shared STATIC ${SHARED_SRC})
+
+foreach(loop_var ${SHARED_SRC})
+
+get_filename_component(filepath ${loop_var} DIRECTORY)
+string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" localpath ${filepath})
+string(REPLACE "${PROJECT_SOURCE_DIR}/" "" localpath ${localpath})
+string(REPLACE "/" "\\" localpath ${localpath})
+source_group(${localpath} FILES ${loop_var})
+
+endforeach()

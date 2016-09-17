@@ -28,6 +28,9 @@
 		840905751D84538700550B08 /* zmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840905711D84538700550B08 /* zmodel.cpp */; };
 		840905761D84538700550B08 /* zmodel_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840905731D84538700550B08 /* zmodel_builder.cpp */; };
 		8409057C1D84587C00550B08 /* zwidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8409057A1D84587C00550B08 /* zwidget.cpp */; };
+		8444507E1D8D4275006C8DD4 /* ianimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 844450781D8D4275006C8DD4 /* ianimation.cpp */; };
+		8444507F1D8D4275006C8DD4 /* zempty_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8444507A1D8D4275006C8DD4 /* zempty_animation.cpp */; };
+		844450801D8D4275006C8DD4 /* zscale_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8444507C1D8D4275006C8DD4 /* zscale_animation.cpp */; };
 		845ABE251D7CAB9D00F564AC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */; };
 		845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDF61D7CAB9D00F564AC /* zframework.cpp */; };
 		845ABE2A1D7CAB9D00F564AC /* ibody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDFE1D7CAB9D00F564AC /* ibody.cpp */; };
@@ -116,6 +119,12 @@
 		840905741D84538700550B08 /* zmodel_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmodel_builder.h; sourceTree = "<group>"; };
 		8409057A1D84587C00550B08 /* zwidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zwidget.cpp; sourceTree = "<group>"; };
 		8409057B1D84587C00550B08 /* zwidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zwidget.h; sourceTree = "<group>"; };
+		844450781D8D4275006C8DD4 /* ianimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ianimation.cpp; sourceTree = "<group>"; };
+		844450791D8D4275006C8DD4 /* ianimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ianimation.h; sourceTree = "<group>"; };
+		8444507A1D8D4275006C8DD4 /* zempty_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zempty_animation.cpp; sourceTree = "<group>"; };
+		8444507B1D8D4275006C8DD4 /* zempty_animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zempty_animation.h; sourceTree = "<group>"; };
+		8444507C1D8D4275006C8DD4 /* zscale_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscale_animation.cpp; sourceTree = "<group>"; };
+		8444507D1D8D4275006C8DD4 /* zscale_animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscale_animation.h; sourceTree = "<group>"; };
 		845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		845ABDF61D7CAB9D00F564AC /* zframework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zframework.cpp; sourceTree = "<group>"; };
 		845ABDF71D7CAB9D00F564AC /* zframework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zframework.h; sourceTree = "<group>"; };
@@ -328,6 +337,19 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		844450771D8D4275006C8DD4 /* animation */ = {
+			isa = PBXGroup;
+			children = (
+				844450791D8D4275006C8DD4 /* ianimation.h */,
+				844450781D8D4275006C8DD4 /* ianimation.cpp */,
+				8444507B1D8D4275006C8DD4 /* zempty_animation.h */,
+				8444507A1D8D4275006C8DD4 /* zempty_animation.cpp */,
+				8444507D1D8D4275006C8DD4 /* zscale_animation.h */,
+				8444507C1D8D4275006C8DD4 /* zscale_animation.cpp */,
+			);
+			path = animation;
+			sourceTree = "<group>";
+		};
 		845ABDF31D7CAB9D00F564AC /* shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +359,7 @@
 				845ABE071D7CAB9D00F564AC /* platform */,
 				845ABDF81D7CAB9D00F564AC /* math */,
 				845ABDFC1D7CAB9D00F564AC /* phys */,
+				844450771D8D4275006C8DD4 /* animation */,
 				845ABE0A1D7CAB9D00F564AC /* render */,
 				840905691D8439D200550B08 /* ui */,
 				840905701D84538700550B08 /* model */,
@@ -665,6 +688,7 @@
 				8409057C1D84587C00550B08 /* zwidget.cpp in Sources */,
 				845ABE3E1D7CADC700F564AC /* zgame.cpp in Sources */,
 				84BBD9101D89C6A60089A277 /* znodebug.cpp in Sources */,
+				8444507E1D8D4275006C8DD4 /* ianimation.cpp in Sources */,
 				840905681D8438AB00550B08 /* zmenu_scene.cpp in Sources */,
 				84EE83A11D85CB9500759455 /* zwidget_builder.cpp in Sources */,
 				8409056F1D8439D200550B08 /* ztext_widget.cpp in Sources */,
@@ -684,6 +708,7 @@
 				84FD9B521D7C076000922F1D /* ios_resource.mm in Sources */,
 				84FD9AF51D7B4E8000922F1D /* EAGlView.mm in Sources */,
 				840905761D84538700550B08 /* zmodel_builder.cpp in Sources */,
+				844450801D8D4275006C8DD4 /* zscale_animation.cpp in Sources */,
 				84BBD9371D8B52360089A277 /* zinput.cpp in Sources */,
 				845ABE311D7CAB9D00F564AC /* irender.cpp in Sources */,
 				84BBD91E1D89C7240089A277 /* zvec3.cpp in Sources */,
@@ -691,6 +716,7 @@
 				840905341D84083A00550B08 /* isound.cpp in Sources */,
 				8409053F1D840C1D00550B08 /* ios_sound.mm in Sources */,
 				84BBD91C1D89C7240089A277 /* zmat33.cpp in Sources */,
+				8444507F1D8D4275006C8DD4 /* zempty_animation.cpp in Sources */,
 				840905641D8438AB00550B08 /* zscene_coin_object.cpp in Sources */,
 				84BBD9031D89C6970089A277 /* irenderable.cpp in Sources */,
 			);

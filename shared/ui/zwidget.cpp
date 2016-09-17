@@ -1,10 +1,24 @@
 #include "zwidget.h"
 
 #include <render/irender.h>
+#include <animation/ianimation.h>
+#include <animation/zempty_animation.h>
 
 const std::string zwidget::m_texture_name = "alphabet";
 
 zwidget::zwidget(int layer) :
+    m_animator( new zempty_animation() ),
+    m_visible(true),
+    m_layer(layer),
+    m_color{0, 0, 0},
+    m_rotation(0),
+    m_scale(1)
+{
+    m_position.set_zero();
+}
+
+zwidget::zwidget(int layer, std::unique_ptr<ianimation>&& animator) :
+    m_animator( std::move(animator) ),
     m_visible(true),
     m_layer(layer),
     m_color{0, 0, 0},
@@ -18,11 +32,33 @@ zwidget::~zwidget()
 {
 }
 
+void zwidget::update(ztime ms)
+{
+    m_animator->update(ms);
+}
+
 void zwidget::render(irender* render) const
 {
     if(m_visible) {
-        render->render(this, get_position(), get_rotation(), get_scale());
+        render->render(this, get_position(), get_rotation(), get_scale() * m_animator->get_scale());
     }
+}
+
+
+// apply animator
+zrect zwidget::get_rect() const
+{
+    zrect rect = get_rect_impl();
+    return rect;
+    /*
+     /// @todo : need resend event each update
+    const zfloat scale = m_animator->get_scale();
+    rect.min.x *= scale;
+    rect.min.y *= scale;
+    rect.max.x *= scale;
+    rect.max.y *= scale;
+    return rect;
+     */
 }
 
 const zvec2& zwidget::get_position() const
