@@ -31,6 +31,7 @@
 		8444507E1D8D4275006C8DD4 /* ianimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 844450781D8D4275006C8DD4 /* ianimation.cpp */; };
 		8444507F1D8D4275006C8DD4 /* zempty_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8444507A1D8D4275006C8DD4 /* zempty_animation.cpp */; };
 		844450801D8D4275006C8DD4 /* zscale_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8444507C1D8D4275006C8DD4 /* zscale_animation.cpp */; };
+		844450831D8D5766006C8DD4 /* zsingle_scale_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 844450821D8D5766006C8DD4 /* zsingle_scale_animation.cpp */; };
 		845ABE251D7CAB9D00F564AC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */; };
 		845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDF61D7CAB9D00F564AC /* zframework.cpp */; };
 		845ABE2A1D7CAB9D00F564AC /* ibody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDFE1D7CAB9D00F564AC /* ibody.cpp */; };
@@ -125,6 +126,8 @@
 		8444507B1D8D4275006C8DD4 /* zempty_animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zempty_animation.h; sourceTree = "<group>"; };
 		8444507C1D8D4275006C8DD4 /* zscale_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscale_animation.cpp; sourceTree = "<group>"; };
 		8444507D1D8D4275006C8DD4 /* zscale_animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscale_animation.h; sourceTree = "<group>"; };
+		844450811D8D5761006C8DD4 /* zsingle_scale_animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zsingle_scale_animation.h; sourceTree = "<group>"; };
+		844450821D8D5766006C8DD4 /* zsingle_scale_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zsingle_scale_animation.cpp; sourceTree = "<group>"; };
 		845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		845ABDF61D7CAB9D00F564AC /* zframework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zframework.cpp; sourceTree = "<group>"; };
 		845ABDF71D7CAB9D00F564AC /* zframework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zframework.h; sourceTree = "<group>"; };
@@ -346,6 +349,8 @@
 				8444507A1D8D4275006C8DD4 /* zempty_animation.cpp */,
 				8444507D1D8D4275006C8DD4 /* zscale_animation.h */,
 				8444507C1D8D4275006C8DD4 /* zscale_animation.cpp */,
+				844450811D8D5761006C8DD4 /* zsingle_scale_animation.h */,
+				844450821D8D5766006C8DD4 /* zsingle_scale_animation.cpp */,
 			);
 			path = animation;
 			sourceTree = "<group>";
@@ -702,6 +707,7 @@
 				845ABE371D7CAB9D00F564AC /* iscene_object.cpp in Sources */,
 				845ABE2E1D7CAB9D00F564AC /* iresource.cpp in Sources */,
 				840905621D8438AB00550B08 /* zgame_scene.cpp in Sources */,
+				844450831D8D5766006C8DD4 /* zsingle_scale_animation.cpp in Sources */,
 				84BBD92E1D8B346C0089A277 /* zrect.cpp in Sources */,
 				8409054C1D84342D00550B08 /* iscene.cpp in Sources */,
 				845ABE2C1D7CAB9D00F564AC /* zrect_body.cpp in Sources */,

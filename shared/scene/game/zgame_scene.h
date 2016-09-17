@@ -19,6 +19,8 @@ class zscene_coin_object;
 class zwidget;
 class ztext_widget;
 
+class zsingle_scale_animation;
+
 class zgame_scene final : public iscene
 {
 public:
@@ -49,6 +51,8 @@ private:
 
     std::vector<std::unique_ptr<zwidget>> m_widgets;
     ztext_widget* m_score_widget;
+    zsingle_scale_animation* m_score_animator;
+    ztext_widget* m_game_over_widget;
 
     zscene_hero_object*     m_hero;
     std::unique_ptr<zworld> m_world;

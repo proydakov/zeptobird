@@ -9,6 +9,8 @@
 
 #include <ui/ztext_widget.h>
 
+#include <animation/zsingle_scale_animation.h>
+
 #include "zscene_coin_object.h"
 #include "zscene_wall_object.h"
 #include "zscene_hero_object.h"
@@ -135,10 +137,17 @@ bool zgame_scene::is_done() const
 
 void zgame_scene::init_ui()
 {
-    m_score_widget = new ztext_widget(score_2_text(m_score, SCORE_WIDTH), 5, 7);
+    m_score_animator = new zsingle_scale_animation(1.25);
+    std::unique_ptr<zsingle_scale_animation> animator(m_score_animator);
+    m_score_widget = new ztext_widget(score_2_text(m_score, SCORE_WIDTH), 5, 7, std::move(animator));
     std::unique_ptr<zwidget> play_widget( m_score_widget );
     play_widget->set_position(zvec2{35, 45});
     m_widgets.push_back(std::move(play_widget));
+
+    m_game_over_widget = new ztext_widget("GAME OVER", 10, 7);
+    std::unique_ptr<zwidget> game_over_widget( m_game_over_widget );
+    m_widgets.push_back(std::move(game_over_widget));
+    m_game_over_widget->set_visible(false);
 }
 
 void zgame_scene::init_scene()
@@ -267,6 +276,7 @@ void zgame_scene::update_hero()
             m_score += COIN_SCORE;
             m_score_widget->set_text(score_2_text(m_score, SCORE_WIDTH));
             m_sound->play_sound(CATCH_COIN_SOUND);
+            m_score_animator->restart();
         }
         else {
             assert(false);
@@ -278,6 +288,7 @@ void zgame_scene::update_hero()
     const bool game_over = !(is_alive && on_scene);
 
     if(game_over) {
+        m_game_over_widget->set_visible(true);
         m_sound->stop_music();
         m_sound->play_sound(GAME_OVER_SOUND);
         m_game_over = true;
