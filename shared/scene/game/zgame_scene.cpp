@@ -25,7 +25,7 @@ const int SCENE_SIZE = 100;
 
 const zvec2 GRAVITY_ACCELERATION( 0.0, -9.8);
 
-const zvec2 JUMP_SPEED   ( 0.0,  10.0);
+const zvec2 JUMP_SPEED   ( 0.0,  12.5);
 const zvec2 WALL_SPEED   (-10.0,  0.0);
 
 const float HERO_RADIUS = 6;
@@ -36,7 +36,7 @@ const float WALL_WIDTH = 10;
 const int MIN_HOLE_Y = 20;
 const int MAX_HOLE_Y = SCENE_SIZE - MIN_HOLE_Y;
 
-const float HOLE_HEIGHT = 20;
+const float HOLE_HEIGHT = 22;
 
 const size_t COIN_SCORE = 50;
 
@@ -163,7 +163,10 @@ void zgame_scene::init_walls()
     const size_t wall_count = 3;
     int hole_x = SCENE_SIZE / 2;
     const int hole_x_step = 2 * SCENE_SIZE / 3;
+
+    //std::vector<float> bad_y{ MIN_HOLE_Y, MAX_HOLE_Y, MIN_HOLE_Y };
     for(size_t i = 0; i < wall_count; i++) {
+        //const float hole_y = bad_y[i];
         const float hole_y = m_dis(m_gen);
         hole_params params = zscene_game_logic::create_hole_params(hole_y, HOLE_HEIGHT, SCENE_SIZE);
 
