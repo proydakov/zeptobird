@@ -7,6 +7,7 @@
 #include <memory>
 #include <iostream>
 #include <framework/zframework.h>
+#include <platform/zplatform.h>
 
 @interface GLViewController ()
 {
@@ -21,7 +22,8 @@
 
 - (void)initialize
 {
-    framework.reset(new zframework(&resource, &sound));
+    zplatform platform(&sound, &resource);
+    framework.reset(new zframework( platform ));
 }
 
 - (void)dealloc

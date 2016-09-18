@@ -23,6 +23,7 @@ public:
     virtual void set_scene_size(const zsize& scene_size) = 0;
     virtual void set_background_color(const zcolor& color) = 0;
     virtual void set_aabb_color(const zcolor& color) = 0;
+    virtual void set_aabb_visible(bool visible) = 0;
 
     virtual zvec2 view_2_scene(const zvec2& view) = 0;
 

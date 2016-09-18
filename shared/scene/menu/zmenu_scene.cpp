@@ -4,6 +4,7 @@
 
 #include <render/irender.h>
 #include <platform/isound.h>
+
 #include <ui/ztext_widget.h>
 
 #include <ui/zinput.h>
@@ -12,6 +13,8 @@
 #include <animation/zscale_animation.h>
 
 #include <scene/zscene_invisible_object.h>
+
+#include <game/zrecord.h>
 
 #include "zmenu_scene.h"
 #include "zmenu_scene_block.h"
@@ -50,18 +53,11 @@ const std::vector<std::string> ABOUT_TEXT = {
     "I WANT TO JOIN ZEPTOTEAM "
 };
 
-const std::vector<std::string> RECORD_TEXT = {
-    "1.MARIO              5000",
-    "2.GORDON FREEMAN     3750",
-    "3.MASTER CHIEF       2750",
-    "4.LARA CROFT         1750",
-    "5.UNKNOWN HERO          0"
-};
-
 }
 
-zmenu_scene::zmenu_scene(isound* sound) :
+zmenu_scene::zmenu_scene(isound* sound, zrecord* record) :
     m_sound(sound),
+    m_record(record),
     m_border_style( new zstyle{ zcolor{ 0x00 / 255.0, 0x64 / 255.0, 0x00 / 255.0 }, zcolor{ 0xFF / 255.0, 0xFF / 255.0, 0x00 / 255.0 } } ),
     m_body_style( new zstyle{ zcolor{ 0x00 / 255.0, 0x00 / 255.0, 0x00 / 255.0 }, zcolor{ 0x00 / 255.0, 0x00 / 255.0, 0x00 / 255.0 } } ),
     m_background_color(BACKGROUND_COLOR),
@@ -171,6 +167,11 @@ void zmenu_scene::init_main_ui()
 
             std::function<void()> callback([this](){
                 //std::cout << "record" << std::endl;
+
+                auto records = this->m_record->get_record_text();
+                for(size_t i = 0; i < records.size(); i++) {
+                    m_record_table[i]->set_text(records[i]);
+                }
 
                 std::vector<zwidget*>& main_block = this->m_main_group;
                 std::for_each(main_block.begin(), main_block.end(), [](zwidget* widget){
@@ -302,10 +303,13 @@ void zmenu_scene::init_record_ui()
     // text
     {
         const float text_unit(H3_TEXT);
+        auto RECORD_TEXT = m_record->get_record_text();
         const zvec2 top_position(0, RECORD_TEXT.size() / 2 * text_unit);
         for(size_t i = 0; i < RECORD_TEXT.size(); i++) {
-            std::unique_ptr<zwidget> text_widget(new ztext_widget(RECORD_TEXT[i], text_unit, 7));
+            auto ptr = new ztext_widget(RECORD_TEXT[i], text_unit, 7);
+            std::unique_ptr<zwidget> text_widget(ptr);
             m_record_group.push_back(text_widget.get());
+            m_record_table.push_back(ptr);
 
             zvec2 text_position(top_position);
             text_position.y -= i * text_unit;

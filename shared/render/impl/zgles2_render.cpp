@@ -57,6 +57,7 @@ struct zgles2_render::data
 
     zcolor background_color;
     zcolor aabb_color;
+    bool   aabb_visible;
 
     zgles2_program model_program;
     zgles2_program widget_program;
@@ -85,6 +86,7 @@ zgles2_render::data::data(const iresource* resource) :
 
     background_color = {1.0f, 1.0f, 1.0f};
     aabb_color = {1.0f, 1.0f, 1.0f};
+    aabb_visible = false;
 
     flag = false;
 }
@@ -146,6 +148,7 @@ void zgles2_render::render(const irenderable* object, const zvec2& position, zfl
 
     const float layer = object->get_layer();
     // AABB
+    if(m_data->aabb_visible)
     {
         const auto& aabb_color = m_data->aabb_color;
         const auto aabb = object->get_aabb_geom();
@@ -273,6 +276,11 @@ void zgles2_render::set_background_color(const zcolor& color)
 void zgles2_render::set_aabb_color(const zcolor& color)
 {
     m_data->aabb_color = color;
+}
+
+void zgles2_render::set_aabb_visible(bool visible)
+{
+    m_data->aabb_visible = visible;
 }
 
 zvec2 zgles2_render::view_2_scene(const zvec2& view)

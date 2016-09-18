@@ -12,7 +12,7 @@ class idebug;
 class zframework final
 {
 public:
-    zframework(const zplatform& platform);
+    zframework(zplatform& platform);
     ~zframework();
 
     void init(int width, int height);

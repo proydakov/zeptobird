@@ -22,6 +22,7 @@ public:
     void set_scene_size(const zsize& scene_size) override;
     void set_background_color(const zcolor& color) override;
     void set_aabb_color(const zcolor& color) override;
+    void set_aabb_visible(bool visible) override;
 
     zvec2 view_2_scene(const zvec2& view) override;
 

@@ -3,6 +3,8 @@
 #include <cassert>
 #include <iostream>
 
+#include <game/zrecord.h>
+
 #include <phys/zworld.h>
 #include <render/irender.h>
 #include <platform/isound.h>
@@ -53,8 +55,9 @@ const size_t SCORE_WIDTH = 5;
 std::string score_2_text(size_t score, size_t width);
 }
 
-zgame_scene::zgame_scene(isound* sound) :
+zgame_scene::zgame_scene(isound* sound, zrecord* record) :
     m_sound(sound),
+    m_record(record),
     m_hero(nullptr),
     m_world(new zworld(GRAVITY_ACCELERATION)),
     m_background_color(SKY_COLOR),
@@ -293,6 +296,7 @@ void zgame_scene::update_hero()
         m_sound->play_sound(GAME_OVER_SOUND);
         m_game_over = true;
         m_background_color = BLOOD_COLOR;
+        m_record->process(m_record->get_hero_name(), m_score);
     }
 }
 

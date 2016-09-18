@@ -32,6 +32,8 @@
 		8444507F1D8D4275006C8DD4 /* zempty_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8444507A1D8D4275006C8DD4 /* zempty_animation.cpp */; };
 		844450801D8D4275006C8DD4 /* zscale_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8444507C1D8D4275006C8DD4 /* zscale_animation.cpp */; };
 		844450831D8D5766006C8DD4 /* zsingle_scale_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 844450821D8D5766006C8DD4 /* zsingle_scale_animation.cpp */; };
+		844450861D8EC1DF006C8DD4 /* zplatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 844450841D8EC1DF006C8DD4 /* zplatform.cpp */; };
+		8444508C1D8ED5B2006C8DD4 /* zrecord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8444508A1D8ED5B2006C8DD4 /* zrecord.cpp */; };
 		845ABE251D7CAB9D00F564AC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */; };
 		845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDF61D7CAB9D00F564AC /* zframework.cpp */; };
 		845ABE2A1D7CAB9D00F564AC /* ibody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABDFE1D7CAB9D00F564AC /* ibody.cpp */; };
@@ -128,6 +130,10 @@
 		8444507D1D8D4275006C8DD4 /* zscale_animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscale_animation.h; sourceTree = "<group>"; };
 		844450811D8D5761006C8DD4 /* zsingle_scale_animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zsingle_scale_animation.h; sourceTree = "<group>"; };
 		844450821D8D5766006C8DD4 /* zsingle_scale_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zsingle_scale_animation.cpp; sourceTree = "<group>"; };
+		844450841D8EC1DF006C8DD4 /* zplatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zplatform.cpp; sourceTree = "<group>"; };
+		844450851D8EC1DF006C8DD4 /* zplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zplatform.h; sourceTree = "<group>"; };
+		8444508A1D8ED5B2006C8DD4 /* zrecord.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zrecord.cpp; sourceTree = "<group>"; };
+		8444508B1D8ED5B2006C8DD4 /* zrecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zrecord.h; sourceTree = "<group>"; };
 		845ABDF41D7CAB9D00F564AC /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		845ABDF61D7CAB9D00F564AC /* zframework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zframework.cpp; sourceTree = "<group>"; };
 		845ABDF71D7CAB9D00F564AC /* zframework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zframework.h; sourceTree = "<group>"; };
@@ -429,6 +435,8 @@
 				840905321D84083A00550B08 /* isound.cpp */,
 				845ABE091D7CAB9D00F564AC /* iresource.h */,
 				845ABE081D7CAB9D00F564AC /* iresource.cpp */,
+				844450851D8EC1DF006C8DD4 /* zplatform.h */,
+				844450841D8EC1DF006C8DD4 /* zplatform.cpp */,
 			);
 			path = platform;
 			sourceTree = "<group>";
@@ -491,6 +499,8 @@
 			children = (
 				845ABE3D1D7CADC700F564AC /* zgame.h */,
 				845ABE3C1D7CADC700F564AC /* zgame.cpp */,
+				8444508B1D8ED5B2006C8DD4 /* zrecord.h */,
+				8444508A1D8ED5B2006C8DD4 /* zrecord.cpp */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -679,12 +689,14 @@
 				84E21E671D8C580600C4F4B1 /* zscene_invisible_object.cpp in Sources */,
 				840905751D84538700550B08 /* zmodel.cpp in Sources */,
 				846DDAFC1D7B058E00B57C22 /* main.m in Sources */,
+				844450861D8EC1DF006C8DD4 /* zplatform.cpp in Sources */,
 				845ABE321D7CAB9D00F564AC /* zcolor.cpp in Sources */,
 				84BBD9231D89E4940089A277 /* zmat44.cpp in Sources */,
 				84F770DC1D85210400BB2F5D /* zgles2_program.cpp in Sources */,
 				84C9E0551D85435600517A16 /* zgles2_texture.cpp in Sources */,
 				845ABE301D7CAB9D00F564AC /* zgles2_render.cpp in Sources */,
 				845ABE2D1D7CAB9D00F564AC /* zworld.cpp in Sources */,
+				8444508C1D8ED5B2006C8DD4 /* zrecord.cpp in Sources */,
 				84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */,
 				84BBD90D1D89C6A60089A277 /* idebug.cpp in Sources */,
 				84BBD90F1D89C6A60089A277 /* zfps_calculator.cpp in Sources */,

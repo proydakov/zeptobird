@@ -1,14 +1,21 @@
 #include "zgame.h"
 
 #include <render/irender.h>
+
+#include "zrecord.h"
+
+#include <platform/iresource.h>
+
 #include <scene/menu/zmenu_scene.h>
 #include <scene/game/zgame_scene.h>
 
-zgame::zgame(isound* sound) :
-    m_sound(sound),
+zgame::zgame(zplatform& platform) :
+    m_platform(platform),
     m_scene_counter(false),
     m_scene_resized(true)
 {
+    m_record.reset(new zrecord(m_platform.get_resource()));
+
     next();
 }
 
@@ -49,10 +56,10 @@ void zgame::next()
 {
     m_scene.reset(nullptr);
     if(m_scene_counter) {
-        m_scene.reset(new zgame_scene(m_sound));
+        m_scene.reset(new zgame_scene(m_platform.get_sound(), m_record.get()));
     }
     else {
-        m_scene.reset(new zmenu_scene(m_sound));
+        m_scene.reset(new zmenu_scene(m_platform.get_sound(), m_record.get()));
     }
     m_scene_counter = !m_scene_counter;
 }

@@ -50,6 +50,8 @@ zdebug::zdebug(irender* render) :
         vert_widget->set_position(zvec2{xvetx, yvetx});
     });
     render->set_scene_size_change_callback(size_change);
+
+    render->set_aabb_visible(true);
 }
 
 zdebug::~zdebug()

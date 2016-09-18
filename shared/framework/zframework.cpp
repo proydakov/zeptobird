@@ -12,14 +12,14 @@
 
 namespace {
 
-const bool DEBUG_ENGINE = true;
+const bool DEBUG_ENGINE = false;
 
 }
 
-zframework::zframework(const zplatform& platform) :
+zframework::zframework(zplatform& platform) :
     m_platform(platform),
     m_render(new zgles2_render(m_platform.get_resource())),
-    m_game(new zgame(m_platform.get_sound())),
+    m_game(new zgame(platform)),
     m_time(0)
 {
     if(DEBUG_ENGINE) {

@@ -1,19 +1,22 @@
 #pragma once
 
-class isound;
-class irender;
-
-class iscene;
-
 #include <memory>
 #include <common/ztime.h>
 #include <common/zsize.h>
 #include <common/zinput.h>
 
+#include <platform/zplatform.h>
+
+class iscene;
+class irender;
+
+class zrecord;
+class zplatform;
+
 class zgame final
 {
 public:
-    zgame(isound* sound);
+    zgame(zplatform& platform);
     ~zgame();
 
     void input(touch_event type, int x, int y);
@@ -24,7 +27,10 @@ private:
     void next();
 
 private:
-    isound* m_sound;
+    zplatform m_platform;
+
+    std::unique_ptr<zrecord> m_record;
+
     bool m_scene_counter;
     std::unique_ptr<iscene> m_scene;
     zsize m_scene_size;
