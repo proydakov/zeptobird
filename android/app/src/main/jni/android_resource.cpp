@@ -1,4 +1,7 @@
 #include <vector>
+#include <cassert>
+#include <sstream>
+#include <fstream>
 #include <iostream>
 
 #include "android_resource.h"
@@ -31,4 +34,28 @@ std::string android_resource::get_text_resource(const std::string& name) const
     AAsset_close(asset);
 
     return resource;
+}
+
+void android_resource::save_text_data(const std::string& name, const std::string& data)
+{
+    std::stringstream sstream;
+    sstream << m_app->activity->externalDataPath << "/" << name;
+    const std::string filepath = sstream.str();
+
+    std::ofstream fstream(filepath);
+    fstream << data;
+    fstream.close();
+}
+
+std::string android_resource::load_text_data(const std::string& name) const
+{
+    std::stringstream sstream;
+    sstream << m_app->activity->externalDataPath << "/" << name;
+    const std::string filepath = sstream.str();
+
+    std::ifstream fstream(filepath);
+    std::string str((std::istreambuf_iterator<char>(fstream)), std::istreambuf_iterator<char>());
+    fstream.close();
+
+    return str;
 }

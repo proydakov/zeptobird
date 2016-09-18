@@ -17,10 +17,10 @@ model {
             moduleName = 'game'
             toolchain = 'clang'
             stl = 'c++_static'
-            cppFlags.addAll(['-std=c++11', '-Wall', '-O2',
+            cppFlags.addAll(['-std=c++11', '-Wall',
                              '-I' + file('src/main/jni'),
                              '-I' + file('../../shared')])
-            ldLibs.addAll(['android', 'atomic', 'EGL', 'GLESv2', 'OpenSLES', 'log'])
+            ldLibs.addAll(['android', 'log', 'atomic', 'EGL', 'GLESv2'])
         }
         sources {
             main {

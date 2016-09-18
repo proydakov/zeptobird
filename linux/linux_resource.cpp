@@ -22,3 +22,12 @@ std::string linux_resource::get_text_resource(const std::string& name) const
     std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
     return str;
 }
+
+void linux_resource::save_text_data(const std::string& name, const std::string& data)
+{
+}
+
+std::string linux_resource::load_text_data(const std::string& name) const
+{
+    return "";
+}
