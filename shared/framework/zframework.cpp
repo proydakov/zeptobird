@@ -16,11 +16,10 @@ const bool DEBUG_ENGINE = true;
 
 }
 
-zframework::zframework(iresource* resource, isound* sound) :
-    m_resource(resource),
-    m_sound(sound),
-    m_render(new zgles2_render(resource)),
-    m_game(new zgame(sound)),
+zframework::zframework(const zplatform& platform) :
+    m_platform(platform),
+    m_render(new zgles2_render(m_platform.get_resource())),
+    m_game(new zgame(m_platform.get_sound())),
     m_time(0)
 {
     if(DEBUG_ENGINE) {

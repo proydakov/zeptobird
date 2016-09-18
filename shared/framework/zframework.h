@@ -3,9 +3,7 @@
 #include <memory>
 #include <common/ztime.h>
 #include <common/zinput.h>
-
-class iresource;
-class isound;
+#include <platform/zplatform.h>
 
 class irender;
 class zgame;
@@ -14,7 +12,7 @@ class idebug;
 class zframework final
 {
 public:
-    zframework(iresource* resource, isound* sound);
+    zframework(const zplatform& platform);
     ~zframework();
 
     void init(int width, int height);
@@ -27,12 +25,11 @@ public:
     void pause();
 
 private:
-    iresource* m_resource;
-    isound*    m_sound;
+    zplatform m_platform;
 
     std::unique_ptr<irender> m_render;
-    std::unique_ptr<zgame>  m_game;
-    std::unique_ptr<idebug> m_debug;
+    std::unique_ptr<zgame>   m_game;
+    std::unique_ptr<idebug>  m_debug;
 
     ztime m_time;
 };

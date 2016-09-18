@@ -43,7 +43,8 @@ int main( int argc, char *argv[] )
 {
     linux_sound sound;
     linux_resource resource;
-    zframework framework(&resource, &sound);
+    zplatform platform(&sound, &resource);
+    zframework framework(platform);
 
     ESContext esContext;
 
