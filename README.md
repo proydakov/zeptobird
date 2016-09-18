@@ -6,3 +6,37 @@
 </span>
 
 ZeptoBird is yet another flappy bird clone.
+
+Platforms
+---------
+
+ZeptoBird is written on **C++11** and **OPENGLES 2.0**. Release for *IOS* and *Android*.
+
+iOS
+----
+
+Open **ios/zeptobird.xcodeproj** in XCode
+
+
+Android
+-------
+
+Open **android/settings.gradle** in Android Studio. (note RC2.2 support C++ debug)
+
+Game Play
+---------
+
+![welcome](screenshot/welcome.jpg)
+![about](screenshot/about.jpg)
+![play](screenshot/play.jpg)
+![game_over](screenshot/game_over.jpg)
+![record](screenshot/record.jpg)
+
+License
+-------
+
+Copyright (c) 2016 Evgeny Proydakov
+
+[LICENSE](LICENSE)
+
+[0]: https://github.com/proydakov/zeptobird
