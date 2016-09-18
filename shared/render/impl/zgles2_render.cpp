@@ -63,8 +63,6 @@ struct zgles2_render::data
     zgles2_program widget_program;
 
     zgles2_texture alphabet_texture;
-
-    bool flag;
 };
 
 zgles2_render::data::data(const iresource* resource) :
@@ -87,8 +85,6 @@ zgles2_render::data::data(const iresource* resource) :
     background_color = {1.0f, 1.0f, 1.0f};
     aabb_color = {1.0f, 1.0f, 1.0f};
     aabb_visible = false;
-
-    flag = false;
 }
 
 zgles2_render::zgles2_render(const iresource* resource) :
@@ -309,7 +305,6 @@ void zgles2_render::update_mvp()
     GLfloat bottom = -100;
     GLfloat top    = +100;
 
-    //assert(m_data->scene_width == m_data->scene_height);
     if(wk < hk) {
         const GLfloat k = hk / wk;
         left  = -1.0 * m_data->scene_width / 2 * k;
@@ -391,8 +386,8 @@ bool zgles2_render::load_textures(const iresource* resource)
     GLubyte pixels[4 * 3] =
     {
         255,   0,   0, // Red
-        0, 255,   0, // Green
-        0,   0, 255, // Blue
+        0,   255,   0, // Green
+        0,     0, 255, // Blue
         255, 255,   0  // Yellow2
     };
     bool load = m_data->alphabet_texture.load(2, 2, &pixels);
