@@ -859,6 +859,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				HEADER_SEARCH_PATHS = ../shared;
 				INFOPLIST_FILE = "$(SRCROOT)/zeptobird/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -879,6 +880,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				HEADER_SEARCH_PATHS = ../shared;
 				INFOPLIST_FILE = "$(SRCROOT)/zeptobird/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
