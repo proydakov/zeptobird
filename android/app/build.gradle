@@ -1,0 +1,54 @@
+apply plugin: 'com.android.model.application'
+
+model {
+    android {
+        compileSdkVersion = 23
+        buildToolsVersion = '23.0.2'
+
+        defaultConfig {
+            applicationId = 'com.proydakov.zeptobird'
+            minSdkVersion.apiLevel = 9
+            targetSdkVersion.apiLevel = 23
+            versionCode = 1
+            versionName = '1.0'
+        }
+        ndk {
+            platformVersion = 9
+            moduleName = 'game'
+            toolchain = 'clang'
+            stl = 'c++_static'
+            cppFlags.addAll(['-std=c++11', '-Wall', '-O2',
+                             '-I' + file('src/main/jni'),
+                             '-I' + file('../../shared')])
+            ldLibs.addAll(['android', 'atomic', 'EGL', 'GLESv2', 'OpenSLES', 'log'])
+        }
+        sources {
+            main {
+                jni {
+                    source {
+                        srcDir "../../shared"
+                    }
+                    exportedHeaders {
+                        srcDir "../../shared"
+                    }
+                    dependencies {
+                        project ':nativeactivity' linkage 'static'
+                    }
+                }
+                assets {
+                    source {
+                        srcDir '../../shared/resources/'
+                    }
+                }
+            }
+        }
+        buildTypes {
+            release {
+                minifyEnabled = false
+            }
+        }
+    }
+    android.lintOptions {
+        abortOnError = false
+    }
+}

@@ -325,13 +325,13 @@ void zgles2_render::update_mvp()
 
 bool zgles2_render::load_shaders(const iresource* resource)
 {
-    bool load = m_data->model_program.load(resource, "model_vertex.glsl", "model_fragment.glsl",
+    bool load = m_data->model_program.load(resource, "shader/model_vertex.glsl", "shader/model_fragment.glsl",
                                            std::vector<std::string>{ "vPosition",  "vColor" },
                                            std::vector<std::string>{ "vMVP" });
 
     assert(load);
 
-    load *= m_data->widget_program.load(resource, "widget_vertex.glsl", "widget_fragment.glsl",
+    load *= m_data->widget_program.load(resource, "shader/widget_vertex.glsl", "shader/widget_fragment.glsl",
                                         std::vector<std::string>{ "vPosition",  "vTexCoord" },
                                         std::vector<std::string>{ "vMVP", "fTexture" });
 
@@ -346,7 +346,7 @@ bool zgles2_render::load_textures(const iresource* resource)
     const size_t alphabet_height = 128;
     const size_t alphabet_length(alphabet_width * alphabet_height);
 
-    std::string alphabet = resource->get_text_resource("alphabet.txt");
+    std::string alphabet = resource->get_text_resource("data/alphabet.txt");
 
     auto it = std::remove(alphabet.begin(), alphabet.end(), '\n');
     alphabet.erase(it, alphabet.end());

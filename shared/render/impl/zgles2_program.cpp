@@ -25,6 +25,9 @@ bool zgles2_program::load(const iresource* resource,
     const auto vShaderStr = resource->get_text_resource(vertex_shader);
     const auto fShaderStr = resource->get_text_resource(fragment_shader);
 
+    //std::cout << "vShaderStr\n" << vShaderStr << std::endl;
+    //std::cout << "fShaderStr\n" << fShaderStr << std::endl;
+
     GLuint vertexShader;
     GLuint fragmentShader;
     GLuint programObject;
@@ -151,4 +154,3 @@ GLuint zgles2_program::load_shader( GLenum type, const char *shaderSrc )
     }
     return shader;
 }
-

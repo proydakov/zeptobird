@@ -24,6 +24,16 @@ DerivedData/
 # QtCreator
 *.user
 
+# AndroidStudio
+.gradle
+.idea
+**/*.iml
+local.properties
+build
+*~
+.DS_Store
+.externalNativeBuild
+
 # Compiled Object files
 *.slo
 *.lo
