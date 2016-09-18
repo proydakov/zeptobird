@@ -58,7 +58,7 @@ void zframework::input(touch_event type, int x, int y)
 
 void zframework::update()
 {
-    zprofiler prof("update", 1);
+    //zprofiler prof("update", 1);
     
     std::chrono::time_point<std::chrono::high_resolution_clock> now = std::chrono::high_resolution_clock::now();
     auto duration = now.time_since_epoch();
@@ -78,7 +78,7 @@ void zframework::update()
 
 void zframework::render()
 {
-    zprofiler prof("render", 20);
+    //zprofiler prof("render", 20);
 
     m_render->prepare();
     m_game->render(m_render.get());

@@ -31,7 +31,6 @@ public class ZeptoBirdActivity extends NativeActivity {
                 }
             });
         }
-        playMusic("menu");
     }
 
     @Override
@@ -92,7 +91,6 @@ public class ZeptoBirdActivity extends NativeActivity {
         {
             setImmersiveSticky();
         }
-
     }
 
     @TargetApi(19)    
@@ -106,8 +104,10 @@ public class ZeptoBirdActivity extends NativeActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
     }
 
-    private void playMusic(String assetName) {
+    public void playMusic(String assetName) {
         try {
+            stopMusic();
+
             AssetFileDescriptor afd =  getAssets().openFd("music/" + assetName + ".mp3");
             mMusicPlayer = new MediaPlayer();
             mMusicPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
@@ -121,6 +121,48 @@ public class ZeptoBirdActivity extends NativeActivity {
         }
     }
 
+    public void stopMusic() {
+        try {
+            if (mMusicPlayer != null) {
+                mMusicPlayer.stop();
+                mMusicPlayer = null;
+            }
+        }
+        catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void playSound(String assetName) {
+        try {
+            stopSound();
+
+            AssetFileDescriptor afd =  getAssets().openFd("music/" + assetName + ".mp3");
+            mSoundPlayer = new MediaPlayer();
+            mSoundPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            afd.close();
+            mSoundPlayer.setLooping(false);
+            mSoundPlayer.prepare();
+            mSoundPlayer.start();
+        }
+        catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void stopSound() {
+        try {
+            if (mSoundPlayer != null) {
+                mSoundPlayer.stop();
+                mSoundPlayer = null;
+            }
+        }
+        catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
     MediaPlayer mMusicPlayer;
+    MediaPlayer mSoundPlayer;
     String      TAG;
 }

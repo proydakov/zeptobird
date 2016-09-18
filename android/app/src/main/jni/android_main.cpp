@@ -121,8 +121,8 @@ void android_main(struct android_app* app)
     std::cout << "start main" << std::endl;
 
     application_data app_data{false};
-    app_data.sound.reset(new android_sound);
-    app_data.resource.reset(new android_resource(app->activity->assetManager));
+    app_data.sound.reset(new android_sound(app));
+    app_data.resource.reset(new android_resource(app));
 
     app->userData = &app_data;
     app->onAppCmd = engine_handle_cmd;
