@@ -8,7 +8,6 @@ public:
     zrect_body(zfloat width, zfloat height);
     ~zrect_body() override;
 
-    zbody_def::btype get_type() const override;
     zaabb get_aabb() const override;
 
     void set_size(zfloat width, zfloat height);

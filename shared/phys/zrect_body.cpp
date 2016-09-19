@@ -1,6 +1,7 @@
 #include "zrect_body.h"
 
 zrect_body::zrect_body(zfloat width, zfloat height) :
+    ibody(zbody_def::btype::rect),
     m_width(width),
     m_height(height)
 {
@@ -8,11 +9,6 @@ zrect_body::zrect_body(zfloat width, zfloat height) :
 
 zrect_body::~zrect_body()
 {
-}
-
-zbody_def::btype zrect_body::get_type() const
-{
-    return zbody_def::btype::rect;
 }
 
 zaabb zrect_body::get_aabb() const

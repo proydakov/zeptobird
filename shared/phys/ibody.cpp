@@ -1,6 +1,7 @@
 #include "ibody.h"
 
-ibody::ibody() :
+ibody::ibody(zbody_def::btype type) :
+    m_type(type),
     m_active(true),
     m_collided(nullptr)
 {
@@ -10,6 +11,11 @@ ibody::ibody() :
 
 ibody::~ibody()
 {
+}
+
+zbody_def::btype ibody::get_type() const
+{
+    return m_type;
 }
 
 void ibody::set_position(const zvec2& position)
