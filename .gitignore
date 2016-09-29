@@ -3,6 +3,7 @@ generated_resource.h
 
 # Build cmake folder
 build/
+build-html5/
 
 # Various settings
 *.pbxuser
