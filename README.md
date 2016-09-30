@@ -24,6 +24,18 @@ Android
 
 Open **android/settings.gradle** in Android Studio. (note RC2.2 support C++ debug)
 
+HTML5
+-----
+
+Install **emscripten sdk**. https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html
+
+    mkdir build-html5
+    cd build-html5
+    cmake -DCMAKE_TOOLCHAIN_FILE=path/to/emsdk_portable/emscripten/master/cmake/Modules/Platform/Emscripten.cmake -DCMAKE_BUILD_TYPE=Release ..
+    make -j
+
+**Live Demo**: https://proydakov.github.io
+
 Game Play
 ---------
 
