@@ -14,7 +14,7 @@ class zwidget;
 class iscene_object;
 
 class zstyle;
-class zinput;
+class zui_input;
 class zrecord;
 
 class ztext_widget;
@@ -58,7 +58,7 @@ private:
 
     std::vector<ztext_widget*> m_record_table;
 
-    std::unique_ptr<zinput> m_input;
+    std::unique_ptr<zui_input> m_input;
 
     zcolor m_background_color;
     bool   m_done;

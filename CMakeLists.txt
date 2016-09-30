@@ -10,7 +10,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/shared)
 add_subdirectory(shared)
 add_subdirectory(test)
 
-if(UNIX AND NOT APPLE)
+if(CMAKE_CROSSCOMPILING)
+    add_subdirectory(html5)
+endif()
+
+if(UNIX AND NOT APPLE AND NOT CMAKE_CROSSCOMPILING)
     SET(ABS_RES_PATH ${CMAKE_CURRENT_SOURCE_DIR}/shared/resources)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/resource.h ${CMAKE_CURRENT_SOURCE_DIR}/linux/generated_resource.h)
     add_subdirectory(linux)

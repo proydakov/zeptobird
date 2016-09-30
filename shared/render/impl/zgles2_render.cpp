@@ -207,6 +207,7 @@ void zgles2_render::render()
         }
 
         // draw aabb
+        if(!m_data->aabb_buffer.empty())
         {
             glVertexAttribPointer(vPositionAttr, 3, GL_FLOAT, GL_FALSE, sizeof(color_vertex), &m_data->aabb_buffer[0].position);
             glVertexAttribPointer(vColorAttr, 3, GL_FLOAT, GL_TRUE, sizeof(color_vertex), &m_data->aabb_buffer[0].color);

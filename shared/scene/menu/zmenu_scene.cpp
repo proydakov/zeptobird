@@ -7,7 +7,7 @@
 
 #include <ui/ztext_widget.h>
 
-#include <ui/zinput.h>
+#include <ui/zui_input.h>
 #include <ui/zcolor_widget.h>
 
 #include <animation/zscale_animation.h>
@@ -68,7 +68,10 @@ zmenu_scene::zmenu_scene(isound* sound, zrecord* record) :
     m_widgets.reserve(16);
     init_ui();
 
-    m_input.reset(new zinput(m_widgets));
+    m_input.reset(new zui_input);
+    std::for_each(m_widgets.begin(), m_widgets.end(), [this](std::unique_ptr<zwidget>& widget){
+        this->m_input->add_widget(widget.get());
+    });
 
     m_objects.reserve(1024);
     init_scene();

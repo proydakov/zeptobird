@@ -7,14 +7,16 @@
 
 class zwidget;
 
-class zinput
+class zui_input
 {
 public:
-    zinput(std::vector<std::unique_ptr<zwidget>>& widgets);
+    zui_input();
 
     void input(touch_event type, int x, int y);
 
+    void add_widget(zwidget* widget);
+
 private:
-    std::vector<std::unique_ptr<zwidget>>& m_widgets;
+    std::vector<zwidget*> m_widgets;
     zwidget* m_focus;
 };

@@ -16,3 +16,7 @@
 #ifdef __linux__
     #include <GLES2/gl2.h>
 #endif
+
+#ifdef EMSCRIPTEN
+    #include <GLES2/gl2.h>
+#endif
