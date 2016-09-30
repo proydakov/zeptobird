@@ -14,7 +14,7 @@ Platforms
 ZeptoBird is written on **C++11** and **OPENGLES 2.0**. Release for *IOS* and *Android*.
 
 iOS
-----
+---
 
 Open **ios/zeptobird.xcodeproj** in XCode
 
