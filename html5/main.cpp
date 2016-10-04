@@ -55,7 +55,6 @@ void step()
 
 int main (int argc, char** argv)
 {
-/*
     int w = EM_ASM_INT({
         var canvas = document.getElementById('canvas');
         return canvas.width;
@@ -66,12 +65,13 @@ int main (int argc, char** argv)
         return canvas.height;
     }, 0);
 
-    std::cout << "w: " << w << " h: " << h << std::endl;
-*/
+    std::cout << "screen w: " << w << " h: " << h << std::endl;
+    h = std::min(w, h);
+    std::cout << "viewport w: " << w << " h: " << h << std::endl;
 
     const int frame_rate = 60;
-    const size_t width  = 1920;
-    const size_t height = 1080;
+    const size_t width  = w;
+    const size_t height = h;
 
     stage = new sdl_ctx(width, height, frame_rate, SDL_OPENGL | SDL_RESIZABLE);
 
