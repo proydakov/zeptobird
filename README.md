@@ -18,7 +18,6 @@ iOS
 
 Open **ios/zeptobird.xcodeproj** in XCode
 
-
 Android
 -------
 

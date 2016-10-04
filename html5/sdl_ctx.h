@@ -10,7 +10,7 @@ public:
     sdl_ctx(int width, int height, int frameRate, int flags);
     ~sdl_ctx();
 
-    void setCaption (std::string title);
+    void setCaption (const std::string& title);
     void setEventListener  (void (*listener) (SDL_Event&));
     void setRenderCallback (void (*callback) (SDL_Surface*));
     void setUpdateCallback (void (*callback) (int));

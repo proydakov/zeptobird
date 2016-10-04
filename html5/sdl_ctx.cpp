@@ -44,6 +44,10 @@ void sdl_ctx::handleEvent(SDL_Event &event)
             render();
             break;
 
+        case SDL_WINDOWEVENT_HIDDEN:
+            std::cout << "SDL_WINDOWEVENT_HIDDEN" << std::endl;
+            break;
+
         case SDL_QUIT:
             active = false;
             break;
@@ -61,7 +65,7 @@ void sdl_ctx::render()
     }
 }
 
-void sdl_ctx::setCaption(std::string title)
+void sdl_ctx::setCaption(const std::string& title)
 {
     if (active) {
         SDL_WM_SetCaption (title.c_str (), title.c_str ());
@@ -88,7 +92,7 @@ void sdl_ctx::step()
     SDL_Event event;
 
     if (paused) {
-        if (SDL_WaitEvent (&event)) {
+        if (SDL_PollEvent (&event)) {
             handleEvent (event);
         }
     }
@@ -108,7 +112,7 @@ void sdl_ctx::step()
 
             while (deltaTime < ticksPerFrame) {
                 SDL_TimerID timer = SDL_AddTimer (ticksPerFrame - deltaTime, timer_onComplete, NULL);
-                SDL_WaitEvent (&event);
+                SDL_PollEvent (&event);
                 SDL_RemoveTimer (timer);
 
                 if (event.type != SDL_USEREVENT) {

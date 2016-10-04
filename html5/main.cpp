@@ -32,7 +32,7 @@ void init(size_t width, size_t height)
     framework->init(width, height);
 }
 
-void render(SDL_Surface *screen)
+void render(SDL_Surface* screen)
 {
     framework->update();
     framework->render();
@@ -42,6 +42,10 @@ void render(SDL_Surface *screen)
 
 void update(int deltaTime)
 {
+    if(deltaTime > 1000) {
+        std::cout << "pause" << std::endl;
+        framework->pause();
+    }
 }
 
 void step()
@@ -51,11 +55,25 @@ void step()
 
 int main (int argc, char** argv)
 {
-    const int frame_rate = 60;
-    const size_t width  = 640;
-    const size_t height = 480;
+/*
+    int w = EM_ASM_INT({
+        var canvas = document.getElementById('canvas');
+        return canvas.width;
+    }, 0);
 
-    stage = new sdl_ctx(width, height, frame_rate, SDL_OPENGL);
+    int h = EM_ASM_INT({
+        var canvas = document.getElementById('canvas');
+        return canvas.height;
+    }, 0);
+
+    std::cout << "w: " << w << " h: " << h << std::endl;
+*/
+
+    const int frame_rate = 60;
+    const size_t width  = 1920;
+    const size_t height = 1080;
+
+    stage = new sdl_ctx(width, height, frame_rate, SDL_OPENGL | SDL_RESIZABLE);
 
     html5_sound sound;
     html5_resource resource;
@@ -70,7 +88,7 @@ int main (int argc, char** argv)
     stage->setRenderCallback(&render);
     stage->setUpdateCallback(&update);
 
-    emscripten_set_main_loop(step, frame_rate, true);
+    emscripten_set_main_loop(step, 0, true);
 
     delete stage;
     delete framework;
