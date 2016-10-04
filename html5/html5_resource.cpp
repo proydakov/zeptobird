@@ -29,7 +29,7 @@ std::string html5_resource::get_text_resource(const std::string& name) const
 
 void html5_resource::save_text_data(const std::string& name, const std::string& data)
 {
-    std::cout << "html5_resource::save_text_data" << std::endl;
+    std::cout << "html5_resource::save_text_data " << name << std::endl;
 
     EM_ASM_ARGS({
         var name_str = Pointer_stringify($0);
@@ -41,14 +41,22 @@ void html5_resource::save_text_data(const std::string& name, const std::string& 
 
 std::string html5_resource::load_text_data(const std::string& name) const
 {
-    std::cout << "html5_resource::load_text_data" << std::endl;
+    std::cout << "html5_resource::load_text_data " << name << std::endl;
 
-    /*
-        var item = localStorage.getItem(key);
-        if(item == null) {
-            return "";
+    EM_ASM_ARGS({
+        var name_str = Pointer_stringify($0);
+
+        var buffer = "";
+        var item = localStorage.getItem(name_str);
+        if(item != null) {
+            buffer = item;
         }
-        return item;
-    */
-    return "";
+
+        FS.writeFile('buffer', buffer);
+    }, name.c_str());
+
+    std::ifstream t("buffer");
+    std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+
+    return str;
 }
