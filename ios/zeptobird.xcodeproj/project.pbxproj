@@ -49,6 +49,7 @@
 		846DDAFC1D7B058E00B57C22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DDAFB1D7B058E00B57C22 /* main.m */; };
 		846DDAFF1D7B058F00B57C22 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 846DDAFE1D7B058F00B57C22 /* AppDelegate.mm */; };
 		846DDB0B1D7B058F00B57C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846DDB0A1D7B058F00B57C22 /* Assets.xcassets */; };
+		849580C81DA4D20300BEE7B0 /* zui_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 849580C71DA4D20300BEE7B0 /* zui_input.cpp */; };
 		84BBD9031D89C6970089A277 /* irenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9011D89C6970089A277 /* irenderable.cpp */; };
 		84BBD90D1D89C6A60089A277 /* idebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9051D89C6A60089A277 /* idebug.cpp */; };
 		84BBD90E1D89C6A60089A277 /* zdebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9071D89C6A60089A277 /* zdebug.cpp */; };
@@ -67,7 +68,6 @@
 		84C9E0551D85435600517A16 /* zgles2_texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84C9E0531D85435600517A16 /* zgles2_texture.cpp */; };
 		84E21E631D8C57D700C4F4B1 /* zprofiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E21E621D8C57D700C4F4B1 /* zprofiler.cpp */; };
 		84E21E671D8C580600C4F4B1 /* zscene_invisible_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E21E651D8C580600C4F4B1 /* zscene_invisible_object.cpp */; };
-		84E21E6A1D8C583700C4F4B1 /* zinput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E21E681D8C583700C4F4B1 /* zinput.cpp */; };
 		84E3F1FF1D7F32350062ADD6 /* zaabb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */; };
 		84EE839B1D8596A000759455 /* alphabet.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84EE839A1D8596A000759455 /* alphabet.txt */; };
 		84EE83A11D85CB9500759455 /* zwidget_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84EE839F1D85CB9500759455 /* zwidget_builder.cpp */; };
@@ -166,6 +166,8 @@
 		846DDAFE1D7B058F00B57C22 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = zeptobird/AppDelegate.mm; sourceTree = "<group>"; };
 		846DDB0A1D7B058F00B57C22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = zeptobird/Assets.xcassets; sourceTree = "<group>"; };
 		846DDB0F1D7B058F00B57C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = zeptobird/Info.plist; sourceTree = "<group>"; };
+		849580C61DA4D1FD00BEE7B0 /* zui_input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zui_input.h; sourceTree = "<group>"; };
+		849580C71DA4D20300BEE7B0 /* zui_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zui_input.cpp; sourceTree = "<group>"; };
 		84BBD9011D89C6970089A277 /* irenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = irenderable.cpp; sourceTree = "<group>"; };
 		84BBD9021D89C6970089A277 /* irenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = irenderable.h; sourceTree = "<group>"; };
 		84BBD9051D89C6A60089A277 /* idebug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = idebug.cpp; sourceTree = "<group>"; };
@@ -204,8 +206,6 @@
 		84E21E641D8C57DE00C4F4B1 /* zprofiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zprofiler.h; sourceTree = "<group>"; };
 		84E21E651D8C580600C4F4B1 /* zscene_invisible_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zscene_invisible_object.cpp; sourceTree = "<group>"; };
 		84E21E661D8C580600C4F4B1 /* zscene_invisible_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscene_invisible_object.h; sourceTree = "<group>"; };
-		84E21E681D8C583700C4F4B1 /* zinput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zinput.cpp; sourceTree = "<group>"; };
-		84E21E691D8C583700C4F4B1 /* zinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zinput.h; sourceTree = "<group>"; };
 		84E3F1FD1D7F32350062ADD6 /* zaabb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zaabb.cpp; sourceTree = "<group>"; };
 		84E3F1FE1D7F32350062ADD6 /* zaabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zaabb.h; sourceTree = "<group>"; };
 		84EE839A1D8596A000759455 /* alphabet.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = alphabet.txt; sourceTree = "<group>"; };
@@ -323,12 +323,12 @@
 				84BBD9351D8B44050089A277 /* zstyle.h */,
 				8409057B1D84587C00550B08 /* zwidget.h */,
 				8409057A1D84587C00550B08 /* zwidget.cpp */,
+				849580C61DA4D1FD00BEE7B0 /* zui_input.h */,
+				849580C71DA4D20300BEE7B0 /* zui_input.cpp */,
 				84EE83A31D85F20200759455 /* zcolor_widget.h */,
 				84EE83A21D85F20200759455 /* zcolor_widget.cpp */,
 				8409056D1D8439D200550B08 /* ztext_widget.h */,
 				8409056C1D8439D200550B08 /* ztext_widget.cpp */,
-				84E21E691D8C583700C4F4B1 /* zinput.h */,
-				84E21E681D8C583700C4F4B1 /* zinput.cpp */,
 				84EE83A01D85CB9500759455 /* zwidget_builder.h */,
 				84EE839F1D85CB9500759455 /* zwidget_builder.cpp */,
 			);
@@ -629,7 +629,6 @@
 				TargetAttributes = {
 					846DDAF61D7B058E00B57C22 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 7PX6XHSU9A;
 					};
 				};
 			};
@@ -704,6 +703,7 @@
 				84BBD9211D89C7890089A277 /* zmenu_scene_block.cpp in Sources */,
 				8409057C1D84587C00550B08 /* zwidget.cpp in Sources */,
 				845ABE3E1D7CADC700F564AC /* zgame.cpp in Sources */,
+				849580C81DA4D20300BEE7B0 /* zui_input.cpp in Sources */,
 				84BBD9101D89C6A60089A277 /* znodebug.cpp in Sources */,
 				8444507E1D8D4275006C8DD4 /* ianimation.cpp in Sources */,
 				840905681D8438AB00550B08 /* zmenu_scene.cpp in Sources */,
@@ -711,7 +711,6 @@
 				8409056F1D8439D200550B08 /* ztext_widget.cpp in Sources */,
 				845ABE261D7CAB9D00F564AC /* zframework.cpp in Sources */,
 				840905671D8438AB00550B08 /* zscene_wall_object.cpp in Sources */,
-				84E21E6A1D8C583700C4F4B1 /* zinput.cpp in Sources */,
 				84BBD91D1D89C7240089A277 /* zvec2.cpp in Sources */,
 				84BBD9261D89E5180089A277 /* zvec4.cpp in Sources */,
 				84EE83A41D85F20200759455 /* zcolor_widget.cpp in Sources */,
@@ -858,6 +857,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				HEADER_SEARCH_PATHS = ../shared;
@@ -879,6 +879,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				HEADER_SEARCH_PATHS = ../shared;
