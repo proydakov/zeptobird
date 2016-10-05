@@ -107,7 +107,7 @@ std::string zrecord::get_hero_name()
 void zrecord::parse(const std::vector<std::string>& record)
 {
     m_records.clear();
-    std::string::size_type sz; // alias of size_t
+    std::string::size_type sz;
     for(size_t i = 0; i < record.size(); i++) {
         const std::string& buffer = record[i];
 
