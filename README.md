@@ -35,6 +35,15 @@ Install **emscripten sdk**. https://kripken.github.io/emscripten-site/docs/getti
 
 **Live Demo**: https://proydakov.github.io
 
+Linux
+-----
+
+    sudo apt-get install libsdl-dev libsdl-mixer-dev
+    mkdir build
+    cd build
+    cmake ..
+    make -j
+
 Game Play
 ---------
 

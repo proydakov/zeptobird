@@ -12,7 +12,7 @@
 
 namespace {
 
-const bool DEBUG_ENGINE = false;
+const bool DEBUG_ENGINE = true;
 
 }
 

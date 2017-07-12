@@ -51,7 +51,7 @@ zdebug::zdebug(irender* render) :
     });
     render->set_scene_size_change_callback(size_change);
 
-    render->set_aabb_visible(true);
+    render->set_aabb_visible(false);
 }
 
 zdebug::~zdebug()

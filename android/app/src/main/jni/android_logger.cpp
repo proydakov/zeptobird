@@ -39,7 +39,7 @@ int start_logger(const char *app_name) {
 
     /* spawn the logging thread */
     if (pthread_create(&thr, 0, thread_func, 0) == -1) {
-    return -1;
+        return -1;
     }
     pthread_detach(thr);
     return 0;

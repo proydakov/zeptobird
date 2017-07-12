@@ -17,6 +17,15 @@
 <body style="padding: 0; margin: 0; background-color: #FFFFFF;">
     <canvas id="canvas" class="canvas" />
     <script type="text/javascript">
+        console.olog = console.log;
+        console.log = function (message) {
+            console.olog(message);
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "dev?weblog=" + message, true);
+            xhttp.send();
+        };
+
         var canvas = document.getElementById('canvas');
 
         canvas.width  = window.innerWidth;

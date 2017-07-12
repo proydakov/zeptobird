@@ -360,7 +360,7 @@ bool zgles2_render::load_textures(const iresource* resource)
     assert(alphabet_length == alphabet.size());
 
     GLubyte pixels[alphabet_length * 3];
-    for(int i = 0, p = 0; i < alphabet_length; i++, p += 3) {
+    for(size_t i = 0, p = 0; i < alphabet_length; i++, p += 3) {
         switch(alphabet[i]) {
         case '+':
         case '*':

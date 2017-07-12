@@ -11,6 +11,8 @@ void html5_sound::play_music(const std::string& music)
     stop_music();
     EM_ASM_({
         var music_name = Pointer_stringify($0) + ".mp3";
+        console.log("html5_sound::play_music " + music_name);
+
         window.zmusic = new Audio( music_name );
         window.zmusic.loop = true;
         window.zmusic.play();
@@ -20,6 +22,7 @@ void html5_sound::play_music(const std::string& music)
 void html5_sound::stop_music()
 {
     EM_ASM(
+        console.log("html5_sound::stop_music");
         if(window.zmusic) {
             console.log("stop music");
             window.zmusic.pause();
@@ -32,6 +35,8 @@ void html5_sound::play_sound(const std::string& sound)
 {
     EM_ASM_({
         var sound_name = Pointer_stringify($0) + ".mp3";
+        console.log("html5_sound::play_sound " + sound_name);
+
         var sound = new Audio( sound_name );
         sound.loop = false;
         sound.play();

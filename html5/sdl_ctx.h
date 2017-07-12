@@ -17,7 +17,7 @@ public:
     void step();
 
 private:
-    void (*eventListener) (SDL_Event&);
+    void (*eventListener ) (SDL_Event&);
     void (*renderCallback) (SDL_Surface*);
     void (*updateCallback) (int);
 

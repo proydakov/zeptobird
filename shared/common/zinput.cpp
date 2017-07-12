@@ -9,4 +9,5 @@ const char* to_string(touch_event type)
         case touch_event::end:   return "end";
         case touch_event::cancle: return "cancle";
     }
+    return "invalid";
 }

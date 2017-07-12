@@ -3,10 +3,10 @@
 zmodel::zmodel(const std::vector<zvec2>& geom,
                const std::vector<zvec2>& aabb,
                const zcolor& color, int layer) :
-    m_geom(geom),
     m_aabb(aabb),
-    m_color(color),
+    m_geom(geom),
     m_layer(layer),
+    m_color(color),
     m_rotation(0),
     m_scale(1)
 {

@@ -6,7 +6,6 @@ zempty_animation::zempty_animation()
 
 zempty_animation::~zempty_animation()
 {
-    int i = 0;
 }
 
 void zempty_animation::update(ztime ms)
