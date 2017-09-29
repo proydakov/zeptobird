@@ -11,10 +11,10 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/shared)
 
 add_subdirectory(shared)
-add_subdirectory(test)
 
 if(CMAKE_CROSSCOMPILING)
-    add_subdirectory(html5)
+    add_subdirectory(platforms/html5)
 else()
-    add_subdirectory(qt5)
+    add_subdirectory(test)
+    add_subdirectory(platforms/qt5)
 endif()

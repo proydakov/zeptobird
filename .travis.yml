@@ -1,7 +1,7 @@
 language: objective-c
 
 osx_image: xcode7.3
-xcode_project: ios/zeptobird.xcodeproj
+xcode_project: platforms/ios/zeptobird.xcodeproj
 
 before_script:
-    - xcodebuild -project ios/zeptobird.xcodeproj -target zeptobird -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+    - xcodebuild -project platforms/ios/zeptobird.xcodeproj -target zeptobird -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO

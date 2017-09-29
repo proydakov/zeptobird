@@ -3,7 +3,7 @@ set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/home/proydakov/sdks/qt5.9.1/5.9.1/g
 set(ABS_RES_PATH ${PROJECT_SOURCE_DIR}/shared/resources)
 
 set(FROM_PATH ${PROJECT_SOURCE_DIR}/cmake/resource.h)
-set(TO_PATH ${PROJECT_SOURCE_DIR}/qt5/generated_resource.h)
+set(TO_PATH ${CMAKE_CURRENT_SOURCE_DIR}/generated_resource.h)
 
 configure_file(${FROM_PATH} ${TO_PATH})
 

@@ -16,12 +16,12 @@ ZeptoBird is written on **C++11** and **OPENGLES 2.0**. Release for *IOS* and *A
 iOS
 ---
 
-Open **ios/zeptobird.xcodeproj** in XCode
+Open **platforms/ios/zeptobird.xcodeproj** in XCode
 
 Android
 -------
 
-Open **android/settings.gradle** in Android Studio. (note RC2.2 support C++ debug)
+Open **platforms/android/settings.gradle** in Android Studio. (note RC2.2 support C++ debug)
 
 HTML5
 -----
@@ -35,10 +35,9 @@ Install **emscripten sdk**. https://kripken.github.io/emscripten-site/docs/getti
 
 **Live Demo**: https://proydakov.github.io
 
-Linux
------
+Qt5
+---
 
-    sudo apt-get install libsdl-dev libsdl-mixer-dev
     mkdir build
     cd build
     cmake ..
