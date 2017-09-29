@@ -43,6 +43,7 @@ int main( int argc, char *argv[] )
 {
     linux_sound sound;
     linux_resource resource;
+
     zplatform platform(&sound, &resource);
     zframework framework(platform);
 

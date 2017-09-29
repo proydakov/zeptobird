@@ -5,9 +5,9 @@
 #include <common/zinput.h>
 #include <platform/zplatform.h>
 
-class irender;
 class zgame;
 class idebug;
+class irender;
 
 class zframework final
 {

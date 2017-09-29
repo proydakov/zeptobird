@@ -2,7 +2,7 @@ project(zeptobird)
 cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_CXX_FLAGS "-std=c++14 -Wall")
-#set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Debug)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
@@ -15,10 +15,6 @@ add_subdirectory(test)
 
 if(CMAKE_CROSSCOMPILING)
     add_subdirectory(html5)
-endif()
-
-if(UNIX AND NOT APPLE AND NOT CMAKE_CROSSCOMPILING)
-    SET(ABS_RES_PATH ${CMAKE_CURRENT_SOURCE_DIR}/shared/resources)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/resource.h ${CMAKE_CURRENT_SOURCE_DIR}/linux/generated_resource.h)
-    add_subdirectory(linux)
+else()
+    add_subdirectory(qt5)
 endif()
