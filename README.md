@@ -23,6 +23,14 @@ Android
 
 Open **platforms/android/settings.gradle** in Android Studio. (note RC2.2 support C++ debug)
 
+Qt5 (linux, windows, macosx)
+----------------------------
+
+    mkdir build
+    cd build
+    cmake ..
+    make -j
+
 HTML5
 -----
 
@@ -34,14 +42,6 @@ Install **emscripten sdk**. https://kripken.github.io/emscripten-site/docs/getti
     make -j
 
 **Live Demo**: https://proydakov.github.io
-
-Qt5
----
-
-    mkdir build
-    cd build
-    cmake ..
-    make -j
 
 Game Play
 ---------
