@@ -1,4 +1,4 @@
-# ZeptoBird
+# ZeptoBird Game
 
 <span style="display: inline-block;">
 
