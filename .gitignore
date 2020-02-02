@@ -4,6 +4,7 @@ generated_resource.h
 
 # Build cmake folder
 build/
+build-qt5/
 build-html5/
 
 # Various settings

@@ -13,7 +13,7 @@ class irender;
 class zwidget;
 class iscene_object;
 
-class zstyle;
+struct zstyle;
 class zui_input;
 class zrecord;
 
