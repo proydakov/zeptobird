@@ -23,11 +23,11 @@ Android
 
 Open **platforms/android/settings.gradle** in Android Studio. (note RC2.2 support C++ debug)
 
-Qt5 (linux, windows, macosx)
+SDL2 (linux, windows, macosx)
 ----------------------------
 
-    mkdir build
-    cd build
+    mkdir build-sdl2
+    cd build-sdl2
     cmake ..
     make -j
 
