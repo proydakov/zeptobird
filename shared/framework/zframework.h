@@ -16,6 +16,7 @@ public:
     ~zframework();
 
     void init(int width, int height);
+    void resize(int width, int height);
     void deinit();
 
     void input(touch_event type, int x, int y);

@@ -41,7 +41,7 @@ const std::string& ztext_widget::get_text() const
     return m_text;
 }
 
-bool ztext_widget::input(touch_event type)
+bool ztext_widget::input(touch_event)
 {
     return false;
 }

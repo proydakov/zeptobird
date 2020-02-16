@@ -1,9 +1,28 @@
-language: objective-c
+git:
+  submodules: false
 
-osx_image: xcode9.4
-xcode_project: platforms/ios/zeptobird.xcodeproj
-xcode_scheme: zeptobird
+# Enable C++ support
+language: cpp
 
-before_script:
-    - xcodebuild -project platforms/ios/zeptobird.xcodeproj -list
-    - xcodebuild -project platforms/ios/zeptobird.xcodeproj -target zeptobird -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+# Compiler selection
+dist: bionic
+
+matrix:
+  include:
+    - env: BUILD_TYPE=Release
+      os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
+          packages: ['gcc-8', 'g++-8', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
+      env:
+        - CC=gcc-8
+        - CXX=g++-8
+
+script:
+  - $CXX --version
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
+  - make

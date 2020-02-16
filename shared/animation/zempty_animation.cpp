@@ -8,7 +8,7 @@ zempty_animation::~zempty_animation()
 {
 }
 
-void zempty_animation::update(ztime ms)
+void zempty_animation::update(ztime)
 {
 }
 

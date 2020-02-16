@@ -8,10 +8,10 @@ znodebug::~znodebug()
 {
 }
 
-void znodebug::update(size_t ms)
+void znodebug::update(size_t)
 {
 }
 
-void znodebug::render(irender* render)
+void znodebug::render(irender*)
 {
 }

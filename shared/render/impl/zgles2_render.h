@@ -13,9 +13,9 @@ public:
     virtual ~zgles2_render() override;
 
     void init(const zsize& view_size) override;
+    void resize(const zsize& view_size) override;
     void deinit() override;
 
-    void prepare() override;
     void render(const irenderable* object, const zvec2& position, zfloat rotation, zfloat scale) override;
     void render() override;
 

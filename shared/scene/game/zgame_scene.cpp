@@ -88,7 +88,7 @@ zgame_scene::~zgame_scene()
     std::cout << "~zgame_scene" << std::endl;
 }
 
-void zgame_scene::input(touch_event type, int x, int y)
+void zgame_scene::input(touch_event type, int, int)
 {
     if(m_game_over) {
         return;

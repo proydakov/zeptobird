@@ -11,7 +11,7 @@ ZeptoBird is yet another flappy bird clone.
 Platforms
 ---------
 
-ZeptoBird is written on **C++11** and **OPENGLES 2.0**. Release for *IOS* and *Android*.
+ZeptoBird is written on **C++17** and **OPENGLES 2.0**. Release for *IOS* and *Android*.
 
 iOS
 ---

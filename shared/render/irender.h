@@ -14,9 +14,9 @@ public:
     virtual ~irender();
 
     virtual void init(const zsize& view_size) = 0;
+    virtual void resize(const zsize& view_size) = 0;
     virtual void deinit() = 0;
 
-    virtual void prepare() = 0;
     virtual void render(const irenderable* object, const zvec2& position, zfloat rotation, zfloat scale) = 0;
     virtual void render() = 0;
 

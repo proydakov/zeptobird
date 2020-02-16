@@ -32,7 +32,7 @@ zscene_coin_object::~zscene_coin_object()
     std::cout << "~zscene_coin_object" << std::endl;
 }
 
-void zscene_coin_object::update(size_t ms)
+void zscene_coin_object::update(size_t)
 {
 }
 

@@ -32,7 +32,7 @@ zscene_wall_object::~zscene_wall_object()
     std::cout << "~zscene_wall_object" << std::endl;
 }
 
-void zscene_wall_object::update(size_t ms)
+void zscene_wall_object::update(size_t)
 {
 }
 

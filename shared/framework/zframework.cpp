@@ -43,6 +43,12 @@ void zframework::init(int width, int height)
     m_render->init(size);
 }
 
+void zframework::resize(int width, int height)
+{
+    const zsize size{width, height};
+    m_render->resize(size);
+}
+
 void zframework::deinit()
 {
     m_render->deinit();
@@ -80,7 +86,6 @@ void zframework::render()
 {
     //zprofiler prof("render", 20);
 
-    m_render->prepare();
     m_game->render(m_render.get());
     m_debug->render(m_render.get());
     m_render->render();

@@ -17,7 +17,7 @@ const int   COUNTER_LAYER = 9;
 std::string build_fps_text(float fps)
 {
     char buffer[10];
-    snprintf(buffer, 10, "FPS:%6.2f", fps);
+    snprintf(buffer, std::size(buffer), "FPS:%5.1f", fps);
     std::string fps_str( buffer );
     return fps_str;
 }

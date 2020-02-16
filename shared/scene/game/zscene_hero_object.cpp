@@ -32,7 +32,7 @@ zscene_hero_object::~zscene_hero_object()
     std::cout << "~zscene_hero_object" << std::endl;
 }
 
-void zscene_hero_object::update(size_t ms)
+void zscene_hero_object::update(size_t)
 {
 }
 

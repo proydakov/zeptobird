@@ -99,19 +99,24 @@ zgles2_render::~zgles2_render()
 
 void zgles2_render::init(const zsize& view_size)
 {
+    std::cout << "zgles2_render::init()" << std::endl;
+    resize(view_size);
+    load_shaders(m_data->resource);
+    load_textures(m_data->resource);
+}
+
+void zgles2_render::resize(const zsize& view_size)
+{
     const int width = view_size.width;
     const int height = view_size.height;
 
-    std::cout << "zgles2_render::init() " << width << ", " << height << std::endl;
+    std::cout << "zgles2_render::resize() " << width << ", " << height << std::endl;
 
     m_data->view_width  = width;
     m_data->view_height = height;
 
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
-
-    load_shaders(m_data->resource);
-    load_textures(m_data->resource);
 
     update_mvp();
 }
@@ -126,11 +131,6 @@ void zgles2_render::deinit()
     // remove programs
     m_data->model_program.unload();
     m_data->widget_program.unload();
-}
-
-void zgles2_render::prepare()
-{
-    /// @todo : test vbo impl
 }
 
 void zgles2_render::render(const irenderable* object, const zvec2& position, zfloat rotation, zfloat scale)
@@ -151,7 +151,7 @@ void zgles2_render::render(const irenderable* object, const zvec2& position, zfl
         for(size_t i = 0 ; i < aabb.size(); i++) {
             const zvec3 src(aabb[i].x, aabb[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
-            m_data->aabb_buffer.push_back(color_vertex({result.x, result.y, layer + 0.1f, aabb_color.r, aabb_color.g, aabb_color.b}));
+            m_data->aabb_buffer.push_back(color_vertex({{result.x, result.y, layer + 0.1f}, {aabb_color.r, aabb_color.g, aabb_color.b}}));
         }
     }
     // GEOM
@@ -161,7 +161,7 @@ void zgles2_render::render(const irenderable* object, const zvec2& position, zfl
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec3 src(geom[i].x, geom[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
-            m_data->geom_buffer.push_back(color_vertex({result.x, result.y, layer + 0.00f, color.r, color.g, color.b}));
+            m_data->geom_buffer.push_back(color_vertex({{result.x, result.y, layer + 0.00f}, {color.r, color.g, color.b}}));
         }
     }
     // TEXTURED
@@ -171,7 +171,7 @@ void zgles2_render::render(const irenderable* object, const zvec2& position, zfl
         for(size_t i = 0 ; i < geom.size(); i++) {
             const zvec3 src(geom[i].x, geom[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
-            m_data->text_buffer.push_back(texture_vertex({result.x, result.y, layer + 0.3f, coord[i].x, coord[i].y}));
+            m_data->text_buffer.push_back(texture_vertex({{result.x, result.y, layer + 0.3f}, {coord[i].x, coord[i].y}}));
         }
     }
 }

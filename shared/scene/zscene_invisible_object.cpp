@@ -28,7 +28,7 @@ zscene_invisible_object::~zscene_invisible_object()
     std::cout << "~zscene_invisible_object" << std::endl;
 }
 
-void zscene_invisible_object::update(size_t ms)
+void zscene_invisible_object::update(size_t)
 {
 }
 

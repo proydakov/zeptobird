@@ -2,10 +2,10 @@
 
 #include <platform/iresource.h>
 
-class qt5_resource : public iresource
+class sdl2_resource : public iresource
 {
 public:
-    ~qt5_resource() override;
+    ~sdl2_resource() override;
 
     std::string get_text_resource(const std::string& name) const override;
     void save_text_data(const std::string& name, const std::string& data) override;
