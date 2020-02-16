@@ -22,7 +22,7 @@ private:
 
 void trace_info();
 
-int main( int, char*[] )
+int main(int, char*[])
 {
     constexpr std::uint32_t flags = SDL_WINDOW_OPENGL;
 
@@ -87,7 +87,7 @@ int main( int, char*[] )
                         fs_functor(event);
                         break;
                 }
-                break;    
+                break;
 
             case SDL_WINDOWEVENT:
                 switch (event.window.event) {

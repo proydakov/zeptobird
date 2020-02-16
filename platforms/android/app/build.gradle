@@ -1,54 +1,55 @@
-apply plugin: 'com.android.model.application'
+/*
+ * Copyright (C) 2015 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-model {
-    android {
-        compileSdkVersion = 23
-        buildToolsVersion = '23.0.2'
+apply plugin: 'com.android.application'
 
-        defaultConfig {
-            applicationId = 'com.proydakov.zeptobird'
-            minSdkVersion.apiLevel = 9
-            targetSdkVersion.apiLevel = 23
-            versionCode = 1
-            versionName = '1.0'
-        }
-        ndk {
-            platformVersion = 9
-            moduleName = 'game'
-            toolchain = 'clang'
-            stl = 'c++_static'
-            cppFlags.addAll(['-std=c++11', '-Wall',
-                             '-I' + file('src/main/jni'),
-                             '-I' + file('../../../shared')])
-            ldLibs.addAll(['android', 'log', 'atomic', 'EGL', 'GLESv2'])
-        }
-        sources {
-            main {
-                jni {
-                    source {
-                        srcDir "../../../shared"
-                    }
-                    exportedHeaders {
-                        srcDir "../../../shared"
-                    }
-                    dependencies {
-                        project ':nativeactivity' linkage 'static'
-                    }
-                }
-                assets {
-                    source {
-                        srcDir '../../../shared/resources/'
-                    }
-                }
-            }
-        }
-        buildTypes {
-            release {
-                minifyEnabled = false
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId 'com.proydakov.zeptobird'
+        minSdkVersion 14
+        targetSdkVersion 29
+        versionCode     1
+        versionName    '1.0'
+        externalNativeBuild {
+            cmake {
+                arguments '-DANDROID_STL=c++_static'
             }
         }
     }
-    android.lintOptions {
-        abortOnError = false
+    buildTypes {
+        release {
+            minifyEnabled = false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
+    externalNativeBuild {
+        cmake {
+            version '3.10.2'
+            path 'src/main/cpp/CMakeLists.txt'
+        }
+    }
+    sourceSets {
+        main {
+            assets.srcDirs = ['../../../shared/resources']
+        }
+    }
+}
+
+android.lintOptions {
+        abortOnError  = false
 }

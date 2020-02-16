@@ -17,9 +17,9 @@ static void *thread_func(void*)
     while((rdsz = read(pfd[0], buf, sizeof buf - 1)) > 0) {
         if(buf[rdsz - 1] == '\n') --rdsz;
         buf[rdsz] = 0;  /* add null-terminator */
-        __android_log_write(ANDROID_LOG_DEBUG, tag, buf);
+        __android_log_write(ANDROID_LOG_INFO, tag, buf);
     }
-    __android_log_write(ANDROID_LOG_DEBUG, tag, "logger done");
+    __android_log_write(ANDROID_LOG_INFO, tag, "logger done");
     return 0;
 }
 

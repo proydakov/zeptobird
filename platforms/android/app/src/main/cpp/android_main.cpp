@@ -114,8 +114,6 @@ static void draw(android_app* app)
 
 void android_main(struct android_app* app)
 {
-    app_dummy(); // Make sure glue isn't stripped.
-
     start_logger("zeptobird");
 
     std::cout << "start main" << std::endl;

@@ -24,25 +24,27 @@ const std::string MENU_THEME_MUSIC = "menu";
 
 const zcolor BACKGROUND_COLOR{0.65, 0.65, 0.65};
 
-const int SCENE_SIZE = 100;
+constexpr int SCENE_HEIGHT = 100;
+constexpr int SCENE_W_POS = 125;
+constexpr int SCENE_WIDTH  = 150;
 
-const zfloat MAX_BUTTON_SCALE = 1.1;
+constexpr zfloat MAX_BUTTON_SCALE = 1.1;
 
-const int SCOLOR_W = 30;
-const int SCOLOR_H = 15;
+constexpr int SCOLOR_W = 30;
+constexpr int SCOLOR_H = 15;
 
-const int SBUTTON_W = 35;
-const int SBUTTON_H = 20;
+constexpr int SBUTTON_W = 35;
+constexpr int SBUTTON_H = 20;
 
-const int BCOLOR_W = 35;
-const int BCOLOR_H = 20;
+constexpr int BCOLOR_W = 35;
+constexpr int BCOLOR_H = 20;
 
-const int BBUTTON_W = 40;
-const int BBUTTON_H = 25;
+constexpr int BBUTTON_W = 40;
+constexpr int BBUTTON_H = 25;
 
-const float H1_TEXT = 9.0;
-const float H2_TEXT = 7.0;
-const float H3_TEXT = 4.5;
+constexpr float H1_TEXT = 9.0;
+constexpr float H2_TEXT = 7.0;
+constexpr float H3_TEXT = 4.5;
 
 const std::vector<std::string> ABOUT_TEXT = {
     "HELLO                    ",
@@ -95,12 +97,12 @@ void zmenu_scene::update(ztime ms)
     for(size_t i = 0; i < m_objects.size(); i++) {
         m_objects[i]->update(ms);
         auto position = m_objects[i]->get_position();
-        if(position.x < -SCENE_SIZE) {
-            position.x = SCENE_SIZE;
+        if(position.x < -SCENE_W_POS) {
+            position.x = SCENE_W_POS;
             m_objects[i]->set_position(position);
         }
-        else if(position.x > SCENE_SIZE) {
-            position.x = -SCENE_SIZE;
+        else if(position.x > SCENE_W_POS) {
+            position.x = -SCENE_W_POS;
             m_objects[i]->set_position(position);
         }
     }
@@ -122,7 +124,7 @@ void zmenu_scene::render(irender* render) const
 
 zsize zmenu_scene::get_size() const
 {
-    zsize size{static_cast<int>(SCENE_SIZE * 1.5), SCENE_SIZE};
+    zsize size{static_cast<int>(SCENE_WIDTH), SCENE_HEIGHT};
     return size;
 }
 
@@ -439,18 +441,18 @@ void zmenu_scene::init_about_ui()
 void zmenu_scene::init_scene()
 {
     const auto size = get_size();
-    std::unique_ptr<iscene_object> aabb( new zscene_invisible_object( size.width - 2, size.height - 2, 0 ) );
+    std::unique_ptr<iscene_object> aabb(new zscene_invisible_object( size.width - 2, size.height - 2, 0 ));
     aabb->set_position(zvec2(0, 0));
     m_objects.push_back(std::move(aabb));
 }
 
 void zmenu_scene::init_objects()
 {
-    std::vector<zvec2> speeds{
-        zvec2{+31, 0},
-        zvec2{-29, 0},
-        zvec2{+15, 0},
-        zvec2{-11, 0}
+    std::vector<zvec2> const speeds{
+        zvec2{+41, 0},
+        zvec2{-11, 0},
+        zvec2{+25, 0},
+        zvec2{-33, 0},
     };
 
     std::vector<zcolor> colors{
@@ -463,11 +465,11 @@ void zmenu_scene::init_objects()
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> position_dis(-SCENE_SIZE, SCENE_SIZE);
+    std::uniform_int_distribution<> position_dis(-SCENE_W_POS, SCENE_W_POS);
     std::uniform_int_distribution<size_t> speed_dis(0, speeds.size() - 1);
     std::uniform_int_distribution<size_t> color_dis(0, colors.size() - 1);
 
-    for(int i = -250; i < 0; i++) {
+    for(int i = -450; i < 0; i++) {
         zvec2 position( position_dis(gen), position_dis(gen) );
         zvec2 speed( speeds[ speed_dis(gen) ] );
         zcolor color( colors[ color_dis(gen) ] );
@@ -476,6 +478,5 @@ void zmenu_scene::init_objects()
         block->set_position(position);
         block->set_speed(speed);
         m_objects.push_back(std::move(block));
-
     }
 }

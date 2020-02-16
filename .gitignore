@@ -3,6 +3,7 @@ generated_resource.h
 *.user*
 
 # Build cmake folder
+.cxx/
 build/
 build-sdl2*/
 build-html5/

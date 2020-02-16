@@ -7,6 +7,7 @@ file(GLOB_RECURSE SHARED_SRC
 )
 
 add_library(shared STATIC ${SHARED_SRC})
+target_include_directories(shared PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 foreach(loop_var ${SHARED_SRC})
 

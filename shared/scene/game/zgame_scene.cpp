@@ -25,32 +25,32 @@ namespace {
 const zcolor SKY_COLOR  {0.65, 0.65, 0.65};
 const zcolor BLOOD_COLOR{187.0 / 255,  10.0 / 255,  30.0 / 255};
 
-const int SCENE_SIZE = 100;
+constexpr int SCENE_SIZE = 100;
 
-const zvec2 GRAVITY_ACCELERATION( 0.0, -9.8);
+zvec2 GRAVITY_ACCELERATION( 0.0, -9.8);
 
 const zvec2 JUMP_SPEED   ( 0.0,  12.5);
 const zvec2 WALL_SPEED   (-10.0,  0.0);
 
-const float HERO_RADIUS = 6;
-const float COIN_RADIUS = 4;
+constexpr float HERO_RADIUS = 6;
+constexpr float COIN_RADIUS = 4;
 
-const float WALL_WIDTH = 10;
+constexpr float WALL_WIDTH = 10;
 
-const int MIN_HOLE_Y = 20;
-const int MAX_HOLE_Y = SCENE_SIZE - MIN_HOLE_Y;
+constexpr int MIN_HOLE_Y = 20;
+constexpr int MAX_HOLE_Y = SCENE_SIZE - MIN_HOLE_Y;
 
-const float HOLE_HEIGHT = 22;
+constexpr float HOLE_HEIGHT = 22;
 
-const size_t COIN_SCORE = 50;
+constexpr size_t COIN_SCORE = 50;
 
 const std::string MAIN_THEME_MUSIC = "theme";
 const std::string CATCH_COIN_SOUND = "coin";
 const std::string GAME_OVER_SOUND  = "game-over";
 
-const int GAME_OVER_TIMEOUT = 7000;
+constexpr int GAME_OVER_TIMEOUT = 7000;
 
-const size_t SCORE_WIDTH = 5;
+constexpr size_t SCORE_WIDTH = 5;
 
 std::string score_2_text(size_t score, size_t width);
 }
