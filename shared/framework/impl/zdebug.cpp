@@ -1,6 +1,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cassert>
+#include <array>
 
 #include <render/irender.h>
 
@@ -16,9 +17,9 @@ const int   COUNTER_LAYER = 9;
 
 std::string build_fps_text(float fps)
 {
-    char buffer[10];
-    snprintf(buffer, std::size(buffer), "FPS:%5.1f", fps);
-    std::string fps_str( buffer );
+    std::array<char, 10> buffer;
+    snprintf(buffer.data(), buffer.size(), "FPS:%5.1f", fps);
+    std::string fps_str( buffer.data() );
     return fps_str;
 }
 
