@@ -74,7 +74,7 @@ static void engine_handle_cmd(android_app* app, int32_t cmd)
         {
             app_data->is_enabled = true;
             app_data->egl_engine.reset(new android_egl_engine(app));
-            zplatform platform(app_data->sound.get(), app_data->resource.get());
+            zplatform platform(*app_data->sound.get(), *app_data->resource.get());
             app_data->framework.reset(new zframework(platform));
             std::cout << "WIDTH : " << app_data->egl_engine->get_width() << std::endl;
             std::cout << "HEIGHT: " << app_data->egl_engine->get_height() << std::endl;

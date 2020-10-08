@@ -22,7 +22,7 @@
 
 - (void)initialize
 {
-    zplatform platform(&sound, &resource);
+    zplatform platform(sound, resource);
     framework.reset(new zframework( platform ));
 }
 

@@ -41,10 +41,10 @@ const std::vector<std::string> RECORD_TEXT = {
 
 }
 
-zrecord::zrecord(iresource* resource) :
+zrecord::zrecord(iresource& resource) :
     m_resource(resource)
 {
-    auto text = resource->load_text_data(RECORD_FILE_NAME);
+    auto text = resource.load_text_data(RECORD_FILE_NAME);
     std::cout << "loaded record:\n" << text << std::endl;
 
     if(text.empty()) {
@@ -89,7 +89,7 @@ void zrecord::process(const std::string& player, int value)
         for(size_t i = 0; i < m_text_records.size(); i++) {
             sstream << m_text_records[i] << "\n";
         }
-        m_resource->save_text_data(RECORD_FILE_NAME, sstream.str());
+        m_resource.save_text_data(RECORD_FILE_NAME, sstream.str());
     }
 }
 

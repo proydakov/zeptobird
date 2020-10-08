@@ -34,9 +34,9 @@ struct texture_vertex
 
 struct zgles2_render::data
 {
-    data(const iresource*);
+    data(const iresource&);
 
-    const iresource* resource;
+    const iresource& resource;
 
     zmat44 mvp;
 
@@ -65,7 +65,7 @@ struct zgles2_render::data
     zgles2_texture alphabet_texture;
 };
 
-zgles2_render::data::data(const iresource* resource) :
+zgles2_render::data::data(const iresource& resource) :
     resource(resource)
 {
     view_width = 1;
@@ -87,7 +87,7 @@ zgles2_render::data::data(const iresource* resource) :
     aabb_visible = false;
 }
 
-zgles2_render::zgles2_render(const iresource* resource) :
+zgles2_render::zgles2_render(const iresource& resource) :
     m_data(new data(resource))
 {
 }
@@ -327,7 +327,7 @@ void zgles2_render::update_mvp()
     m_data->mvp = zmul(orto, model_view);
 }
 
-bool zgles2_render::load_shaders(const iresource* resource)
+bool zgles2_render::load_shaders(const iresource& resource)
 {
     bool load = m_data->model_program.load(resource, "shader/model_vertex.glsl", "shader/model_fragment.glsl",
                                            std::vector<std::string>{ "vPosition",  "vColor" },
@@ -344,13 +344,13 @@ bool zgles2_render::load_shaders(const iresource* resource)
     return (load);
 }
 
-bool zgles2_render::load_textures(const iresource* resource)
+bool zgles2_render::load_textures(const iresource& resource)
 {
     const size_t alphabet_width = 128;
     const size_t alphabet_height = 128;
     const size_t alphabet_length(alphabet_width * alphabet_height);
 
-    std::string alphabet = resource->get_text_resource("data/alphabet.txt");
+    std::string alphabet = resource.get_text_resource("data/alphabet.txt");
 
     auto it = std::remove(alphabet.begin(), alphabet.end(), '\n');
     alphabet.erase(it, alphabet.end());

@@ -14,7 +14,7 @@ public:
     zgles2_program();
     ~zgles2_program();
 
-    bool load(const iresource* resource,
+    bool load(const iresource& resource,
               const std::string& vertex_shader,
               const std::string& fragment_shader,
               const std::vector<std::string>& attributes,

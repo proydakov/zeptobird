@@ -9,7 +9,7 @@ class iresource;
 class zgles2_render final : public irender
 {
 public:
-    zgles2_render(const iresource* resource);
+    zgles2_render(const iresource& resource);
     virtual ~zgles2_render() override;
 
     void init(const zsize& view_size) override;
@@ -31,8 +31,8 @@ public:
 
 private:
     void update_mvp();
-    bool load_shaders(const iresource* resource);
-    bool load_textures(const iresource* resource);
+    bool load_shaders(const iresource& resource);
+    bool load_textures(const iresource& resource);
 
 private:
     struct data;

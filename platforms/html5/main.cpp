@@ -77,7 +77,7 @@ int main (int argc, char** argv)
 
     html5_sound sound;
     html5_resource resource;
-    zplatform platform(&sound, &resource);
+    zplatform platform(sound, resource);
 
     framework = new zframework(platform);
 

@@ -43,7 +43,7 @@ int main(int, char*[])
     sdl2_sound sound;
     sdl2_resource resource;
 
-    zplatform platform(&sound, &resource);
+    zplatform platform(sound, resource);
     zframework framework(platform);
     framework.init(width, height);
 

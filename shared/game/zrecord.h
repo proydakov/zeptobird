@@ -8,7 +8,7 @@ class iresource;
 class zrecord
 {
 public:
-    zrecord(iresource* resource);
+    zrecord(iresource& resource);
 
     std::vector<std::string> get_record_text() const;
 
@@ -21,7 +21,7 @@ private:
     void build_text_records();
 
 private:
-    iresource* m_resource;
+    iresource& m_resource;
     std::vector< std::pair<std::string, int> > m_records;
     std::vector<std::string> m_text_records;
 };

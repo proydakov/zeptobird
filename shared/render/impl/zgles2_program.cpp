@@ -14,7 +14,7 @@ zgles2_program::~zgles2_program()
     unload();
 }
 
-bool zgles2_program::load(const iresource* resource,
+bool zgles2_program::load(const iresource& resource,
           const std::string& vertex_shader,
           const std::string& fragment_shader,
           const std::vector<std::string>& attributes,
@@ -22,8 +22,8 @@ bool zgles2_program::load(const iresource* resource,
 {
     unload();
 
-    const auto vShaderStr = resource->get_text_resource(vertex_shader);
-    const auto fShaderStr = resource->get_text_resource(fragment_shader);
+    const auto vShaderStr = resource.get_text_resource(vertex_shader);
+    const auto fShaderStr = resource.get_text_resource(fragment_shader);
 
     //std::cout << "vShaderStr\n" << vShaderStr << std::endl;
     //std::cout << "fShaderStr\n" << fShaderStr << std::endl;

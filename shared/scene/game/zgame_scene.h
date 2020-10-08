@@ -26,7 +26,7 @@ class zsingle_scale_animation;
 class zgame_scene final : public iscene
 {
 public:
-    zgame_scene(isound* sound, zrecord* record);
+    zgame_scene(isound& sound, zrecord& record);
     ~zgame_scene() override;
 
     void input(touch_event type, int x, int y) override;
@@ -49,8 +49,8 @@ private:
     void update_hero();
 
 private:
-    isound*  m_sound;
-    zrecord* m_record;
+    isound&  m_sound;
+    zrecord& m_record;
 
     std::vector<std::unique_ptr<zwidget>> m_widgets;
     ztext_widget* m_score_widget;

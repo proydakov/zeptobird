@@ -57,7 +57,7 @@ const std::vector<std::string> ABOUT_TEXT = {
 
 }
 
-zmenu_scene::zmenu_scene(isound* sound, zrecord* record) :
+zmenu_scene::zmenu_scene(isound& sound, zrecord& record) :
     m_sound(sound),
     m_record(record),
     m_border_style( new zstyle{ zcolor{ 0x00 / 255.0, 0x64 / 255.0, 0x00 / 255.0 }, zcolor{ 0xFF / 255.0, 0xFF / 255.0, 0x00 / 255.0 } } ),
@@ -79,7 +79,7 @@ zmenu_scene::zmenu_scene(isound* sound, zrecord* record) :
     init_scene();
     init_objects();
 
-    m_sound->play_music(MENU_THEME_MUSIC);
+    m_sound.play_music(MENU_THEME_MUSIC);
 }
 
 zmenu_scene::~zmenu_scene()
@@ -173,7 +173,7 @@ void zmenu_scene::init_main_ui()
             std::function<void()> callback([this](){
                 //std::cout << "record" << std::endl;
 
-                auto records = this->m_record->get_record_text();
+                auto records = this->m_record.get_record_text();
                 for(size_t i = 0; i < records.size(); i++) {
                     m_record_table[i]->set_text(records[i]);
                 }
@@ -308,7 +308,7 @@ void zmenu_scene::init_record_ui()
     // text
     {
         const float text_unit(H3_TEXT);
-        auto RECORD_TEXT = m_record->get_record_text();
+        auto RECORD_TEXT = m_record.get_record_text();
         const zvec2 top_position(0, RECORD_TEXT.size() / 2 * text_unit);
         for(size_t i = 0; i < RECORD_TEXT.size(); i++) {
             auto ptr = new ztext_widget(RECORD_TEXT[i], text_unit, 7);

@@ -55,7 +55,7 @@ constexpr size_t SCORE_WIDTH = 5;
 std::string score_2_text(size_t score, size_t width);
 }
 
-zgame_scene::zgame_scene(isound* sound, zrecord* record) :
+zgame_scene::zgame_scene(isound& sound, zrecord& record) :
     m_sound(sound),
     m_record(record),
     m_hero(nullptr),
@@ -80,7 +80,7 @@ zgame_scene::zgame_scene(isound* sound, zrecord* record) :
     init_walls();
     init_coins();
 
-    m_sound->play_music(MAIN_THEME_MUSIC);
+    m_sound.play_music(MAIN_THEME_MUSIC);
 }
 
 zgame_scene::~zgame_scene()
@@ -278,7 +278,7 @@ void zgame_scene::update_hero()
             collided->set_active(false);
             m_score += COIN_SCORE;
             m_score_widget->set_text(score_2_text(m_score, SCORE_WIDTH));
-            m_sound->play_sound(CATCH_COIN_SOUND);
+            m_sound.play_sound(CATCH_COIN_SOUND);
             m_score_animator->restart();
         }
         else {
@@ -292,11 +292,11 @@ void zgame_scene::update_hero()
 
     if(game_over) {
         m_game_over_widget->set_visible(true);
-        m_sound->stop_music();
-        m_sound->play_sound(GAME_OVER_SOUND);
+        m_sound.stop_music();
+        m_sound.play_sound(GAME_OVER_SOUND);
         m_game_over = true;
         m_background_color = BLOOD_COLOR;
-        m_record->process(m_record->get_hero_name(), m_score);
+        m_record.process(m_record.get_hero_name(), m_score);
     }
 }
 
