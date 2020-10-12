@@ -70,20 +70,13 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
-FIND_PATH(SDL2_INCLUDE_DIR SDL.h
+FIND_PATH(SDL2_INCLUDE_DIR SDL2/SDL.h
   HINTS
   $ENV{SDL2DIR}
-  PATH_SUFFIXES include/SDL2 include
   PATHS
   ${PROJECT_SOURCE_DIR}/thirdparty/windows/SDL2/include
-  ~/Library/Frameworks
-  /Library/Frameworks
-  /usr/local/include/SDL2
-  /usr/include/SDL2
-  /sw # Fink
-  /opt/local # DarwinPorts
-  /opt/csw # Blastwave
-  /opt
+  /usr/local/include
+  /usr/include
 )
 
 FIND_LIBRARY(SDL2_LIBRARY_TEMP
@@ -93,10 +86,7 @@ FIND_LIBRARY(SDL2_LIBRARY_TEMP
   PATH_SUFFIXES lib64 lib
   PATHS
   ${PROJECT_SOURCE_DIR}/thirdparty/windows/SDL2/lib/${SEARCH_PATH}
-  /sw
-  /opt/local
-  /opt/csw
-  /opt
+  /usr/local
 )
 
 FIND_LIBRARY(SDL2_MIXER_LIBRARY
@@ -106,10 +96,7 @@ FIND_LIBRARY(SDL2_MIXER_LIBRARY
   PATH_SUFFIXES lib64 lib
   PATHS
   ${PROJECT_SOURCE_DIR}/thirdparty/windows/SDL2/lib/${SEARCH_PATH}
-  /sw
-  /opt/local
-  /opt/csw
-  /opt
+  /usr/local
 )
 
 IF(NOT SDL2_BUILDING_LIBRARY)

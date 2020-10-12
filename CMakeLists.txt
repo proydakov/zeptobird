@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Werror -Wextra -pedantic-errors -fno-rtti -fno-exceptions -D_GLIBCXX_USE_CXX11_ABI=1")
 
+if(APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
+endif()
+
 include(CheckIPOSupported)
 check_ipo_supported(RESULT supported OUTPUT error)
 if(supported)
