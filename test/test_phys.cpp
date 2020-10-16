@@ -4,6 +4,33 @@
 #include <iostream>
 
 #include <phys/zworld.h>
+#include <phys/zrect_body.h>
+#include <phys/zcircle_body.h>
+
+namespace
+{
+
+ibody* create_body(const zbody_def& def)
+{
+    ibody* ptr = nullptr;
+
+    switch(def.type) {
+    case zbody_def::btype::circle:
+        ptr = new zcircle_body(def.radius);
+        break;
+
+    case zbody_def::btype::rect:
+        ptr = new zrect_body(def.width, def.height);
+        break;
+
+    default:
+        break;
+    }
+
+    return ptr;
+}
+
+}
 
 int main()
 {
@@ -13,7 +40,7 @@ int main()
     zbody_def def_hero;
     def_hero.type = zbody_def::btype::circle;
     def_hero.radius = 10;
-    std::unique_ptr<ibody> hero( world.create_body( def_hero ) );
+    std::unique_ptr<ibody> hero( create_body( def_hero ) );
     hero->set_position(zvec2(0, 10));
     world.set_hero(hero.get());
 
@@ -21,7 +48,7 @@ int main()
     def_floor.type = zbody_def::btype::rect;
     def_floor.width = 100;
     def_floor.height = 0.5;
-    std::unique_ptr<ibody> floor( world.create_body( def_floor ) );
+    std::unique_ptr<ibody> floor( create_body( def_floor ) );
     floor->set_position(zvec2(0, 0));
     world.add_body(floor.get());
 

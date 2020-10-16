@@ -12,6 +12,7 @@ class irender
 {
 public:
     using resize_callback_t = std::function<void(const zsize&)>;
+
     virtual ~irender();
 
     virtual void resize(const zsize& view_size) = 0;

@@ -12,8 +12,6 @@ class zworld
 public:
     zworld(const zvec2& gravity);
 
-    ibody* create_body(const zbody_def& def) const;
-
     void add_body(ibody* body);
     void remove_body(ibody* body);
 

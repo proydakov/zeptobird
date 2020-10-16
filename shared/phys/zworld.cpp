@@ -14,28 +14,6 @@ zworld::zworld(const zvec2& gravity) :
 {
 }
 
-ibody* zworld::create_body(const zbody_def& def) const
-{
-    ibody* ptr = nullptr;
-
-    switch(def.type) {
-    case zbody_def::btype::circle:
-        ptr = new zcircle_body(def.radius);
-        break;
-
-    case zbody_def::btype::rect:
-        ptr = new zrect_body(def.width, def.height);
-        break;
-
-    default:
-        break;
-    }
-
-    assert(ptr);
-
-    return ptr;
-}
-
 void zworld::add_body(ibody* body)
 {
     m_bodys.push_back(body);
