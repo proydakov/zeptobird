@@ -14,33 +14,42 @@ namespace {
 
 const bool DEBUG_ENGINE = true;
 
+ztime get_millis()
+{
+    auto now = std::chrono::high_resolution_clock::now();
+    auto duration = now.time_since_epoch();
+    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    return static_cast<ztime>(millis);
 }
 
-zframework::zframework(zplatform& platform) :
+}
+
+zframework::zframework(zplatform& platform, int width, int height) :
     m_platform(platform),
-    m_render(new zgles2_render(m_platform.get_resource())),
-    m_game(new zgame(platform)),
     m_time(0)
 {
+    std::cout << "zframework()" << std::endl;
+
+    m_render = std::make_unique<zgles2_render>(m_platform.get_resource());
+    m_game = std::make_unique<zgame>(platform);
+
     if(DEBUG_ENGINE) {
         m_debug.reset(new zdebug(m_render.get()));
     }
     else {
         m_debug.reset(new znodebug());
     }
+    
+    const zsize size{width, height};
+    m_render->resize(size);
 }
 
 zframework::~zframework()
 {
-    deinit();
+    m_game.reset();
+    m_render.reset();
 
-    std::cout << "~zframework" << std::endl;
-}
-
-void zframework::init(int width, int height)
-{
-    const zsize size{width, height};
-    m_render->init(size);
+    std::cout << "~zframework()" << std::endl;
 }
 
 void zframework::resize(int width, int height)
@@ -49,16 +58,10 @@ void zframework::resize(int width, int height)
     m_render->resize(size);
 }
 
-void zframework::deinit()
-{
-    m_render->deinit();
-}
-
 void zframework::input(touch_event type, int x, int y)
 {
     auto scene = m_render->view_2_scene(zvec2(x, y));
-    /// view Y down, scene Y up
-    scene.y *= -1;
+    scene.y *= -1; /// view Y down, scene Y up
     m_game->input(type, scene.x, scene.y);
 }
 
@@ -66,11 +69,9 @@ void zframework::update()
 {
     //zprofiler prof("update", 1);
     
-    std::chrono::time_point<std::chrono::high_resolution_clock> now = std::chrono::high_resolution_clock::now();
-    auto duration = now.time_since_epoch();
-    auto millis = static_cast<ztime>(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count());
-
-    if(0 == m_time) {
+    auto millis = get_millis();
+    if (0 == m_time)
+    {
         m_time = millis;
     }
 

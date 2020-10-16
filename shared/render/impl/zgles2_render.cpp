@@ -90,19 +90,22 @@ zgles2_render::data::data(const iresource& resource) :
 zgles2_render::zgles2_render(const iresource& resource) :
     m_data(new data(resource))
 {
+    std::cout << "zgles2_render()" << std::endl;
+
+    load_shaders(m_data->resource);
+    load_textures(m_data->resource);
 }
 
 zgles2_render::~zgles2_render()
 {
-    deinit();
-}
+    // remove text
+    m_data->alphabet_texture.unload();
 
-void zgles2_render::init(const zsize& view_size)
-{
-    std::cout << "zgles2_render::init()" << std::endl;
-    resize(view_size);
-    load_shaders(m_data->resource);
-    load_textures(m_data->resource);
+    // remove programs
+    m_data->model_program.unload();
+    m_data->widget_program.unload();
+    
+    std::cout << "~zgles2_render()" << std::endl;
 }
 
 void zgles2_render::resize(const zsize& view_size)
@@ -121,24 +124,12 @@ void zgles2_render::resize(const zsize& view_size)
     update_mvp();
 }
 
-void zgles2_render::deinit()
-{
-    std::cout << "zgles2_render::deinit()" << std::endl;
-
-    // remove text
-    m_data->alphabet_texture.unload();
-
-    // remove programs
-    m_data->model_program.unload();
-    m_data->widget_program.unload();
-}
-
-void zgles2_render::render(const irenderable* object, const zvec2& position, zfloat rotation, zfloat scale)
+void zgles2_render::render(const irenderable* object, const zvec2& pos, zfloat rot, zfloat scale)
 {
     /// @todo : test vbo impl
 
-    zmat33 mtranslate = ztranslate3(position);
-    zmat33 mrotate = zrotate_around_z3(rotation);
+    zmat33 mtranslate = ztranslate3(pos);
+    zmat33 mrotate = zrotate_around_z3(rot);
     zmat33 mscale = zscale3(scale, scale);
     zmat33 mtransform = zmul(zmul(mtranslate, mrotate), mscale);
 

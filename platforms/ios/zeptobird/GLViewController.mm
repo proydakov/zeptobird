@@ -22,8 +22,6 @@
 
 - (void)initialize
 {
-    zplatform platform(sound, resource);
-    framework.reset(new zframework( platform ));
 }
 
 - (void)dealloc
@@ -32,12 +30,13 @@
 
 - (void)installWidth:(int)width andHeight:(int)height
 {
-    self->framework->init(width, height);
+    zplatform platform(sound, resource);
+    self->framework.reset(new zframework( platform, width, height ));
 }
 
 - (void)uninstall
 {
-    self->framework->deinit();
+    self->framework.reset();
 }
 
 - (void)draw

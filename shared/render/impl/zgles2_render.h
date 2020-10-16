@@ -12,11 +12,9 @@ public:
     zgles2_render(const iresource& resource);
     virtual ~zgles2_render() override;
 
-    void init(const zsize& view_size) override;
     void resize(const zsize& view_size) override;
-    void deinit() override;
 
-    void render(const irenderable* object, const zvec2& position, zfloat rotation, zfloat scale) override;
+    void render(const irenderable*, const zvec2& pos, zfloat rot, zfloat scale) override;
     void render() override;
 
     void set_scene_size(const zsize& scene_size) override;
@@ -26,7 +24,7 @@ public:
 
     zvec2 view_2_scene(const zvec2& view) override;
 
-    void set_scene_size_change_callback(const std::function<void(const zsize&)>& functor) override;
+    void set_scene_size_change_callback(const resize_callback_t& functor) override;
     size_t get_vertex_statistic() const override;
 
 private:

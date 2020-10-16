@@ -47,6 +47,9 @@ sdl2_sound::sdl2_sound() : m_music(nullptr, Mix_FreeChunk), m_sound(nullptr, Mix
     {
         std::cerr << "SDL2_mixer could not be initialized! SDL_Error: " << Mix_GetError() << std::endl;
     }
+    
+    std::cout << "\n";
+    std::cout.flush();
 }
 
 sdl2_sound::~sdl2_sound()
