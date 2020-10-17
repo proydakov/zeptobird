@@ -61,7 +61,8 @@ int main(int argc, char* argv[])
                 reinterpret_cast<isound&>(sound.emplace<sdl2_sound>()) :
                 reinterpret_cast<isound&>(sound.emplace<fake_sound>()),
             resource);
-        zframework framework(platform, width, height);
+
+        zframework framework(platform, width, height, {false});
 
         bool running = true;
         bool fullscreen = false;

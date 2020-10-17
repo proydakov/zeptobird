@@ -12,8 +12,6 @@
 
 namespace {
 
-const bool DEBUG_ENGINE = true;
-
 ztime get_millis()
 {
     auto now = std::chrono::high_resolution_clock::now();
@@ -24,7 +22,12 @@ ztime get_millis()
 
 }
 
-zframework::zframework(zplatform& platform, int width, int height) :
+zframework::options zframework::options::default_opt()
+{
+    return { false };
+}
+
+zframework::zframework(zplatform& platform, int width, int height, options opt) :
     m_platform(platform),
     m_time(0)
 {
@@ -33,7 +36,7 @@ zframework::zframework(zplatform& platform, int width, int height) :
     m_render = std::make_unique<zgles2_render>(m_platform.get_resource());
     m_game = std::make_unique<zgame>(platform);
 
-    if(DEBUG_ENGINE) {
+    if(opt.debug_render) {
         m_debug.reset(new zdebug(m_render.get()));
     }
     else {

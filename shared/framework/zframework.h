@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <common/ztime.h>
 #include <common/zinput.h>
 #include <platform/zplatform.h>
@@ -12,7 +13,14 @@ class irender;
 class zframework final
 {
 public:
-    zframework(zplatform& platform, int width, int height);
+    struct options
+    {
+        static options default_opt();
+
+        bool debug_render;
+    };
+
+    zframework(zplatform&, int width, int height, options opt = options::default_opt());
     ~zframework();
 
     void resize(int width, int height);
