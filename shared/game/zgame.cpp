@@ -56,10 +56,10 @@ void zgame::next()
 {
     m_scene.reset(nullptr);
     if(m_scene_counter) {
-        m_scene.reset(new zgame_scene(m_platform.get_sound(), *m_record));
+        m_scene = std::make_unique<zgame_scene>(m_platform.get_sound(), *m_record);
     }
     else {
-        m_scene.reset(new zmenu_scene(m_platform.get_sound(), *m_record));
+        m_scene = std::make_unique<zmenu_scene>(m_platform.get_sound(), *m_record);
     }
     m_scene_counter = !m_scene_counter;
 }

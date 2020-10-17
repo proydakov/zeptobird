@@ -1,7 +1,6 @@
 #include <sdl2_sound.h>
 #include <fake_sound.h>
 #include <sdl2_resource.h>
-#include <framework/zframework.h>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
@@ -10,10 +9,13 @@
 #include <iostream>
 #include <functional>
 
+#include <common/zinput.h>
+#include <platform/zplatform.h>
+
 class keyboard_press_guard
 {
 public:
-    keyboard_press_guard(SDL_Keycode code, std::function<void()>&& lambda);
+    keyboard_press_guard(SDL_Keycode code, std::function<void()> lambda);
     void operator()(SDL_Event const& Event);
 
 private:
@@ -22,9 +24,18 @@ private:
     std::function<void()> m_lambda;
 };
 
+struct cmd_options
+{
+    bool has_sound;
+    std::string ai_model;
+};
+
+cmd_options parse_cmd_options(int argc, char* argv[]);
+
 void trace_info();
 
-int main(int argc, char* argv[])
+template<typename T>
+int sdl2_main(int argc, char* argv[])
 {
     constexpr std::uint32_t flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
 
@@ -43,27 +54,7 @@ int main(int argc, char* argv[])
 
     trace_info();
 
-    bool has_sound = true;
-    for(int i = 1; i < argc; i++)
     {
-        if (std::string("-nosound") == argv[i])
-        {
-            has_sound = false;
-        }
-    }
-
-    {
-        std::variant<std::monostate, sdl2_sound, fake_sound> sound;
-        
-        sdl2_resource resource;
-        
-        zplatform platform(has_sound ?
-                reinterpret_cast<isound&>(sound.emplace<sdl2_sound>()) :
-                reinterpret_cast<isound&>(sound.emplace<fake_sound>()),
-            resource);
-
-        zframework framework(platform, width, height, {false});
-
         bool running = true;
         bool fullscreen = false;
 
@@ -73,6 +64,19 @@ int main(int argc, char* argv[])
             SDL_SetWindowFullscreen(window, new_flags);
         });
 
+        auto const cmd_opt = parse_cmd_options(argc, argv);
+
+        std::variant<std::monostate, sdl2_sound, fake_sound> sound;
+        
+        sdl2_resource resource;
+        
+        zplatform platform(cmd_opt.has_sound ?
+                reinterpret_cast<isound&>(sound.emplace<sdl2_sound>()) :
+                reinterpret_cast<isound&>(sound.emplace<fake_sound>()),
+            resource);
+
+        T application(platform, width, height, cmd_opt);
+
         while (running)
         {
             SDL_Event event;
@@ -81,15 +85,15 @@ int main(int argc, char* argv[])
                 switch (event.type)
                 {
                 case SDL_MOUSEBUTTONDOWN:
-                    framework.input(touch_event::began, event.motion.x, event.motion.y);
+                    application.input(touch_event::began, event.motion.x, event.motion.y);
                     break;
 
                 case SDL_MOUSEBUTTONUP:
-                    framework.input(touch_event::end, event.motion.x, event.motion.y);
+                    application.input(touch_event::end, event.motion.x, event.motion.y);
                     break;
 
                 case SDL_MOUSEMOTION:
-                    framework.input(touch_event::move, event.motion.x, event.motion.y);
+                    application.input(touch_event::move, event.motion.x, event.motion.y);
                     break;
 
                 case SDL_KEYDOWN:
@@ -112,7 +116,7 @@ int main(int argc, char* argv[])
                     {
                         auto width = size_t(event.window.data1);
                         auto height = size_t(event.window.data2);
-                        framework.resize(width, height);
+                        application.resize(width, height);
                     }
                         break;
                     }
@@ -124,8 +128,8 @@ int main(int argc, char* argv[])
                 }
             }
 
-            framework.update();
-            framework.render();
+            application.update();
+            application.render();
 
             SDL_GL_SwapWindow(window);
         }
@@ -136,55 +140,4 @@ int main(int argc, char* argv[])
     SDL_Quit();
 
     return EXIT_SUCCESS;
-}
-
-void trace_info()
-{
-    // SDL info
-    SDL_version c;
-    SDL_version l;
-    SDL_VERSION( &c );
-    SDL_GetVersion( &l );
-
-    std::cout << "SDL compiled version: " << (int)c.major << "." << (int)c.minor << "." << (int)c.patch << "\n";
-    std::cout << "SDL linked version  : " << (int)l.major << "." << (int)l.minor << "." << (int)l.patch << "\n";
-
-    std::cout << "\n";
-
-    // GL info
-    std::cout << "GL_VENDOR   : " << glGetString( GL_VENDOR ) << "\n";
-    std::cout << "GL_RENDERER : " << glGetString( GL_RENDERER ) << "\n";
-    std::cout << "GL_VERSION  : " << glGetString( GL_VERSION ) << "\n";
-    std::cout << "GLSL version: " << glGetString( GL_SHADING_LANGUAGE_VERSION ) << "\n";
-
-    std::cout << "\n";
-    
-    std::cout.flush();
-}
-
-keyboard_press_guard::keyboard_press_guard(SDL_Keycode code, std::function<void()>&& lambda)
-    : m_code(code)
-    , m_lock(false)
-    , m_lambda(std::move(lambda))
-{
-}
-
-void keyboard_press_guard::operator()(SDL_Event const& Event)
-{
-    switch (Event.type) {
-    case SDL_KEYDOWN:
-        if(m_code == Event.key.keysym.sym && m_lock == false)
-        {
-            m_lock = true;
-            m_lambda();
-        }
-        break;
-
-    case SDL_KEYUP:
-        if(m_code == Event.key.keysym.sym && m_lock == true)
-        {
-            m_lock = false;
-        }
-        break;
-    }
 }

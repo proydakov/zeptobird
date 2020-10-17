@@ -15,12 +15,12 @@ class zframework final
 public:
     struct options
     {
-        static options default_opt();
-
         bool debug_render;
     };
 
-    zframework(zplatform&, int width, int height, options opt = options::default_opt());
+    static options default_opt();
+
+    zframework(zplatform&, int width, int height, options const& opt = default_opt());
     ~zframework();
 
     void resize(int width, int height);

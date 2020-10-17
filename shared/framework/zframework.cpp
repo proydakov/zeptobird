@@ -22,12 +22,12 @@ ztime get_millis()
 
 }
 
-zframework::options zframework::options::default_opt()
+zframework::options zframework::default_opt()
 {
     return { false };
 }
 
-zframework::zframework(zplatform& platform, int width, int height, options opt) :
+zframework::zframework(zplatform& platform, int width, int height, options const& opt) :
     m_platform(platform),
     m_time(0)
 {
@@ -37,10 +37,10 @@ zframework::zframework(zplatform& platform, int width, int height, options opt) 
     m_game = std::make_unique<zgame>(platform);
 
     if(opt.debug_render) {
-        m_debug.reset(new zdebug(m_render.get()));
+        m_debug = std::make_unique<zdebug>(m_render.get());
     }
     else {
-        m_debug.reset(new znodebug());
+        m_debug = std::make_unique<znodebug>();
     }
     
     const zsize size{width, height};

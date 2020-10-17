@@ -14,7 +14,9 @@ else()
     find_package(OpenGL REQUIRED)
 endif()
 
-add_executable(zeptobird
+add_library(sdl2_platform
+    sdl2_application.h
+    sdl2_application.cpp
     sdl2_resource.h
     sdl2_resource.cpp
     sdl2_sound.h
@@ -22,16 +24,19 @@ add_executable(zeptobird
     fake_sound.h
     fake_sound.cpp
     generated_resource.h
-    main.cpp
 )
 
-target_include_directories(zeptobird PUBLIC ${SDL2_INCLUDE_DIR})
+target_include_directories(sdl2_platform PUBLIC ${SDL2_INCLUDE_DIR})
 
-target_link_libraries(zeptobird shared)
-
-target_link_libraries(zeptobird ${SDL2_LIBRARY} ${SDL2_MIXER_LIBRARY})
+target_link_libraries(sdl2_platform PUBLIC shared ${SDL2_LIBRARY} ${SDL2_MIXER_LIBRARY})
 if(NOT APPLE)
-    target_link_libraries(zeptobird ${GLESv2_LIBRARY})
+    target_link_libraries(sdl2_platform PUBLIC ${GLESv2_LIBRARY})
 else()
-    target_link_libraries(zeptobird ${OPENGL_LIBRARIES})
+    target_link_libraries(sdl2_platform PUBLIC ${OPENGL_LIBRARIES})
 endif()
+
+add_executable(zeptobird
+    game_main.cpp
+)
+
+target_link_libraries(zeptobird sdl2_platform)
