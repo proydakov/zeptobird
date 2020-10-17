@@ -111,9 +111,9 @@ void zmenu_scene::update(ztime ms)
     }
 }
 
-void zmenu_scene::render(irender* render) const
+void zmenu_scene::render(irender& render) const
 {
-    render->set_background_color(m_background_color);
+    render.set_background_color(m_background_color);
     for(size_t i = 0; i < m_objects.size(); i++) {
         m_objects[i]->render(render);
     }

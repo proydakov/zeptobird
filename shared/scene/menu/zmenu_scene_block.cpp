@@ -33,9 +33,9 @@ void zmenu_scene_block::update(size_t ms)
     m_position += ms / 1000.0 * m_speed;
 }
 
-void zmenu_scene_block::render(irender* render) const
+void zmenu_scene_block::render(irender& render) const
 {
-    render->render(m_model.get(), get_position(), m_model->get_rotation(), m_model->get_scale());
+    render.render(*m_model, get_position(), m_model->get_rotation(), m_model->get_scale());
 }
 
 const zvec2& zmenu_scene_block::get_position() const

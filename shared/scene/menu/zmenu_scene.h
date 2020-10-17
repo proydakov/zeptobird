@@ -27,7 +27,7 @@ public:
 
     void input(touch_event type, int x, int y) override;
     void update(ztime ms) override;
-    void render(irender* render) const override;
+    void render(irender& render) const override;
 
     zsize get_size() const override;
 

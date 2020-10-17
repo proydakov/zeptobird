@@ -25,7 +25,7 @@ zframework::zframework(zplatform& platform, int width, int height, options const
     m_game = std::make_unique<zgame>(platform);
 
     if(opt.debug_render) {
-        m_debug = std::make_unique<zdebug>(m_render.get());
+        m_debug = std::make_unique<zdebug>(*m_render);
     }
     else {
         m_debug = std::make_unique<znodebug>();
@@ -78,8 +78,8 @@ void zframework::render()
 {
     //zprofiler prof("render", 20);
 
-    m_game->render(m_render.get());
-    m_debug->render(m_render.get());
+    m_game->render(*m_render);
+    m_debug->render(*m_render);
     m_render->render();
 }
 

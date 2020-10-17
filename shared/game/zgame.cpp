@@ -43,11 +43,11 @@ void zgame::update(ztime ms)
     }
 }
 
-void zgame::render(irender* render)
+void zgame::render(irender& render)
 {
     if(m_scene_resized) {
         m_scene_resized = false;
-        render->set_scene_size(m_scene_size);
+        render.set_scene_size(m_scene_size);
     }
     m_scene->render(render);
 }

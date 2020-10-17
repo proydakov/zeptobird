@@ -9,12 +9,12 @@
 
 #include "zscene_hero_object.h"
 
-zscene_hero_object::zscene_hero_object(zworld* world, float radius, int layer)
+zscene_hero_object::zscene_hero_object(zworld& world, float radius, int layer)
 {
     std::cout << "zscene_hero_object" << std::endl;
 
     m_body.reset(new zcircle_body(radius));
-    world->set_hero(m_body.get());
+    world.set_hero(m_body.get());
 
     std::vector<zvec2> geometry;
     zmodel_builder::generate_circle_model(radius, 10, geometry);
@@ -36,9 +36,9 @@ void zscene_hero_object::update(size_t)
 {
 }
 
-void zscene_hero_object::render(irender* render) const
+void zscene_hero_object::render(irender& render) const
 {
-    render->render(m_model.get(), get_position(), m_model->get_rotation(), m_model->get_scale());
+    render.render(*m_model, get_position(), m_model->get_rotation(), m_model->get_scale());
 }
 
 const zvec2& zscene_hero_object::get_position() const

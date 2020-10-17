@@ -115,9 +115,9 @@ void zgame_scene::update(ztime ms)
     }
 }
 
-void zgame_scene::render(irender* render) const
+void zgame_scene::render(irender& render) const
 {
-    render->set_background_color(m_background_color);
+    render.set_background_color(m_background_color);
 
     for(size_t i = 0; i < m_widgets.size(); i++) {
         m_widgets[i]->render(render);
@@ -166,7 +166,7 @@ void zgame_scene::init_scene()
 
 void zgame_scene::init_hero()
 {
-    auto hero = std::make_unique<zscene_hero_object>( m_world.get(), HERO_RADIUS, 1 );
+    auto hero = std::make_unique<zscene_hero_object>( *m_world, HERO_RADIUS, 1 );
     m_hero = hero.get();
     hero->set_position(zvec2( -SCENE_SIZE / 2 + SCENE_SIZE * 1 / 3, 0));
     m_objects.push_back(std::move(hero));
@@ -184,7 +184,7 @@ void zgame_scene::init_walls()
 
         std::pair<zscene_wall_object*, zscene_wall_object*> pair;
         {
-            auto wall_ptr = std::make_unique<zscene_wall_object>( m_world.get(), WALL_WIDTH, params.height1, 0 );
+            auto wall_ptr = std::make_unique<zscene_wall_object>( *m_world, WALL_WIDTH, params.height1, 0 );
             pair.first = wall_ptr.get();
 
             wall_ptr->set_position(zvec2(hole_x, params.center1));
@@ -192,7 +192,7 @@ void zgame_scene::init_walls()
             m_objects.push_back(std::move(wall_ptr));
         }
         {
-            auto wall_ptr = std::make_unique<zscene_wall_object>( m_world.get(), WALL_WIDTH, params.height2, 0 );
+            auto wall_ptr = std::make_unique<zscene_wall_object>( *m_world, WALL_WIDTH, params.height2, 0 );
             pair.second = wall_ptr.get();
 
             wall_ptr->set_position(zvec2(hole_x, params.center2));
@@ -213,7 +213,7 @@ void zgame_scene::init_coins()
     for(size_t i = 0; i < coin_count; i++) {
         const float coin_y = m_dis(m_gen) - SCENE_SIZE / 2;
 
-        auto coin = std::make_unique<zscene_coin_object>( m_world.get(), COIN_RADIUS, 1 );
+        auto coin = std::make_unique<zscene_coin_object>( *m_world, COIN_RADIUS, 1 );
         coin->set_position(zvec2(coin_x,coin_y));
         coin->set_speed(WALL_SPEED);
 

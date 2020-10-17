@@ -21,7 +21,7 @@ public:
 
     void input(touch_event, int x, int y);
     void update(ztime);
-    void render(irender*);
+    void render(irender&);
 
 private:
     void next();

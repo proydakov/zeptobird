@@ -14,7 +14,7 @@ public:
 
     void resize(const zsize& view_size) override;
 
-    void render(const irenderable*, const zvec2& pos, zfloat rot, zfloat scale) override;
+    void render(const irenderable&, const zvec2& pos, zfloat rot, zfloat scale) override;
     void render() override;
 
     void set_scene_size(const zsize& scene_size) override;

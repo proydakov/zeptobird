@@ -12,7 +12,7 @@ public:
     ~zscene_invisible_object() override;
 
     void update(ztime ms) override;
-    void render(irender* render) const override;
+    void render(irender& render) const override;
 
     const zvec2& get_position() const override;
     void set_position(const zvec2& position) override;

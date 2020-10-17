@@ -9,12 +9,12 @@
 
 #include "zscene_wall_object.h"
 
-zscene_wall_object::zscene_wall_object(zworld* world, float width, float height, int layer)
+zscene_wall_object::zscene_wall_object(zworld& world, float width, float height, int layer)
 {
     std::cout << "zscene_wall_object" << std::endl;
 
     m_body.reset(new zrect_body(width, height));
-    world->add_body(m_body.get());
+    world.add_body(m_body.get());
 
     std::vector<zvec2> geometry;
     zmodel_builder::generate_rect_model(width, height, geometry);
@@ -36,9 +36,9 @@ void zscene_wall_object::update(size_t)
 {
 }
 
-void zscene_wall_object::render(irender* render) const
+void zscene_wall_object::render(irender& render) const
 {
-    render->render(m_model.get(), get_position(), m_model->get_rotation(), m_model->get_scale());
+    render.render(*m_model, get_position(), m_model->get_rotation(), m_model->get_scale());
 }
 
 const zvec2& zscene_wall_object::get_position() const

@@ -10,5 +10,5 @@ public:
     ~znodebug() override;
 
     void update(ztime ms) override;
-    void render(irender* render) override;
+    void render(irender& render) override;
 };

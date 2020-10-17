@@ -10,5 +10,5 @@ public:
     virtual ~idebug();
 
     virtual void update(ztime ms) = 0;
-    virtual void render(irender* render) = 0;
+    virtual void render(irender& render) = 0;
 };

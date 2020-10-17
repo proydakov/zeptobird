@@ -11,7 +11,7 @@ public:
     virtual ~iscene_object();
 
     virtual void update(ztime ms) = 0;
-    virtual void render(irender* render) const = 0;
+    virtual void render(irender& render) const = 0;
 
     virtual const zvec2& get_position() const = 0;
     virtual void set_position(const zvec2& position) = 0;

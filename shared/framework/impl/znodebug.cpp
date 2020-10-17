@@ -12,6 +12,6 @@ void znodebug::update(size_t)
 {
 }
 
-void znodebug::render(irender*)
+void znodebug::render(irender&)
 {
 }

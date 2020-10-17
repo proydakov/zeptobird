@@ -10,11 +10,11 @@ class zworld;
 class zscene_hero_object : public iscene_object
 {
 public:
-    zscene_hero_object(zworld* world, float radius, int layer);
+    zscene_hero_object(zworld& world, float radius, int layer);
     ~zscene_hero_object() override;
 
     void update(ztime ms) override;
-    void render(irender* render) const override;
+    void render(irender& render) const override;
 
     const zvec2& get_position() const override;
     void set_position(const zvec2& position) override;

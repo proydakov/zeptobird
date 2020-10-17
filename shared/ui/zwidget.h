@@ -19,7 +19,7 @@ public:
     ~zwidget() override;
 
     void update(ztime ms);
-    void render(irender* render) const;
+    void render(irender& render) const;
 
     zrect get_rect() const;
 

@@ -124,7 +124,7 @@ void zgles2_render::resize(const zsize& view_size)
     update_mvp();
 }
 
-void zgles2_render::render(const irenderable* object, const zvec2& pos, zfloat rot, zfloat scale)
+void zgles2_render::render(const irenderable& object, const zvec2& pos, zfloat rot, zfloat scale)
 {
     /// @todo : test vbo impl
 
@@ -133,12 +133,12 @@ void zgles2_render::render(const irenderable* object, const zvec2& pos, zfloat r
     zmat33 mscale = zscale3(scale, scale);
     zmat33 mtransform = zmul(zmul(mtranslate, mrotate), mscale);
 
-    const float layer = object->get_layer();
+    const float layer = object.get_layer();
     // AABB
     if(m_data->aabb_visible)
     {
         const auto& aabb_color = m_data->aabb_color;
-        const auto aabb = object->get_aabb_geom();
+        const auto aabb = object.get_aabb_geom();
         for(size_t i = 0 ; i < aabb.size(); i++) {
             const zvec3 src(aabb[i].x, aabb[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
@@ -147,8 +147,8 @@ void zgles2_render::render(const irenderable* object, const zvec2& pos, zfloat r
     }
     // GEOM
     {
-        const auto& color = object->get_color();
-        const auto geom = object->get_colored_geom();
+        const auto& color = object.get_color();
+        const auto geom = object.get_colored_geom();
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec3 src(geom[i].x, geom[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
@@ -157,8 +157,8 @@ void zgles2_render::render(const irenderable* object, const zvec2& pos, zfloat r
     }
     // TEXTURED
     {
-        const auto geom = object->get_textured_geom();
-        const auto coord = object->get_textured_coord();
+        const auto geom = object.get_textured_geom();
+        const auto coord = object.get_textured_coord();
         for(size_t i = 0 ; i < geom.size(); i++) {
             const zvec3 src(geom[i].x, geom[i].y, 1);
             const zvec3 result = zmul(mtransform, src);

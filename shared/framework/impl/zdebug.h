@@ -9,14 +9,14 @@ class zfps_calculator;
 class zdebug : public idebug
 {
 public:
-    zdebug(irender* render);
+    zdebug(irender& render);
     ~zdebug() override;
 
     void update(ztime ms) override;
-    void render(irender* render) override;
+    void render(irender& render) override;
 
 private:
-    irender* m_render;
+    irender& m_render;
 
     std::unique_ptr<zfps_calculator> m_fps_calculator;
     std::unique_ptr<ztext_widget> m_fps_widget;

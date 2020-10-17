@@ -28,7 +28,7 @@ struct train_application final
 
     void render()
     {
-        m_game.render(&m_render);
+        m_game.render(m_render);
         m_render.render();
     }
 
@@ -38,7 +38,8 @@ struct train_application final
         m_render.resize(size);
     }
 
-    void input(touch_event e, int x, int y)
+    void input(touch_event, int, int)
+    //void input(touch_event e, int x, int y)
     {
         //m_game.input(e, x, y);
     }

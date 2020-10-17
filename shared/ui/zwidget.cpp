@@ -37,10 +37,10 @@ void zwidget::update(ztime ms)
     m_animator->update(ms);
 }
 
-void zwidget::render(irender* render) const
+void zwidget::render(irender& render) const
 {
     if(m_visible) {
-        render->render(this, get_position(), get_rotation(), get_scale() * m_animator->get_scale());
+        render.render(*this, get_position(), get_rotation(), get_scale() * m_animator->get_scale());
     }
 }
 

@@ -9,12 +9,12 @@
 
 #include "zscene_coin_object.h"
 
-zscene_coin_object::zscene_coin_object(zworld* world, float radius, int layer)
+zscene_coin_object::zscene_coin_object(zworld& world, float radius, int layer)
 {
     std::cout << "zscene_coin_object" << std::endl;
 
     m_body.reset(new zcircle_body(radius));
-    world->add_body(m_body.get());
+    world.add_body(m_body.get());
 
     std::vector<zvec2> geometry;
     zmodel_builder::generate_circle_model(radius, 15, geometry);
@@ -36,10 +36,10 @@ void zscene_coin_object::update(size_t)
 {
 }
 
-void zscene_coin_object::render(irender* render) const
+void zscene_coin_object::render(irender& render) const
 {
     if(m_body->get_active()) {
-        render->render(m_model.get(), get_position(), m_model->get_rotation(), m_model->get_scale());
+        render.render(*m_model, get_position(), m_model->get_rotation(), m_model->get_scale());
     }
 }
 

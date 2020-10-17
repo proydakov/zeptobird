@@ -32,9 +32,9 @@ void zscene_invisible_object::update(size_t)
 {
 }
 
-void zscene_invisible_object::render(irender* render) const
+void zscene_invisible_object::render(irender& render) const
 {
-    render->render(m_model.get(), get_position(), m_model->get_rotation(), m_model->get_scale());
+    render.render(*m_model, get_position(), m_model->get_rotation(), m_model->get_scale());
 }
 
 const zvec2& zscene_invisible_object::get_position() const
