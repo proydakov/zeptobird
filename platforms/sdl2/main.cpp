@@ -1,10 +1,12 @@
 #include <sdl2_sound.h>
+#include <fake_sound.h>
 #include <sdl2_resource.h>
 #include <framework/zframework.h>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
+#include <variant>
 #include <iostream>
 #include <functional>
 
@@ -22,7 +24,7 @@ private:
 
 void trace_info();
 
-int main(int, char*[])
+int main(int argc, char* argv[])
 {
     constexpr std::uint32_t flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
 
@@ -41,11 +43,24 @@ int main(int, char*[])
 
     trace_info();
 
+    bool has_sound = true;
+    for(int i = 1; i < argc; i++)
     {
-        sdl2_sound sound;
+        if (std::string("-nosound") == argv[i])
+        {
+            has_sound = false;
+        }
+    }
+
+    {
+        std::variant<std::monostate, sdl2_sound, fake_sound> sound;
+        
         sdl2_resource resource;
         
-        zplatform platform(sound, resource);
+        zplatform platform(has_sound ?
+                reinterpret_cast<isound&>(sound.emplace<sdl2_sound>()) :
+                reinterpret_cast<isound&>(sound.emplace<fake_sound>()),
+            resource);
         zframework framework(platform, width, height);
 
         bool running = true;

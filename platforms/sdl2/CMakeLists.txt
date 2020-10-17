@@ -19,6 +19,8 @@ add_executable(zeptobird
     sdl2_resource.cpp
     sdl2_sound.h
     sdl2_sound.cpp
+    fake_sound.h
+    fake_sound.cpp
     generated_resource.h
     main.cpp
 )
