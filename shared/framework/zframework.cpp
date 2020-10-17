@@ -1,26 +1,14 @@
-#include <chrono>
 #include <iostream>
 
 #include <game/zgame.h>
 #include <common/ztime.h>
+#include <common/zclock.h>
 #include <common/zprofiler.h>
 #include <render/impl/zgles2_render.h>
 
 #include "zframework.h"
 #include "impl/zdebug.h"
 #include "impl/znodebug.h"
-
-namespace {
-
-ztime get_millis()
-{
-    auto now = std::chrono::high_resolution_clock::now();
-    auto duration = now.time_since_epoch();
-    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
-    return static_cast<ztime>(millis);
-}
-
-}
 
 zframework::options zframework::default_opt()
 {

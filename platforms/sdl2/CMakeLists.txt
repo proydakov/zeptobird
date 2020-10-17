@@ -40,3 +40,9 @@ add_executable(zeptobird
 )
 
 target_link_libraries(zeptobird sdl2_platform)
+
+add_executable(zeptobird_ai_train
+    train_main.cpp
+)
+
+target_link_libraries(zeptobird_ai_train sdl2_platform)

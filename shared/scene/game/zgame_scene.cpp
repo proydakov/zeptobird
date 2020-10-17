@@ -179,7 +179,6 @@ void zgame_scene::init_walls()
     const int hole_x_step = 2 * SCENE_SIZE / 3;
 
     for(size_t i = 0; i < wall_count; i++) {
-        //const float hole_y = bad_y[i];
         const float hole_y = m_dis(m_gen);
         hole_params params = zscene_game_logic::create_hole_params(hole_y, HOLE_HEIGHT, SCENE_SIZE);
 

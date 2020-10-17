@@ -37,6 +37,11 @@ public:
 
     bool is_done() const override;
 
+    int get_score() const
+    {
+        return m_score;
+    }
+
 private:
     void init_ui();
     void init_scene();

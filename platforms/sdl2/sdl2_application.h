@@ -37,22 +37,28 @@ void trace_info();
 template<typename T>
 int sdl2_main(int argc, char* argv[])
 {
-    constexpr std::uint32_t flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
-
     int width = 1200;
     int height = 700;
 
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+    auto const cmd_opt = parse_cmd_options(argc, argv);
+
+    const std::uint32_t options = SDL_INIT_VIDEO | (cmd_opt.has_sound ? SDL_INIT_AUDIO : 0);
+
+    SDL_Init(options);
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
+    constexpr std::uint32_t flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
+
     SDL_Window* window = SDL_CreateWindow("SDL2", 0, 0, width, height, flags);
     SDL_GLContext context = SDL_GL_CreateContext(window);
 
     trace_info();
+
+    int result = EXIT_SUCCESS;
 
     {
         bool running = true;
@@ -63,8 +69,6 @@ int sdl2_main(int argc, char* argv[])
             std::uint32_t const new_flags = fullscreen ? (flags | SDL_WINDOW_FULLSCREEN) : flags;
             SDL_SetWindowFullscreen(window, new_flags);
         });
-
-        auto const cmd_opt = parse_cmd_options(argc, argv);
 
         std::variant<std::monostate, sdl2_sound, fake_sound> sound;
         
@@ -131,13 +135,18 @@ int sdl2_main(int argc, char* argv[])
             application.update();
             application.render();
 
+            running &= !application.is_done();
+
             SDL_GL_SwapWindow(window);
         }
+
+        result = application.get_result();
     }
 
     SDL_GL_DeleteContext(context); 
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    return EXIT_SUCCESS;
+    return result;
 }
+

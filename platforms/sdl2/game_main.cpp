@@ -2,7 +2,7 @@
 
 #include <framework/zframework.h>
 
-struct game_application
+struct game_application final
 {
     game_application(zplatform& platform, int w, int h, cmd_options const&)
         : framework(platform, w, h)
@@ -27,6 +27,16 @@ struct game_application
     void input(touch_event type, int x, int y)
     {
         framework.input(type, x, y);
+    }
+
+    bool is_done() const
+    {
+        return false;
+    }
+
+    int get_result() const
+    {
+        return 0;
     }
 
     zframework framework;

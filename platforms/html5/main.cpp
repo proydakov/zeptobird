@@ -27,12 +27,7 @@ void handleEvent(SDL_Event& event)
     }
 }
 
-void init(size_t width, size_t height)
-{
-    framework->init(width, height);
-}
-
-void render(SDL_Surface* screen)
+void render(SDL_Surface*)
 {
     framework->update();
     framework->render();
@@ -69,19 +64,16 @@ int main (int argc, char** argv)
     h = std::min(w, h);
     std::cout << "viewport w: " << w << " h: " << h << std::endl;
 
-    const int frame_rate = 60;
     const size_t width  = w;
     const size_t height = h;
 
-    stage = new sdl_ctx(width, height, frame_rate, SDL_OPENGL | SDL_RESIZABLE);
+    stage = new sdl_ctx(width, height, 60, SDL_OPENGL | SDL_RESIZABLE);
 
     html5_sound sound;
     html5_resource resource;
     zplatform platform(sound, resource);
 
-    framework = new zframework(platform);
-
-    init(width, height);
+    framework = new zframework(platform, width, height);
 
     stage->setCaption("ZeptoBird");
     stage->setEventListener(&handleEvent);
