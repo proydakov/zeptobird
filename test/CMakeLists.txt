@@ -1,9 +1,10 @@
 function(add_ztest NAME)
-    set(SAMPLE_NAME test_${NAME})
+    set(SAMPLE_NAME ${NAME})
     add_executable(${SAMPLE_NAME} ${NAME}.cpp)
     add_dependencies(${SAMPLE_NAME}      shared)
     target_link_libraries(${SAMPLE_NAME} shared)
     source_group("code" FILES ${NAME}.cpp)
+    add_test(NAME ${NAME} COMMAND ${NAME})
 endfunction()
 
 add_ztest(test_phys)

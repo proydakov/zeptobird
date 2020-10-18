@@ -15,7 +15,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
-          packages: ['gcc-8', 'g++-8', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
+          packages: ['gcc-8', 'g++-8', 'ninja-build', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
       env:
         - CC=gcc-8
         - CXX=g++-8
@@ -25,4 +25,5 @@ script:
   - mkdir build
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
-  - make
+  - cmake --build .
+  - ctest -R

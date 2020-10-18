@@ -48,7 +48,7 @@ void step()
     stage->step();
 }
 
-int main (int argc, char** argv)
+int main (int argc, char* argv[])
 {
     int w = EM_ASM_INT({
         var canvas = document.getElementById('canvas');

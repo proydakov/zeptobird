@@ -21,13 +21,14 @@
 #include "zgame_scene.h"
 #include "zgame_scene_logic.h"
 
-namespace {
+namespace
+{
 const zcolor SKY_COLOR  {0.65, 0.65, 0.65};
 const zcolor BLOOD_COLOR{187.0 / 255,  10.0 / 255,  30.0 / 255};
 
 constexpr int SCENE_SIZE = 100;
 
-zvec2 GRAVITY_ACCELERATION( 0.0, -9.8);
+const zvec2 GRAVITY_ACCELERATION( 0.0, -9.8);
 
 const zvec2 JUMP_SPEED   ( 0.0,  12.5);
 const zvec2 WALL_SPEED   (-10.0,  0.0);
