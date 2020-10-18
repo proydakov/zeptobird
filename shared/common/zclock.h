@@ -2,4 +2,7 @@
 
 #include <common/ztime.h>
 
-ztime get_millis();
+struct zclock
+{
+    static ztime now();
+};

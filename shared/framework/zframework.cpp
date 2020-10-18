@@ -60,7 +60,7 @@ void zframework::update()
 {
     //zprofiler prof("update", 1);
     
-    auto millis = get_millis();
+    auto millis = zclock::now();
     if (0 == m_time)
     {
         m_time = millis;

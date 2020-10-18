@@ -8,7 +8,7 @@
 struct train_application final
 {
     train_application(zplatform& platform, int w, int h, cmd_options const&)
-        : m_time(get_millis())
+        : m_time(zclock::now())
         , m_record(platform.get_resource())
         , m_game(platform.get_sound(), m_record)
         , m_render(platform.get_resource())
@@ -20,7 +20,7 @@ struct train_application final
 
     void update()
     {
-        auto now = get_millis();
+        auto now = zclock::now();
         auto delta = now - m_time;
         m_game.update(delta);
         m_time = now;

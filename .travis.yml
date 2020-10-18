@@ -39,7 +39,7 @@ matrix:
       osx_image: xcode12.2
       addons:
         homebrew:
-          packages: ['sdl2', 'sdl2_mixer', 'ninja']
+          packages: ['sdl2', 'sdl2_mixer']
 
     - env:
         - TARGET=SDL2
@@ -49,7 +49,7 @@ matrix:
       osx_image: xcode12.2
       addons:
         homebrew:
-          packages: ['sdl2', 'sdl2_mixer', 'ninja']
+          packages: ['sdl2', 'sdl2_mixer']
 
     - env:
         - TARGET=IOS

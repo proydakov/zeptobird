@@ -2,7 +2,7 @@
 
 #include <chrono>
 
-ztime get_millis()
+ztime zclock::now()
 {
     auto now = std::chrono::high_resolution_clock::now();
     auto duration = now.time_since_epoch();
