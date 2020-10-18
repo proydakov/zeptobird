@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <game/zgame.h>
 #include <common/ztime.h>
 #include <common/zclock.h>
@@ -9,6 +7,8 @@
 #include "zframework.h"
 #include "impl/zdebug.h"
 #include "impl/znodebug.h"
+
+#include <iostream>
 
 zframework::options zframework::default_opt()
 {
@@ -30,7 +30,7 @@ zframework::zframework(zplatform& platform, int width, int height, options const
     else {
         m_debug = std::make_unique<znodebug>();
     }
-    
+
     const zsize size{width, height};
     m_render->resize(size);
 }
