@@ -9,16 +9,26 @@ dist: bionic
 
 matrix:
   include:
-    - env: BUILD_TYPE=Release
+    - env:
+        - BUILD_TYPE=Debug
+        - CC=gcc-8
+        - CXX=g++-8
       os: linux
       compiler: gcc
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
           packages: ['gcc-8', 'g++-8', 'ninja-build', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
-      env:
+    - env:
+        - BUILD_TYPE=Release
         - CC=gcc-8
         - CXX=g++-8
+      os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
+          packages: ['gcc-8', 'g++-8', 'ninja-build', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
 
 script:
   - $CXX --version
