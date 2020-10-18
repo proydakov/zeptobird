@@ -10,8 +10,8 @@ dist: bionic
 matrix:
   include:
     - env:
-        - BUILD_TYPE=Debug
-        - CC=gcc-8
+        - TARGET=SDL2
+        - TYPE=Debug
         - CXX=g++-8
       os: linux
       compiler: gcc
@@ -19,9 +19,10 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
           packages: ['gcc-8', 'g++-8', 'ninja-build', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
+
     - env:
-        - BUILD_TYPE=Release
-        - CC=gcc-8
+        - TARGET=SDL2
+        - TYPE=Release
         - CXX=g++-8
       os: linux
       compiler: gcc
@@ -29,20 +30,34 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
           packages: ['gcc-8', 'g++-8', 'ninja-build', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
+
     - env:
-        - BUILD_TYPE=Release
-        - CC=clang
+        - TARGET=SDL2
+        - TYPE=Debug
         - CXX=clang++
       os: osx
       osx_image: xcode12.2
       addons:
         homebrew:
-          packages: ['sdl2', 'sdl2_mixer']
+          packages: ['sdl2', 'sdl2_mixer', 'ninja']
+
+    - env:
+        - TARGET=SDL2
+        - TYPE=Release
+        - CXX=clang++
+      os: osx
+      osx_image: xcode12.2
+      addons:
+        homebrew:
+          packages: ['sdl2', 'sdl2_mixer', 'ninja']
+
+    - env:
+        - TARGET=IOS
+      os: osx
+      osx_image: xcode12.2
 
 script:
   - $CXX --version
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
-  - cmake --build .
-  - ctest -R
+  - if [ "$TARGET" == "IOS" ]; then xcodebuild build -project platforms/ios/zeptobird.xcodeproj -target zeptobird CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO ; fi
+  - if [ "$TARGET" != "IOS" ]; then mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=${TYPE} .. && cmake --build . && ctest -R ; fi
+

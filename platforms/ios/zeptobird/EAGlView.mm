@@ -156,7 +156,7 @@
     if (!animating)
     {
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView)];
-        [displayLink setFrameInterval:animationFrameInterval];
+        [displayLink setPreferredFramesPerSecond:animationFrameInterval];
         [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 
         animating = YES;
