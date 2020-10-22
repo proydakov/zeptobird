@@ -11,17 +11,6 @@ matrix:
   include:
     - env:
         - TARGET=SDL2
-        - TYPE=Debug
-        - CXX=g++-8
-      os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
-          packages: ['gcc-8', 'g++-8', 'ninja-build', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
-
-    - env:
-        - TARGET=SDL2
         - TYPE=Release
         - CXX=g++-8
       os: linux
@@ -30,16 +19,6 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
           packages: ['gcc-8', 'g++-8', 'ninja-build', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
-
-    - env:
-        - TARGET=SDL2
-        - TYPE=Debug
-        - CXX=clang++
-      os: osx
-      osx_image: xcode12.2
-      addons:
-        homebrew:
-          packages: ['sdl2', 'sdl2_mixer']
 
     - env:
         - TARGET=SDL2
@@ -58,6 +37,6 @@ matrix:
 
 script:
   - $CXX --version
-  - if [ "$TARGET" == "IOS" ]; then xcodebuild build -project platforms/ios/zeptobird.xcodeproj -target zeptobird CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO ; fi
+  - if [ "$TARGET" == "IOS" ]; then xcodebuild build -project platforms/ios/zeptobird.xcodeproj -target zeptobird -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO ; fi
   - if [ "$TARGET" != "IOS" ]; then mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=${TYPE} .. && cmake --build . && ctest -R ; fi
 
