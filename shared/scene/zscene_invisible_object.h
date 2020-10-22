@@ -5,7 +5,7 @@
 
 class zmodel;
 
-class zscene_invisible_object : public iscene_object
+class zscene_invisible_object final : public iscene_object
 {
 public:
     zscene_invisible_object(float width, float height, int layer);

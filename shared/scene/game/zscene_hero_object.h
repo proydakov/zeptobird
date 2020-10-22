@@ -7,7 +7,7 @@ class ibody;
 class zmodel;
 class zworld;
 
-class zscene_hero_object : public iscene_object
+class zscene_hero_object final : public iscene_object
 {
 public:
     zscene_hero_object(zworld& world, float radius, int layer);

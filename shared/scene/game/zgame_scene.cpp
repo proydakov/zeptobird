@@ -28,10 +28,10 @@ const zcolor BLOOD_COLOR{187.0 / 255,  10.0 / 255,  30.0 / 255};
 
 constexpr int SCENE_SIZE = 100;
 
-const zvec2 GRAVITY_ACCELERATION( 0.0, -9.8);
+const zvec2 GRAVITY_ACCELERATION(0.0, -9.8);
 
-const zvec2 JUMP_SPEED   ( 0.0,  12.5);
-const zvec2 WALL_SPEED   (-10.0,  0.0);
+const zvec2 JUMP_SPEED( 0.0,  12.5);
+const zvec2 WALL_SPEED(-10.0,  0.0);
 
 constexpr float HERO_RADIUS = 6;
 constexpr float COIN_RADIUS = 4;
@@ -285,7 +285,7 @@ void zgame_scene::update_hero()
     }
 
     const zvec2& position = m_hero->get_position();
-    bool on_scene = position.y < (SCENE_SIZE / 2 - HERO_RADIUS) && position.y > (-SCENE_SIZE / 2 + HERO_RADIUS);
+    const bool on_scene = position.y < (SCENE_SIZE / 2 - HERO_RADIUS) && position.y > (-SCENE_SIZE / 2 + HERO_RADIUS);
     const bool game_over = !(is_alive && on_scene);
 
     if(game_over) {

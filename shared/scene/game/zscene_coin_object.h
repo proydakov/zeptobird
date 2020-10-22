@@ -7,7 +7,7 @@ class ibody;
 class zmodel;
 class zworld;
 
-class zscene_coin_object : public iscene_object
+class zscene_coin_object final : public iscene_object
 {
 public:
     zscene_coin_object(zworld& world, float radius, int layer);

@@ -138,7 +138,7 @@ void zgles2_render::render(const irenderable& object, const zvec2& pos, zfloat r
     if(m_data->aabb_visible)
     {
         const auto& aabb_color = m_data->aabb_color;
-        const auto aabb = object.get_aabb_geom();
+        const auto& aabb = object.get_aabb_geom();
         for(size_t i = 0 ; i < aabb.size(); i++) {
             const zvec3 src(aabb[i].x, aabb[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
@@ -148,7 +148,7 @@ void zgles2_render::render(const irenderable& object, const zvec2& pos, zfloat r
     // GEOM
     {
         const auto& color = object.get_color();
-        const auto geom = object.get_colored_geom();
+        const auto& geom = object.get_colored_geom();
         for(size_t i = 0; i < geom.size(); i++) {
             const zvec3 src(geom[i].x, geom[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
@@ -157,8 +157,8 @@ void zgles2_render::render(const irenderable& object, const zvec2& pos, zfloat r
     }
     // TEXTURED
     {
-        const auto geom = object.get_textured_geom();
-        const auto coord = object.get_textured_coord();
+        const auto& geom = object.get_textured_geom();
+        const auto& coord = object.get_textured_coord();
         for(size_t i = 0 ; i < geom.size(); i++) {
             const zvec3 src(geom[i].x, geom[i].y, 1);
             const zvec3 result = zmul(mtransform, src);
@@ -371,7 +371,7 @@ bool zgles2_render::load_textures(const iresource& resource)
             break;
         }
     }
-    bool load = m_data->alphabet_texture.load(alphabet_width, alphabet_height, &pixels);
+    bool const load = m_data->alphabet_texture.load(alphabet_width, alphabet_height, &pixels);
 
     /*
     // 2x2 Image, 3 bytes per pixel (R, G, B)

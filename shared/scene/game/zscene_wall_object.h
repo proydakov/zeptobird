@@ -7,7 +7,7 @@ class zmodel;
 class zworld;
 class zrect_body;
 
-class zscene_wall_object : public iscene_object
+class zscene_wall_object final : public iscene_object
 {
 public:
     zscene_wall_object(zworld& world, float width, float height, int layer);
