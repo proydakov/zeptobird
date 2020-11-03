@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 #include <platform/iresource.h>
 
@@ -17,8 +18,8 @@ zgles2_program::~zgles2_program()
 bool zgles2_program::load(const iresource& resource,
           const std::string& vertex_shader,
           const std::string& fragment_shader,
-          const std::vector<std::string>& attributes,
-          const std::vector<std::string>& uniforms)
+          const std::set<std::string>& attributes,
+          const std::set<std::string>& uniforms)
 {
     unload();
 
@@ -73,14 +74,12 @@ bool zgles2_program::load(const iresource& resource,
     // Store the program object
     m_program = programObject;
 
-    for(size_t i = 0; i < attributes.size(); i++) {
-        const std::string& name = attributes[i];
-        m_attributes[name] = glGetAttribLocation(programObject, name.c_str());
+    for(auto const& name : attributes) {
+        m_attributes.emplace_back(name, glGetAttribLocation(programObject, name.c_str()));
     }
 
-    for(size_t i = 0; i < uniforms.size(); i++) {
-        const std::string& name = uniforms[i];
-        m_uniforms[name] = glGetUniformLocation(programObject, name.c_str());
+    for(auto const& name : uniforms) {
+        m_uniforms.emplace_back(name, glGetUniformLocation(programObject, name.c_str()));
     }
 
     return true;
@@ -93,20 +92,24 @@ GLuint zgles2_program::get_id() const
 
 int zgles2_program::get_attribute_location(const std::string& attribute) const
 {
-    auto search = m_attributes.find(attribute);
-    int location = 0;
-    if(search != m_attributes.end()) {
-        location = search->second;
+    auto it = std::lower_bound(m_attributes.begin(), m_attributes.end(), attribute, [](const auto& pair, auto const& str){
+        return pair.first < str;
+    });
+    int location = -1;
+    if(it != m_attributes.end()) {
+        location = it->second;
     }
     return location;
 }
 
 int zgles2_program::get_uniform_location(const std::string& uniform) const
 {
-    auto search = m_uniforms.find(uniform);
-    int location = 0;
-    if(search != m_uniforms.end()) {
-        location = search->second;
+    auto it = std::lower_bound(m_uniforms.begin(), m_uniforms.end(), uniform, [](const auto& pair, auto const& str){
+        return pair.first < str;
+    });    
+    int location = -1;
+    if(it != m_uniforms.end()) {
+        location = it->second;
     }
     return location;
 }

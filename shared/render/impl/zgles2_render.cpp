@@ -320,15 +320,19 @@ void zgles2_render::update_mvp()
 
 bool zgles2_render::load_shaders(const iresource& resource)
 {
-    bool const load_model = m_data->model_program.load(resource, "shader/model_vertex.glsl", "shader/model_fragment.glsl",
-                                           std::vector<std::string>{ "vPosition",  "vColor" },
-                                           std::vector<std::string>{ "vMVP" });
+    bool const load_model = m_data->model_program.load(resource,
+        "shader/model_vertex.glsl", "shader/model_fragment.glsl",
+        { "vPosition",  "vColor" },
+        { "vMVP" }
+    );
 
     assert(load_model);
 
-    bool const load_widget = m_data->widget_program.load(resource, "shader/widget_vertex.glsl", "shader/widget_fragment.glsl",
-                                        std::vector<std::string>{ "vPosition",  "vTexCoord" },
-                                        std::vector<std::string>{ "vMVP", "fTexture" });
+    bool const load_widget = m_data->widget_program.load(resource,
+        "shader/widget_vertex.glsl", "shader/widget_fragment.glsl",
+        { "vPosition",  "vTexCoord" },
+        { "vMVP", "fTexture" }
+    );
 
     assert(load_widget);
 
