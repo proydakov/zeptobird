@@ -96,7 +96,7 @@ int zgles2_program::get_attribute_location(const std::string& attribute) const
         return pair.first < str;
     });
     int location = -1;
-    if(it != m_attributes.end()) {
+    if(it != m_attributes.end() && it->first == attribute) {
         location = it->second;
     }
     return location;
@@ -108,7 +108,7 @@ int zgles2_program::get_uniform_location(const std::string& uniform) const
         return pair.first < str;
     });    
     int location = -1;
-    if(it != m_uniforms.end()) {
+    if(it != m_uniforms.end() && it->first == uniform) {
         location = it->second;
     }
     return location;

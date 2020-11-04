@@ -28,7 +28,7 @@ public:
     int get_uniform_location(const std::string& uniform) const;
 
 private:
-    GLuint load_shader( GLenum type, const char *shaderSrc );
+    GLuint load_shader(GLenum type, const char* shaderSrc);
 
 private:
     GLuint m_program;
