@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class GLViewController;
+@class ViewController;
 
 @interface AppDelegate : NSObject <UIApplicationDelegate>
 {
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet GLViewController *rootController;
+@property (nonatomic, retain) IBOutlet ViewController *rootController;
 
 @end

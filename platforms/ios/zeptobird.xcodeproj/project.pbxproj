@@ -48,7 +48,6 @@
 		845ABE3E1D7CADC700F564AC /* zgame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 845ABE3C1D7CADC700F564AC /* zgame.cpp */; };
 		846DDAFC1D7B058E00B57C22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DDAFB1D7B058E00B57C22 /* main.m */; };
 		846DDAFF1D7B058F00B57C22 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 846DDAFE1D7B058F00B57C22 /* AppDelegate.mm */; };
-		846DDB0B1D7B058F00B57C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846DDB0A1D7B058F00B57C22 /* Assets.xcassets */; };
 		849580C81DA4D20300BEE7B0 /* zui_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 849580C71DA4D20300BEE7B0 /* zui_input.cpp */; };
 		84BBD9031D89C6970089A277 /* irenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9011D89C6970089A277 /* irenderable.cpp */; };
 		84BBD90D1D89C6A60089A277 /* idebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD9051D89C6A60089A277 /* idebug.cpp */; };
@@ -72,7 +71,6 @@
 		84EE839B1D8596A000759455 /* alphabet.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84EE839A1D8596A000759455 /* alphabet.txt */; };
 		84EE83A11D85CB9500759455 /* zwidget_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84EE839F1D85CB9500759455 /* zwidget_builder.cpp */; };
 		84EE83A41D85F20200759455 /* zcolor_widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84EE83A21D85F20200759455 /* zcolor_widget.cpp */; };
-		84F770D31D84720400BB2F5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F770D11D84720400BB2F5D /* LaunchScreen.storyboard */; };
 		84F770DC1D85210400BB2F5D /* zgles2_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84F770DA1D85210400BB2F5D /* zgles2_program.cpp */; };
 		84F770DF1D85255A00BB2F5D /* widget_fragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 84F770DD1D85255A00BB2F5D /* widget_fragment.glsl */; };
 		84F770E01D85255A00BB2F5D /* widget_vertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 84F770DE1D85255A00BB2F5D /* widget_vertex.glsl */; };
@@ -80,10 +78,11 @@
 		84FD9AAC1D7B1AE700922F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AA61D7B1AB300922F1D /* UIKit.framework */; };
 		84FD9AAE1D7B1AED00922F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AAD1D7B1AED00922F1D /* Foundation.framework */; };
 		84FD9AB21D7B1B0200922F1D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FD9AB11D7B1B0200922F1D /* OpenGLES.framework */; };
-		84FD9AF51D7B4E8000922F1D /* EAGlView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AF41D7B4E8000922F1D /* EAGlView.mm */; };
-		84FD9B001D7B4FAA00922F1D /* GLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AFF1D7B4FAA00922F1D /* GLViewController.mm */; };
-		84FD9B141D7B597F00922F1D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FD9B121D7B597F00922F1D /* MainWindow.xib */; };
+		84FD9B001D7B4FAA00922F1D /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9AFF1D7B4FAA00922F1D /* ViewController.mm */; };
 		84FD9B521D7C076000922F1D /* ios_resource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84FD9B511D7C076000922F1D /* ios_resource.mm */; };
+		BFEB9756262C255F000107E0 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEB9755262C255F000107E0 /* GLKit.framework */; };
+		BFEB975E262C281F000107E0 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB975A262C281F000107E0 /* Main_iPad.storyboard */; };
+		BFEB975F262C281F000107E0 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB975C262C281F000107E0 /* Main_iPhone.storyboard */; };
 		EDD7AE02253CAF1A005A741F /* zclock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDD7AE01253CAF1A005A741F /* zclock.cpp */; };
 /* End PBXBuildFile section */
 
@@ -165,7 +164,6 @@
 		846DDAFB1D7B058E00B57C22 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = zeptobird/main.m; sourceTree = "<group>"; };
 		846DDAFD1D7B058E00B57C22 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = zeptobird/AppDelegate.h; sourceTree = "<group>"; };
 		846DDAFE1D7B058F00B57C22 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = zeptobird/AppDelegate.mm; sourceTree = "<group>"; };
-		846DDB0A1D7B058F00B57C22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = zeptobird/Assets.xcassets; sourceTree = "<group>"; };
 		846DDB0F1D7B058F00B57C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = zeptobird/Info.plist; sourceTree = "<group>"; };
 		849580C61DA4D1FD00BEE7B0 /* zui_input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zui_input.h; sourceTree = "<group>"; };
 		849580C71DA4D20300BEE7B0 /* zui_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zui_input.cpp; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 		84EE83A01D85CB9500759455 /* zwidget_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zwidget_builder.h; sourceTree = "<group>"; };
 		84EE83A21D85F20200759455 /* zcolor_widget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zcolor_widget.cpp; sourceTree = "<group>"; };
 		84EE83A31D85F20200759455 /* zcolor_widget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zcolor_widget.h; sourceTree = "<group>"; };
-		84F770D21D84720400BB2F5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = zeptobird/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84F770DA1D85210400BB2F5D /* zgles2_program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zgles2_program.cpp; sourceTree = "<group>"; };
 		84F770DB1D85210400BB2F5D /* zgles2_program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zgles2_program.h; sourceTree = "<group>"; };
 		84F770DD1D85255A00BB2F5D /* widget_fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = widget_fragment.glsl; sourceTree = "<group>"; };
@@ -223,13 +220,13 @@
 		84FD9AAA1D7B1AE200922F1D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		84FD9AAD1D7B1AED00922F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84FD9AB11D7B1B0200922F1D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		84FD9AF31D7B4E1600922F1D /* EAGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EAGLView.h; path = zeptobird/EAGLView.h; sourceTree = "<group>"; };
-		84FD9AF41D7B4E8000922F1D /* EAGlView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EAGlView.mm; path = zeptobird/EAGlView.mm; sourceTree = "<group>"; };
-		84FD9AFE1D7B4FAA00922F1D /* GLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLViewController.h; path = zeptobird/GLViewController.h; sourceTree = "<group>"; };
-		84FD9AFF1D7B4FAA00922F1D /* GLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GLViewController.mm; path = zeptobird/GLViewController.mm; sourceTree = "<group>"; };
-		84FD9B131D7B597F00922F1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = zeptobird/Base.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		84FD9AFE1D7B4FAA00922F1D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = zeptobird/ViewController.h; sourceTree = "<group>"; };
+		84FD9AFF1D7B4FAA00922F1D /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ViewController.mm; path = zeptobird/ViewController.mm; sourceTree = "<group>"; };
 		84FD9B511D7C076000922F1D /* ios_resource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ios_resource.mm; path = zeptobird/ios_resource.mm; sourceTree = "<group>"; };
 		84FD9B531D7C079E00922F1D /* ios_resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ios_resource.h; path = zeptobird/ios_resource.h; sourceTree = "<group>"; };
+		BFEB9755262C255F000107E0 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		BFEB975B262C281F000107E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = zeptobird/Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		BFEB975D262C281F000107E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = zeptobird/Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		EDD7AE00253CAF1A005A741F /* zclock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zclock.h; sourceTree = "<group>"; };
 		EDD7AE01253CAF1A005A741F /* zclock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zclock.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -243,6 +240,7 @@
 				840905411D840DCF00550B08 /* AudioToolbox.framework in Frameworks */,
 				84FD9AB21D7B1B0200922F1D /* OpenGLES.framework in Frameworks */,
 				84FD9AAE1D7B1AED00922F1D /* Foundation.framework in Frameworks */,
+				BFEB9756262C255F000107E0 /* GLKit.framework in Frameworks */,
 				84FD9AAC1D7B1AE700922F1D /* UIKit.framework in Frameworks */,
 				84FD9AAB1D7B1AE200922F1D /* QuartzCore.framework in Frameworks */,
 			);
@@ -563,10 +561,8 @@
 		84FD9AA41D7B16A200922F1D /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				84FD9AF31D7B4E1600922F1D /* EAGLView.h */,
-				84FD9AF41D7B4E8000922F1D /* EAGlView.mm */,
-				84FD9AFE1D7B4FAA00922F1D /* GLViewController.h */,
-				84FD9AFF1D7B4FAA00922F1D /* GLViewController.mm */,
+				84FD9AFE1D7B4FAA00922F1D /* ViewController.h */,
+				84FD9AFF1D7B4FAA00922F1D /* ViewController.mm */,
 				846DDAFD1D7B058E00B57C22 /* AppDelegate.h */,
 				846DDAFE1D7B058F00B57C22 /* AppDelegate.mm */,
 				84FD9B531D7C079E00922F1D /* ios_resource.h */,
@@ -582,6 +578,7 @@
 		84FD9AB31D7B1B0F00922F1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFEB9755262C255F000107E0 /* GLKit.framework */,
 				840905421D840E3100550B08 /* AVFoundation.framework */,
 				840905401D840DCF00550B08 /* AudioToolbox.framework */,
 				84FD9AA61D7B1AB300922F1D /* UIKit.framework */,
@@ -595,9 +592,8 @@
 		84FD9AF61D7B4EA800922F1D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				84F770D11D84720400BB2F5D /* LaunchScreen.storyboard */,
-				84FD9B121D7B597F00922F1D /* MainWindow.xib */,
-				846DDB0A1D7B058F00B57C22 /* Assets.xcassets */,
+				BFEB975A262C281F000107E0 /* Main_iPad.storyboard */,
+				BFEB975C262C281F000107E0 /* Main_iPhone.storyboard */,
 				846DDB0F1D7B058F00B57C22 /* Info.plist */,
 			);
 			name = Resources;
@@ -634,6 +630,7 @@
 				TargetAttributes = {
 					846DDAF61D7B058E00B57C22 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 7PX6XHSU9A;
 					};
 				};
 			};
@@ -661,16 +658,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8409053B1D840BD100550B08 /* model_fragment.glsl in Resources */,
-				846DDB0B1D7B058F00B57C22 /* Assets.xcassets in Resources */,
 				840905491D84158B00550B08 /* menu.mp3 in Resources */,
 				84F770E01D85255A00BB2F5D /* widget_vertex.glsl in Resources */,
+				BFEB975F262C281F000107E0 /* Main_iPhone.storyboard in Resources */,
 				84F770DF1D85255A00BB2F5D /* widget_fragment.glsl in Resources */,
-				84F770D31D84720400BB2F5D /* LaunchScreen.storyboard in Resources */,
 				840905451D840F4800550B08 /* coin.mp3 in Resources */,
 				8409053C1D840BD100550B08 /* model_vertex.glsl in Resources */,
-				84FD9B141D7B597F00922F1D /* MainWindow.xib in Resources */,
 				8409053A1D840BD100550B08 /* theme.mp3 in Resources */,
 				840905471D84109100550B08 /* game-over.mp3 in Resources */,
+				BFEB975E262C281F000107E0 /* Main_iPad.storyboard in Resources */,
 				845ABE251D7CAB9D00F564AC /* CMakeLists.txt in Resources */,
 				84EE839B1D8596A000759455 /* alphabet.txt in Resources */,
 			);
@@ -687,7 +683,7 @@
 				846DDAFF1D7B058F00B57C22 /* AppDelegate.mm in Sources */,
 				845ABE2A1D7CAB9D00F564AC /* ibody.cpp in Sources */,
 				84BBD9311D8B37310089A277 /* zpoint.cpp in Sources */,
-				84FD9B001D7B4FAA00922F1D /* GLViewController.mm in Sources */,
+				84FD9B001D7B4FAA00922F1D /* ViewController.mm in Sources */,
 				84BBD90E1D89C6A60089A277 /* zdebug.cpp in Sources */,
 				840905651D8438AB00550B08 /* zscene_hero_object.cpp in Sources */,
 				84E21E671D8C580600C4F4B1 /* zscene_invisible_object.cpp in Sources */,
@@ -729,7 +725,6 @@
 				8409054C1D84342D00550B08 /* iscene.cpp in Sources */,
 				845ABE2C1D7CAB9D00F564AC /* zrect_body.cpp in Sources */,
 				84FD9B521D7C076000922F1D /* ios_resource.mm in Sources */,
-				84FD9AF51D7B4E8000922F1D /* EAGlView.mm in Sources */,
 				840905761D84538700550B08 /* zmodel_builder.cpp in Sources */,
 				844450801D8D4275006C8DD4 /* zscale_animation.cpp in Sources */,
 				84BBD9371D8B52360089A277 /* zinput.cpp in Sources */,
@@ -748,20 +743,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		84F770D11D84720400BB2F5D /* LaunchScreen.storyboard */ = {
+		BFEB975A262C281F000107E0 /* Main_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				84F770D21D84720400BB2F5D /* Base */,
+				BFEB975B262C281F000107E0 /* Base */,
 			);
-			name = LaunchScreen.storyboard;
+			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
-		84FD9B121D7B597F00922F1D /* MainWindow.xib */ = {
+		BFEB975C262C281F000107E0 /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				84FD9B131D7B597F00922F1D /* Base */,
+				BFEB975D262C281F000107E0 /* Base */,
 			);
-			name = MainWindow.xib;
+			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -878,44 +873,42 @@
 		846DDB131D7B058F00B57C22 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7PX6XHSU9A;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				HEADER_SEARCH_PATHS = ../../shared;
 				INFOPLIST_FILE = "$(SRCROOT)/zeptobird/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.proydakov.zeptobird;
+				PRODUCT_BUNDLE_IDENTIFIER = org.proydakov.zeptobird;
 				PRODUCT_NAME = zeptobird;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		846DDB141D7B058F00B57C22 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7PX6XHSU9A;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				HEADER_SEARCH_PATHS = ../../shared;
 				INFOPLIST_FILE = "$(SRCROOT)/zeptobird/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.proydakov.zeptobird;
+				PRODUCT_BUNDLE_IDENTIFIER = org.proydakov.zeptobird;
 				PRODUCT_NAME = zeptobird;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
