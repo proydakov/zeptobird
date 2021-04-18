@@ -20,15 +20,15 @@ matrix:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-8']
           packages: ['gcc-8', 'g++-8', 'ninja-build', 'libsdl2-dev', 'libsdl2-mixer-dev', 'libgles2-mesa-dev']
 
-    - env:
-        - TARGET=SDL2
-        - TYPE=Release
-        - CXX=clang++
-      os: osx
-      osx_image: xcode12.2
-      addons:
-        homebrew:
-          packages: ['sdl2', 'sdl2_mixer']
+#    - env:
+#        - TARGET=SDL2
+#        - TYPE=Release
+#        - CXX=clang++
+#      os: osx
+#      osx_image: xcode12.2
+#      addons:
+#        homebrew:
+#          packages: ['sdl2', 'sdl2_mixer']
 
     - env:
         - TARGET=IOS
