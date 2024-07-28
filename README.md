@@ -41,7 +41,7 @@ Install **emscripten sdk**. https://kripken.github.io/emscripten-site/docs/getti
     cmake -DCMAKE_TOOLCHAIN_FILE=path/to/emsdk_portable/emscripten/master/cmake/Modules/Platform/Emscripten.cmake -DCMAKE_BUILD_TYPE=Release ..
     make -j
 
-**Live Demo**: https://proydakov.github.io
+**Live Demo**: https://proydakov.github.io/zeptobird
 
 Game Play
 ---------
